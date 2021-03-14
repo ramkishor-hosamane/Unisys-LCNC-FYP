@@ -4,7 +4,7 @@
         <div class="row">
           <div class="col-lg-2 text-center text-lg-left">
 
-            <a href="index-2.html" class="site-logo">
+            <a routerLink="/home" routerLinkActive="active" class="site-logo">
               <img src="assets/images/logo.png" alt="">
             </a>
           </div>
@@ -18,14 +18,14 @@
             <div class="user-panel">
               <div class="up-item">
                 <i class="flaticon-profile"></i>
-                <a href="#">Sign</a> In or <a href="#">Create Account</a>
+                <a routerLink="/login" routerLinkActive="active">Sign</a> In or <a routerLink="/signup" routerLinkActive="active">Create Account</a>
               </div>
               <div class="up-item">
                 <div class="shopping-card">
                   <i class="flaticon-bag"></i>
                   <span>0</span>
                 </div>
-                <a href="#">Shopping Cart</a>
+                <a routerLink="/cart" routerLinkActive="active">Shopping Cart</a>
               </div>
             </div>
           </div>
@@ -36,7 +36,7 @@
       <div class="container">
 
         <ul class="main-menu">
-          <li><a href="#">Home</a></li>
+          <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
           <li><a href="#">Women</a></li>
           <li><a href="#">Men</a></li>
           <li><a href="#">Jewelry
@@ -53,11 +53,11 @@
           </li>
           <li><a href="#">Pages</a>
             <ul class="sub-menu">
-              <li><a href="product.html">Product Page</a></li>
-              <li><a href="category.html">Category Page</a></li>
-              <li><a href="cart.html">Cart Page</a></li>
-              <li><a href="checkout.html">Checkout Page</a></li>
-              <li><a href="contact.html">Contact Page</a></li>
+              <li><a routerLink="/home" routerLinkActive="active">Product Page</a></li>
+              <li><a routerLink="/shop" routerLinkActive="active">Category Page</a></li>
+              <li><a routerLink="/cart" routerLinkActive="active">Cart Page</a></li>
+              <li><a routerLink="/checkout" routerLinkActive="active">Checkout Page</a></li>
+              <li><a routerLink="/contact" routerLinkActive="active">Contact Page</a></li>
             </ul>
           </li>
           <li><a href="#">Blog</a></li>
