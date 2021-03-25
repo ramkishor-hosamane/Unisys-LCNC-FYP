@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="UserLogin"
+	xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+	<persistent name="UserLogin" />
+
+	<singularAlias>UserLogin</singularAlias>
+	<pluralAlias>userlogins</pluralAlias>
+	<bizKey expression="{userloginid}" />
+
+	<attributes>
+		<decimal10 name="id" required="true">
+			<displayName>Id</displayName>
+		</decimal10>
+		<text name="userloginid" required="true">
+			<displayName>User Login ID</displayName>
+			<length>20</length>
+		</text>
+
+		<text name="emailid" required="true">
+			<displayName>Email ID</displayName>
+			<length>20</length>
+		</text>
+
+		<text name="mobileno" required="true">
+			<displayName>Mobile Number</displayName>
+			<length>10</length>
+		</text>
+
+		<text name="gender" required="true">
+			<displayName>Gender</displayName>
+			<length>10</length>
+		</text>
+		<text name="firstname" required="true">
+			<displayName>First Name</displayName>
+			<length>20</length>
+		</text>
+
+
+
+		<text name="lastname" required="true">
+			<displayName>Last Name</displayName>
+			<length>20</length>
+		</text>
+
+		<text name="password" required="true">
+			<displayName>Password</displayName>
+			<length>20</length>
+		</text>
+		<text name="confirmpassword" required="true">
+			<displayName>Confirm Password</displayName>
+			<length>20</length>
+		</text>
+		<boolean name="isenabled" required="true">
+			<displayName>Is Enabled</displayName>
+		</boolean>
+
+
+
+		<dateTime name="createdstamp">
+			<displayName>Created timestamp </displayName>
+		</dateTime>
+
+		<dateTime name="updatedstamp">
+			<displayName>Updated timestamp </displayName>
+		</dateTime>
+
+	</attributes>
+</document>
