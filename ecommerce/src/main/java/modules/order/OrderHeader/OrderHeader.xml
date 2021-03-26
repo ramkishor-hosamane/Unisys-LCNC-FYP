@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="OrderHeader" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
-    <singularAlias>OrderHeader</singularAlias>
-    <pluralAlias>orderheaders</pluralAlias>
-    <attributes/>
+<document xmlns="http://www.skyve.org/xml/document"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="OrderHeader"
+	xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+	<persistent name="OrderHeader" />
+
+	<singularAlias>OrderHeader</singularAlias>
+	<pluralAlias>orderheaders</pluralAlias>
+	<bizKey expression="{orderid}" />
+	<attributes>
+		<decimal10 name="orderid" required="true">
+			<displayName>Order Id</displayName>
+		</decimal10>
+		<!-- Foreign key -->
+		<association type="aggregation" name="userloginid"
+			required="true">
+			<displayName>User Login Id</displayName>
+			<documentName>UserAddress</documentName>
+		</association>
+
+		<decimal10 name="subtotal" required="true">
+			<displayName>Sub Total</displayName>
+		</decimal10>
+		<decimal10 name="grandtotal" required="true">
+			<displayName>Grand Total</displayName>
+		</decimal10>
+
+		<!-- Foreign key -->
+		<association type="aggregation" name="addressid"
+			required="true">
+			<displayName>Address Id</displayName>
+			<documentName>Address</documentName>
+		</association>
+
+		<text name="paymentmethod" required="true">
+			<displayName>Payment Method</displayName>
+			<length>20</length>
+		</text>
+
+		<dateTime name="createdstamp">
+			<displayName>Created timestamp </displayName>
+		</dateTime>
+
+		<dateTime name="updatedstamp">
+			<displayName>Updated timestamp </displayName>
+		</dateTime>
+
+	</attributes>
 </document>

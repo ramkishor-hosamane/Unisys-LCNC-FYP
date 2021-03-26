@@ -1,4 +1,4 @@
-package modules.user.domain;
+package modules.order.domain;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,14 +15,14 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
 
 /**
- * UserAddress
+ * OrderItem
  * 
- * @navhas n addressid 1 Address
+ * @navhas n orderid 1 OrderHeader
  * @stereotype "persistent"
  */
 @XmlType
 @XmlRootElement
-public class UserAddress extends AbstractPersistentBean {
+public class OrderItem extends AbstractPersistentBean {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -30,39 +30,45 @@ public class UserAddress extends AbstractPersistentBean {
 	private static final long serialVersionUID = 1L;
 
 	/** @hidden */
-	public static final String MODULE_NAME = "user";
+	public static final String MODULE_NAME = "order";
 	/** @hidden */
-	public static final String DOCUMENT_NAME = "UserAddress";
+	public static final String DOCUMENT_NAME = "OrderItem";
 
 	/** @hidden */
-	public static final String userloginidPropertyName = "userloginid";
+	public static final String orderitemidPropertyName = "orderitemid";
 	/** @hidden */
-	public static final String addressidPropertyName = "addressid";
+	public static final String orderidPropertyName = "orderid";
 	/** @hidden */
-	public static final String sequencenoPropertyName = "sequenceno";
+	public static final String orderitemseqnumPropertyName = "orderitemseqnum";
 	/** @hidden */
-	public static final String addresstypePropertyName = "addresstype";
+	public static final String quantityPropertyName = "quantity";
+	/** @hidden */
+	public static final String unitpricePropertyName = "unitprice";
 	/** @hidden */
 	public static final String createdstampPropertyName = "createdstamp";
 	/** @hidden */
 	public static final String updatedstampPropertyName = "updatedstamp";
 
 	/**
-	 * User Login ID
+	 * Order Item Id
 	 **/
-	private String userloginid;
+	private Decimal10 orderitemid;
 	/**
-	 * Address Id
+	 * Order Id
 	 **/
-	private Address addressid = null;
+	private OrderHeader orderid = null;
 	/**
-	 * Sequence number
+	 * Order Item Sequence Number
 	 **/
-	private Decimal10 sequenceno;
+	private Decimal10 orderitemseqnum;
 	/**
-	 * Address Type
+	 * Quantity
 	 **/
-	private String addresstype;
+	private Decimal10 quantity;
+	/**
+	 * Unit Price
+	 **/
+	private Decimal10 unitprice;
 	/**
 	 * Created timestamp
 	 **/
@@ -75,16 +81,16 @@ public class UserAddress extends AbstractPersistentBean {
 	@Override
 	@XmlTransient
 	public String getBizModule() {
-		return UserAddress.MODULE_NAME;
+		return OrderItem.MODULE_NAME;
 	}
 
 	@Override
 	@XmlTransient
 	public String getBizDocument() {
-		return UserAddress.DOCUMENT_NAME;
+		return OrderItem.DOCUMENT_NAME;
 	}
 
-	public static UserAddress newInstance() {
+	public static OrderItem newInstance() {
 		try {
 			return CORE.getUser().getCustomer().getModule(MODULE_NAME).getDocument(CORE.getUser().getCustomer(), DOCUMENT_NAME).newInstance(CORE.getUser());
 		}
@@ -100,7 +106,7 @@ public class UserAddress extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 		try {
-			return org.skyve.util.Binder.formatMessage("{userloginid}", this);
+			return org.skyve.util.Binder.formatMessage("{orderitemid}", this);
 		}
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
@@ -109,83 +115,104 @@ public class UserAddress extends AbstractPersistentBean {
 
 	@Override
 	public boolean equals(Object o) {
-		return ((o instanceof UserAddress) && 
-					this.getBizId().equals(((UserAddress) o).getBizId()));
+		return ((o instanceof OrderItem) && 
+					this.getBizId().equals(((OrderItem) o).getBizId()));
 	}
 
 	/**
-	 * {@link #userloginid} accessor.
+	 * {@link #orderitemid} accessor.
 	 * @return	The value.
 	 **/
-	public String getUserloginid() {
-		return userloginid;
+	public Decimal10 getOrderitemid() {
+		return orderitemid;
 	}
 
 	/**
-	 * {@link #userloginid} mutator.
-	 * @param userloginid	The new value.
+	 * {@link #orderitemid} mutator.
+	 * @param orderitemid	The new value.
 	 **/
+	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setUserloginid(String userloginid) {
-		preset(userloginidPropertyName, userloginid);
-		this.userloginid = userloginid;
+	public void setOrderitemid(Decimal10 orderitemid) {
+		preset(orderitemidPropertyName, orderitemid);
+		this.orderitemid = orderitemid;
 	}
 
 	/**
-	 * {@link #addressid} accessor.
+	 * {@link #orderid} accessor.
 	 * @return	The value.
 	 **/
-	public Address getAddressid() {
-		return addressid;
+	public OrderHeader getOrderid() {
+		return orderid;
 	}
 
 	/**
-	 * {@link #addressid} mutator.
-	 * @param addressid	The new value.
+	 * {@link #orderid} mutator.
+	 * @param orderid	The new value.
 	 **/
 	@XmlElement
-	public void setAddressid(Address addressid) {
-		if (this.addressid != addressid) {
-			preset(addressidPropertyName, addressid);
-			this.addressid = addressid;
+	public void setOrderid(OrderHeader orderid) {
+		if (this.orderid != orderid) {
+			preset(orderidPropertyName, orderid);
+			this.orderid = orderid;
 		}
 	}
 
 	/**
-	 * {@link #sequenceno} accessor.
+	 * {@link #orderitemseqnum} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getSequenceno() {
-		return sequenceno;
+	public Decimal10 getOrderitemseqnum() {
+		return orderitemseqnum;
 	}
 
 	/**
-	 * {@link #sequenceno} mutator.
-	 * @param sequenceno	The new value.
+	 * {@link #orderitemseqnum} mutator.
+	 * @param orderitemseqnum	The new value.
 	 **/
 	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setSequenceno(Decimal10 sequenceno) {
-		preset(sequencenoPropertyName, sequenceno);
-		this.sequenceno = sequenceno;
+	public void setOrderitemseqnum(Decimal10 orderitemseqnum) {
+		preset(orderitemseqnumPropertyName, orderitemseqnum);
+		this.orderitemseqnum = orderitemseqnum;
 	}
 
 	/**
-	 * {@link #addresstype} accessor.
+	 * {@link #quantity} accessor.
 	 * @return	The value.
 	 **/
-	public String getAddresstype() {
-		return addresstype;
+	public Decimal10 getQuantity() {
+		return quantity;
 	}
 
 	/**
-	 * {@link #addresstype} mutator.
-	 * @param addresstype	The new value.
+	 * {@link #quantity} mutator.
+	 * @param quantity	The new value.
 	 **/
+	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setAddresstype(String addresstype) {
-		preset(addresstypePropertyName, addresstype);
-		this.addresstype = addresstype;
+	public void setQuantity(Decimal10 quantity) {
+		preset(quantityPropertyName, quantity);
+		this.quantity = quantity;
+	}
+
+	/**
+	 * {@link #unitprice} accessor.
+	 * @return	The value.
+	 **/
+	public Decimal10 getUnitprice() {
+		return unitprice;
+	}
+
+	/**
+	 * {@link #unitprice} mutator.
+	 * @param unitprice	The new value.
+	 **/
+	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlElement
+	public void setUnitprice(Decimal10 unitprice) {
+		preset(unitpricePropertyName, unitprice);
+		this.unitprice = unitprice;
 	}
 
 	/**

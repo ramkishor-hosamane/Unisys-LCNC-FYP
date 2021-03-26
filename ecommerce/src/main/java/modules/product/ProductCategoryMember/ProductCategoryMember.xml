@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ProductCategoryMember" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+                            <persistent name="ProductCategoryMember"/>
+    
     <singularAlias>ProductCategoryMember</singularAlias>
     <pluralAlias>productcategorymembers</pluralAlias>
-    <attributes/>
-</document>
+<bizKey expression="{categoryid}" />
+	<attributes>
+		
+		<association type="aggregation" name="categoryid"
+			required="true">
+			<displayName>Category id</displayName>
+			<documentName>Category</documentName>
+		</association>
+
+		<association type="aggregation" name="productid"
+			required="true">
+			<displayName>Product id</displayName>
+			<documentName>Product</documentName>
+		</association>
+		<decimal10 name="sequencenum" required="true">
+			<displayName>Sequence number</displayName>
+		</decimal10>
+	</attributes></document>

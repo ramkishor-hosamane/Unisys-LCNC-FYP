@@ -7,20 +7,20 @@
 
 	<singularAlias>UserAddress</singularAlias>
 	<pluralAlias>useraddresses</pluralAlias>
-	<bizKey expression="{userlogin}" />
+	<bizKey expression="{userloginid}" />
 	<attributes>
-
-		<!-- text name="userloginid" required="true"> <displayName>User Login ID</displayName> 
-			<length>20</length> </text -->
-		<association type="aggregation" name="userlogin"
+		
+		<!-- Primary key -->
+		<text name="userloginid" required="true"> <displayName>User Login ID</displayName> 
+			<length>20</length> </text>
+		
+		<!-- Foreign key -->
+		<association type="aggregation" name="addressid"
 			required="true">
-			<displayName>User Login</displayName>
-			<documentName>UserLogin</documentName>
-
-		</association>
-		<decimal10 name="addressid" required="true">
 			<displayName>Address Id</displayName>
-		</decimal10>
+			<documentName>Address</documentName>
+		</association>
+
 
 		<decimal10 name="sequenceno" required="true">
 			<displayName>Sequence number</displayName>

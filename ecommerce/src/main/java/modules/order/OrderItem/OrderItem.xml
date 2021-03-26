@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="OrderItem" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+                <persistent name="OrderItem"/>
+    
     <singularAlias>OrderItem</singularAlias>
     <pluralAlias>orderitems</pluralAlias>
-    <attributes/>
-</document>
+	<bizKey expression="{orderitemid}" />
+	<attributes>
+		<decimal10 name="orderitemid" required="true">
+			<displayName>Order Item Id</displayName>
+		</decimal10>
+		<!-- Foreign key -->
+		<association type="aggregation" name="orderid"
+			required="true">
+			<displayName>Order Id</displayName>
+			<documentName>OrderHeader</documentName>
+		</association>
+
+		<decimal10 name="orderitemseqnum" required="true">
+			<displayName>Order Item Sequence Number</displayName>
+		</decimal10>
+		<decimal10 name="quantity" required="true">
+			<displayName>Quantity</displayName>
+		</decimal10>
+		<decimal10 name="unitprice" required="true">
+			<displayName>Unit Price</displayName>
+		</decimal10>
+
+
+		<dateTime name="createdstamp">
+			<displayName>Created timestamp </displayName>
+		</dateTime>
+
+		<dateTime name="updatedstamp">
+			<displayName>Updated timestamp </displayName>
+		</dateTime>
+
+	</attributes></document>

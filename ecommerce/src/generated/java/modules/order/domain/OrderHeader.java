@@ -1,4 +1,4 @@
-package modules.user.domain;
+package modules.order.domain;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -6,6 +6,8 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import modules.user.domain.Address;
+import modules.user.domain.UserAddress;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateTime;
@@ -15,14 +17,15 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
 
 /**
- * UserAddress
+ * OrderHeader
  * 
+ * @navhas n userloginid 1 UserAddress
  * @navhas n addressid 1 Address
  * @stereotype "persistent"
  */
 @XmlType
 @XmlRootElement
-public class UserAddress extends AbstractPersistentBean {
+public class OrderHeader extends AbstractPersistentBean {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -30,39 +33,51 @@ public class UserAddress extends AbstractPersistentBean {
 	private static final long serialVersionUID = 1L;
 
 	/** @hidden */
-	public static final String MODULE_NAME = "user";
+	public static final String MODULE_NAME = "order";
 	/** @hidden */
-	public static final String DOCUMENT_NAME = "UserAddress";
+	public static final String DOCUMENT_NAME = "OrderHeader";
 
+	/** @hidden */
+	public static final String orderidPropertyName = "orderid";
 	/** @hidden */
 	public static final String userloginidPropertyName = "userloginid";
 	/** @hidden */
+	public static final String subtotalPropertyName = "subtotal";
+	/** @hidden */
+	public static final String grandtotalPropertyName = "grandtotal";
+	/** @hidden */
 	public static final String addressidPropertyName = "addressid";
 	/** @hidden */
-	public static final String sequencenoPropertyName = "sequenceno";
-	/** @hidden */
-	public static final String addresstypePropertyName = "addresstype";
+	public static final String paymentmethodPropertyName = "paymentmethod";
 	/** @hidden */
 	public static final String createdstampPropertyName = "createdstamp";
 	/** @hidden */
 	public static final String updatedstampPropertyName = "updatedstamp";
 
 	/**
-	 * User Login ID
+	 * Order Id
 	 **/
-	private String userloginid;
+	private Decimal10 orderid;
+	/**
+	 * User Login Id
+	 **/
+	private UserAddress userloginid = null;
+	/**
+	 * Sub Total
+	 **/
+	private Decimal10 subtotal;
+	/**
+	 * Grand Total
+	 **/
+	private Decimal10 grandtotal;
 	/**
 	 * Address Id
 	 **/
 	private Address addressid = null;
 	/**
-	 * Sequence number
+	 * Payment Method
 	 **/
-	private Decimal10 sequenceno;
-	/**
-	 * Address Type
-	 **/
-	private String addresstype;
+	private String paymentmethod;
 	/**
 	 * Created timestamp
 	 **/
@@ -75,16 +90,16 @@ public class UserAddress extends AbstractPersistentBean {
 	@Override
 	@XmlTransient
 	public String getBizModule() {
-		return UserAddress.MODULE_NAME;
+		return OrderHeader.MODULE_NAME;
 	}
 
 	@Override
 	@XmlTransient
 	public String getBizDocument() {
-		return UserAddress.DOCUMENT_NAME;
+		return OrderHeader.DOCUMENT_NAME;
 	}
 
-	public static UserAddress newInstance() {
+	public static OrderHeader newInstance() {
 		try {
 			return CORE.getUser().getCustomer().getModule(MODULE_NAME).getDocument(CORE.getUser().getCustomer(), DOCUMENT_NAME).newInstance(CORE.getUser());
 		}
@@ -100,7 +115,7 @@ public class UserAddress extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 		try {
-			return org.skyve.util.Binder.formatMessage("{userloginid}", this);
+			return org.skyve.util.Binder.formatMessage("{orderid}", this);
 		}
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
@@ -109,15 +124,34 @@ public class UserAddress extends AbstractPersistentBean {
 
 	@Override
 	public boolean equals(Object o) {
-		return ((o instanceof UserAddress) && 
-					this.getBizId().equals(((UserAddress) o).getBizId()));
+		return ((o instanceof OrderHeader) && 
+					this.getBizId().equals(((OrderHeader) o).getBizId()));
+	}
+
+	/**
+	 * {@link #orderid} accessor.
+	 * @return	The value.
+	 **/
+	public Decimal10 getOrderid() {
+		return orderid;
+	}
+
+	/**
+	 * {@link #orderid} mutator.
+	 * @param orderid	The new value.
+	 **/
+	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlElement
+	public void setOrderid(Decimal10 orderid) {
+		preset(orderidPropertyName, orderid);
+		this.orderid = orderid;
 	}
 
 	/**
 	 * {@link #userloginid} accessor.
 	 * @return	The value.
 	 **/
-	public String getUserloginid() {
+	public UserAddress getUserloginid() {
 		return userloginid;
 	}
 
@@ -126,9 +160,49 @@ public class UserAddress extends AbstractPersistentBean {
 	 * @param userloginid	The new value.
 	 **/
 	@XmlElement
-	public void setUserloginid(String userloginid) {
-		preset(userloginidPropertyName, userloginid);
-		this.userloginid = userloginid;
+	public void setUserloginid(UserAddress userloginid) {
+		if (this.userloginid != userloginid) {
+			preset(userloginidPropertyName, userloginid);
+			this.userloginid = userloginid;
+		}
+	}
+
+	/**
+	 * {@link #subtotal} accessor.
+	 * @return	The value.
+	 **/
+	public Decimal10 getSubtotal() {
+		return subtotal;
+	}
+
+	/**
+	 * {@link #subtotal} mutator.
+	 * @param subtotal	The new value.
+	 **/
+	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlElement
+	public void setSubtotal(Decimal10 subtotal) {
+		preset(subtotalPropertyName, subtotal);
+		this.subtotal = subtotal;
+	}
+
+	/**
+	 * {@link #grandtotal} accessor.
+	 * @return	The value.
+	 **/
+	public Decimal10 getGrandtotal() {
+		return grandtotal;
+	}
+
+	/**
+	 * {@link #grandtotal} mutator.
+	 * @param grandtotal	The new value.
+	 **/
+	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlElement
+	public void setGrandtotal(Decimal10 grandtotal) {
+		preset(grandtotalPropertyName, grandtotal);
+		this.grandtotal = grandtotal;
 	}
 
 	/**
@@ -152,40 +226,21 @@ public class UserAddress extends AbstractPersistentBean {
 	}
 
 	/**
-	 * {@link #sequenceno} accessor.
+	 * {@link #paymentmethod} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getSequenceno() {
-		return sequenceno;
+	public String getPaymentmethod() {
+		return paymentmethod;
 	}
 
 	/**
-	 * {@link #sequenceno} mutator.
-	 * @param sequenceno	The new value.
-	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
-	@XmlElement
-	public void setSequenceno(Decimal10 sequenceno) {
-		preset(sequencenoPropertyName, sequenceno);
-		this.sequenceno = sequenceno;
-	}
-
-	/**
-	 * {@link #addresstype} accessor.
-	 * @return	The value.
-	 **/
-	public String getAddresstype() {
-		return addresstype;
-	}
-
-	/**
-	 * {@link #addresstype} mutator.
-	 * @param addresstype	The new value.
+	 * {@link #paymentmethod} mutator.
+	 * @param paymentmethod	The new value.
 	 **/
 	@XmlElement
-	public void setAddresstype(String addresstype) {
-		preset(addresstypePropertyName, addresstype);
-		this.addresstype = addresstype;
+	public void setPaymentmethod(String paymentmethod) {
+		preset(paymentmethodPropertyName, paymentmethod);
+		this.paymentmethod = paymentmethod;
 	}
 
 	/**
