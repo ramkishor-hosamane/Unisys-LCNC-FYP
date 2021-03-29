@@ -445,78 +445,64 @@ ul, ol {
     display: none
 }
 
+/*Slider page*/
+
+
 .hero-section {
     padding-bottom: 54px
 }
 
-.hero-slider .hs-item {
+.hs-item {
     position: relative;
     height: 720px
 }
 
-.hero-slider .hs-item span {
+span.slider-title {
     font-size: 18px;
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 3px;
     margin-bottom: 5px;
     display: block;
-    position: relative;
-    top: 50px;
-    opacity: 0
 }
 
-.hero-slider .hs-item h2 {
+h2.slider-header {
     font-size: 60px;
     text-transform: uppercase;
     font-weight: 700;
     margin-bottom: 10px;
-    position: relative;
-    top: 50px;
-    opacity: 0
 }
 
-.hero-slider .hs-item p {
+ p.slider-description {
     font-size: 18px;
     font-weight: 300;
     margin-bottom: 35px;
-    position: relative;
-    top: 100px;
-    opacity: 0
 }
 
-.hero-slider .hs-item .site-btn {
-    position: relative;
-    top: 50px;
-    opacity: 0
-}
 
-.hero-slider .hs-item .sb-line {
+.hs-item .sb-line {
     margin-right: 5px
 }
 
-.hero-slider .hs-item .container {
+.hs-item .container {
     position: relative;
     padding-top: 170px
 }
 
-.hero-slider .hs-item .offer-card {
+.offer-card {
     position: absolute;
     right: 0;
-    top: 226px;
+    top: 36px;
     width: 162px;
     height: 162px;
     border-radius: 50%;
     background: #f51167;
     text-align: center;
     padding-top: 20px;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-    opacity: 0
+
 }
 
-.hero-slider .hs-item .offer-card:after {
+.offer-card:after {
     position: absolute;
     content: "";
     width: calc(100% - 10px);
@@ -527,7 +513,7 @@ ul, ol {
     border-radius: 50%
 }
 
-.hero-slider .hs-item .offer-card span {
+.offer-card span {
     font-size: 18px;
     text-transform: lowercase;
     position: relative;
@@ -535,31 +521,34 @@ ul, ol {
     opacity: 0
 }
 
-.hero-slider .hs-item .offer-card h2 {
+.offer-card h2 {
     font-size: 72px;
     font-weight: 400;
     line-height: 1
 }
 
-.hero-slider .hs-item .offer-card p {
+.offer-card p {
     text-transform: uppercase;
     line-height: 1;
     font-size: 14px
 }
+/* -------------------- */
 
-.hero-slider .slider-nav-warp {
+
+
+.slider-nav-warp {
     max-width: 1145px;
     bottom: 0;
     margin: -78px auto 0
 }
 
-.hero-slider .slider-nav {
+.slider-nav {
     display: inline-block;
     padding: 0 38px;
     position: relative
 }
 
-.hero-slider .owl-dots {
+.owl-dots {
     display: -ms-flex;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -567,7 +556,7 @@ ul, ol {
     padding-top: 9px
 }
 
-.hero-slider .owl-dots .owl-dot {
+.owl-dots .owl-dot {
     width: 8px;
     height: 8px;
     background: #fff;
@@ -576,15 +565,15 @@ ul, ol {
     opacity: .25
 }
 
-.hero-slider .owl-dots .owl-dot.active {
+.owl-dots .owl-dot.active {
     opacity: 1
 }
 
-.hero-slider .owl-dots .owl-dot:last-child {
+.owl-dots .owl-dot:last-child {
     margin-right: 0
 }
 
-.hero-slider .owl-nav button.owl-next, .hero-slider .owl-nav button.owl-prev {
+.owl-nav button.owl-next, .owl-nav button.owl-prev {
     font-size: 27px;
     position: absolute;
     color: #fff;
@@ -592,45 +581,45 @@ ul, ol {
     bottom: -20px
 }
 
-.hero-slider .owl-nav button.owl-next {
+.owl-nav button.owl-next {
     right: 0
 }
 
-.hero-slider .owl-nav button.owl-prev {
+.owl-nav button.owl-prev {
     left: 0
 }
 
-.hero-slider .owl-item.active .hs-item h2, .hero-slider .owl-item.active .hs-item span, .hero-slider .owl-item.active .hs-item p, .hero-slider .owl-item.active .hs-item .site-btn {
+.owl-item.active .hs-item h2, .owl-item.active .hs-item span, .owl-item.active .hs-item p, .owl-item.active .hs-item .site-btn {
     top: 0;
     opacity: 1
 }
 
-.hero-slider .owl-item.active .hs-item span {
+.owl-item.active .hs-item span {
     -webkit-transition: all .5s ease .2s;
     -o-transition: all .5s ease .2s;
     transition: all .5s ease .2s
 }
 
-.hero-slider .owl-item.active .hs-item h2 {
+.owl-item.active .hs-item h2 {
     -webkit-transition: all .5s ease .4s;
     -o-transition: all .5s ease .4s;
     transition: all .5s ease .4s
 }
 
-.hero-slider .owl-item.active .hs-item p {
+.owl-item.active .hs-item p {
     -webkit-transition: all .5s ease .6s;
     -o-transition: all .5s ease .6s;
     transition: all .5s ease .6s
 }
 
-.hero-slider .owl-item.active .hs-item .site-btn {
+.owl-item.active .hs-item .site-btn {
     -webkit-transition: all .5s ease .8s;
     -webkit-transition: all .5s ease .8s;
     -o-transition: all .5s ease .8s;
     transition: all .5s ease .8s
 }
 
-.hero-slider .owl-item.active .hs-item .offer-card {
+.owl-item.active .hs-item .offer-card {
     opacity: 1;
     -webkit-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
@@ -2090,7 +2079,7 @@ ul, ol {
 }
 
 @media only screen and (min-width:992px) and (max-width:1199px) {
-    .hero-slider .slider-nav-warp {
+    .slider-nav-warp {
         max-width: 930px
     }
     .footer-widget ul {
@@ -2120,10 +2109,10 @@ ul, ol {
     .main-menu li a {
         margin-right: 30px
     }
-    .hero-slider .slider-nav-warp {
+    .slider-nav-warp {
         max-width: 690px
     }
-    .hero-slider .hs-item .offer-card {
+    .hs-item .offer-card {
         top: 20px
     }
     .feature h2 {
@@ -2188,13 +2177,13 @@ ul, ol {
         width: 42px;
         margin-left: 5px
     }
-    .hero-slider .slider-nav-warp {
+    .slider-nav-warp {
         max-width: 510px
     }
-    .hero-slider .hs-item h2 {
+    .hs-item h2 {
         font-size: 50px
     }
-    .hero-slider .hs-item .offer-card {
+    .hs-item .offer-card {
         display: none
     }
     .product-filter-menu {
@@ -2238,7 +2227,7 @@ ul, ol {
 }
 
 @media only screen and (min-width:576px) and (max-width:766px) {
-    .hero-slider .slider-nav-warp {
+    .slider-nav-warp {
         padding: 0 15px
     }
     .banner .tag-new {
@@ -2251,14 +2240,14 @@ ul, ol {
 }
 
 @media only screen and (max-width:479px) {
-    .hero-slider .slider-nav-warp {
+    .slider-nav-warp {
         max-width: 510px;
         padding: 0 15px
     }
-    .hero-slider .hs-item h2 {
+    .hs-item h2 {
         font-size: 35px
     }
-    .hero-slider .hs-item .sb-line {
+    .hs-item .sb-line {
         margin-bottom: 15px
     }
     .section-title h2 {

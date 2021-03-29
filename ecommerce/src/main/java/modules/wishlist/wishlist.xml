@@ -26,7 +26,7 @@
 		<list document="ShoppingList" name="All ShoppingList">
 			<role name="Maintainer" />
 		</list>
-		<list document="ShoppingListItem" name="ShoppingListItem Address">
+		<list document="ShoppingListItem" name="ShoppingListItem">
 			<role name="Maintainer" />
 		</list>
 
