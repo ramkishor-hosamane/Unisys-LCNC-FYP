@@ -4,7 +4,6 @@
 .project
 *.iml
 /bin/
-/content/
 /lib/
 /target/
 /javaee/ecommerce.war/
