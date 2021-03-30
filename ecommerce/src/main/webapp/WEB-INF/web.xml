@@ -315,15 +315,59 @@
 		<url-pattern>/login</url-pattern>
 	</filter-mapping>
 -->
-    <filter>
-        <display-name>RestFilter</display-name>
-        <filter-name>RestFilter</filter-name>
-        <filter-class>org.skyve.impl.web.filter.rest.ForbiddenFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>RestFilter</filter-name>
+
+
+
+
+	<!-- Added Things-->
+
+
+	<!-- Added CORS filter to allow cross origin request -->
+
+	<filter>
+		<filter-name>CORS</filter-name>
+		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+		<init-param>
+			<param-name>cors.allowOrigin</param-name>
+			<param-value>*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportedMethods</param-name>
+			<param-value>GET, POST, HEAD, OPTIONS,PUT,DELETE</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CORS</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+
+
+
+
+	<filter>
+		<display-name>RestFilter</display-name>
+		<filter-name>RestFilter</filter-name>
+		<filter-class>org.skyve.impl.web.filter.rest.BasicAuthFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RestFilter</filter-name>
 		<url-pattern>/rest/*</url-pattern>
-    </filter-mapping>
+	</filter-mapping>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- API documentation servlet -->
 	<!-- <servlet>
