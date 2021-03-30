@@ -18,7 +18,7 @@
 		<association type="aggregation" name="userloginid"
 			required="true">
 			<displayName>User Login Id</displayName>
-			<documentName>UserLogin</documentName>
+			<documentName>UserAddress</documentName>
 		</association>
 
 		<text name="emailid" required="true">

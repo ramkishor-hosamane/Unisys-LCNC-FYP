@@ -66,7 +66,7 @@
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
 		<property name="id" length="10" />
-		<many-to-one name="userloginid" entity-name="userUserLogin" column="userloginid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_UserLogin_userloginid"/>
+		<many-to-one name="userloginid" entity-name="userUserAddress" column="userloginid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_UserLogin_userloginid"/>
 		<property name="emailid" length="20" />
 		<property name="mobileno" length="10" />
 		<property name="gender" length="10" />
