@@ -1,0 +1,26 @@
+{
+    "Category": [
+        {
+            "bizModule": "product",
+            "bizDocument": "Category",
+            "categoryid": "500",
+            "sequencenum": "1",
+            "categoryname": "Women's sarree",
+            "bizId": "cc4b879a-76cb-4cb7-b183-7fc3ac558b1a",
+            "bizCustomer": "unisys",
+            "bizDataGroupId": null,
+            "bizUserId": "6d8fed1b-21a1-43ba-8709-4d88ed42e2f8"
+        },
+        {
+            "bizModule": "product",
+            "bizDocument": "Category",
+            "categoryid": "501",
+            "sequencenum": "2",
+            "categoryname": "Men's shirts",
+            "bizId": "18fcbb48-cfad-4261-9157-9b7f49286efd",
+            "bizCustomer": "unisys",
+            "bizDataGroupId": null,
+            "bizUserId": "6d8fed1b-21a1-43ba-8709-4d88ed42e2f8"
+        }
+    ]
+}

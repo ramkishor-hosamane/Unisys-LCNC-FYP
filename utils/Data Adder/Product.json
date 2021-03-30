@@ -1,0 +1,34 @@
+{
+    "Product": [
+        {
+            "bizModule": "product",
+            "bizDocument": "Product",
+            "productid": "P1",
+            "productname": "Banarasi",
+            "productprice": "500.00",
+            "productstock": "10.00",
+            "smallimg": "71fe5877-6493-47e7-ad6f-6363c17df44f",
+            "largeimg": "",
+            "description": "This saree is authentic wear produced in Banaras",
+            "bizId": "ce1a77b6-221a-4a1c-abd8-f757003d4eb3",
+            "bizCustomer": "unisys",
+            "bizDataGroupId": null,
+            "bizUserId": "6d8fed1b-21a1-43ba-8709-4d88ed42e2f8"
+        },
+        {
+            "bizModule": "product",
+            "bizDocument": "Product",
+            "productid": "P2",
+            "productname": "Formal shirt",
+            "productprice": "569.00",
+            "productstock": "10.00",
+            "smallimg": "9805a02a-cc33-4633-8398-47c1a567dde0",
+            "largeimg": "",
+            "description": "White shirt soft",
+            "bizId": "6439c196-73c6-43be-95d3-b7ed130b3e37",
+            "bizCustomer": "unisys",
+            "bizDataGroupId": null,
+            "bizUserId": "6d8fed1b-21a1-43ba-8709-4d88ed42e2f8"
+        }
+    ]
+}

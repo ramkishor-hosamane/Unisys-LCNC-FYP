@@ -1,0 +1,38 @@
+{
+    "Address": [
+        {
+            "bizModule": "user",
+            "bizDocument": "Address",
+            "addressid": "100",
+            "address1": "PSN Appartment",
+            "address2": "Whitfield",
+            "city": "Bangalore",
+            "state": "Karnataka",
+            "zipcode": "560048",
+            "country": "India",
+            "createdstamp": "",
+            "updatedstamp": "",
+            "bizId": "00eba478-6346-4e64-87d1-32972315ee03",
+            "bizCustomer": "unisys",
+            "bizDataGroupId": null,
+            "bizUserId": "6d8fed1b-21a1-43ba-8709-4d88ed42e2f8"
+        },
+        {
+            "bizModule": "user",
+            "bizDocument": "Address",
+            "addressid": "101",
+            "address1": "2101",
+            "address2": "Rajajinagar",
+            "city": "Bangalore",
+            "state": "Karnataka",
+            "zipcode": "560010",
+            "country": "India",
+            "createdstamp": "",
+            "updatedstamp": "",
+            "bizId": "a009b191-f72f-4f82-8505-0b9aacb9ac10",
+            "bizCustomer": "unisys",
+            "bizDataGroupId": null,
+            "bizUserId": "6d8fed1b-21a1-43ba-8709-4d88ed42e2f8"
+        }
+    ]
+}
