@@ -9,10 +9,9 @@
 			<displayName>Cart Id</displayName>
 			<length>10</length>
 		</text>
-		
-		<association type="aggregation" name="userlogin"
+			<association type="aggregation" name="addressid"
 			required="true">
-			<displayName>User Login</displayName>
+			<displayName>Address Id</displayName>
 			<documentName>UserAddress</documentName>
 		</association>
 		

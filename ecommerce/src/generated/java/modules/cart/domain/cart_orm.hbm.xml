@@ -21,7 +21,7 @@
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
 		<property name="cartid" length="10" />
-		<many-to-one name="userlogin" entity-name="userUserAddress" column="userlogin_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingCart_userlogin"/>
+		<many-to-one name="addressid" entity-name="userUserAddress" column="addressid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingCart_addressid"/>
 		<property name="subtotal" type="Decimal2" precision="20" scale="2" />
 		<property name="grandtotal" type="Decimal2" precision="20" scale="2" />
 		<filter name="cartShoppingCartNoneFilter" condition="1=0"/>
