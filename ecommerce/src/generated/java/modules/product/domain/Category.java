@@ -4,12 +4,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
-import org.skyve.domain.types.Decimal10;
 import org.skyve.impl.domain.AbstractPersistentBean;
-import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
 
 /**
  * Category
@@ -40,11 +37,11 @@ public class Category extends AbstractPersistentBean {
 	/**
 	 * Category Id
 	 **/
-	private Decimal10 categoryid;
+	private String categoryid;
 	/**
 	 * Sequence number
 	 **/
-	private Decimal10 sequencenum;
+	private String sequencenum;
 	/**
 	 * Category
 	 **/
@@ -95,7 +92,7 @@ public class Category extends AbstractPersistentBean {
 	 * {@link #categoryid} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getCategoryid() {
+	public String getCategoryid() {
 		return categoryid;
 	}
 
@@ -103,9 +100,8 @@ public class Category extends AbstractPersistentBean {
 	 * {@link #categoryid} mutator.
 	 * @param categoryid	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setCategoryid(Decimal10 categoryid) {
+	public void setCategoryid(String categoryid) {
 		preset(categoryidPropertyName, categoryid);
 		this.categoryid = categoryid;
 	}
@@ -114,7 +110,7 @@ public class Category extends AbstractPersistentBean {
 	 * {@link #sequencenum} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getSequencenum() {
+	public String getSequencenum() {
 		return sequencenum;
 	}
 
@@ -122,9 +118,8 @@ public class Category extends AbstractPersistentBean {
 	 * {@link #sequencenum} mutator.
 	 * @param sequencenum	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setSequencenum(Decimal10 sequencenum) {
+	public void setSequencenum(String sequencenum) {
 		preset(sequencenumPropertyName, sequencenum);
 		this.sequencenum = sequencenum;
 	}

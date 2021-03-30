@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import modules.user.domain.UserAddress;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
-import org.skyve.domain.types.Decimal10;
+import org.skyve.domain.types.Decimal2;
 import org.skyve.impl.domain.AbstractPersistentBean;
-import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
+import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 
 /**
  * ShoppingCart
@@ -44,7 +44,7 @@ public class ShoppingCart extends AbstractPersistentBean {
 	/**
 	 * Cart Id
 	 **/
-	private Decimal10 cartid;
+	private String cartid;
 	/**
 	 * User Login
 	 **/
@@ -52,11 +52,11 @@ public class ShoppingCart extends AbstractPersistentBean {
 	/**
 	 * Sub Total
 	 **/
-	private Decimal10 subtotal;
+	private Decimal2 subtotal;
 	/**
 	 * Grand Total
 	 **/
-	private Decimal10 grandtotal;
+	private Decimal2 grandtotal;
 
 	@Override
 	@XmlTransient
@@ -103,7 +103,7 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 * {@link #cartid} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getCartid() {
+	public String getCartid() {
 		return cartid;
 	}
 
@@ -111,9 +111,8 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 * {@link #cartid} mutator.
 	 * @param cartid	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setCartid(Decimal10 cartid) {
+	public void setCartid(String cartid) {
 		preset(cartidPropertyName, cartid);
 		this.cartid = cartid;
 	}
@@ -142,7 +141,7 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 * {@link #subtotal} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getSubtotal() {
+	public Decimal2 getSubtotal() {
 		return subtotal;
 	}
 
@@ -150,9 +149,9 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 * {@link #subtotal} mutator.
 	 * @param subtotal	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setSubtotal(Decimal10 subtotal) {
+	public void setSubtotal(Decimal2 subtotal) {
 		preset(subtotalPropertyName, subtotal);
 		this.subtotal = subtotal;
 	}
@@ -161,7 +160,7 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 * {@link #grandtotal} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getGrandtotal() {
+	public Decimal2 getGrandtotal() {
 		return grandtotal;
 	}
 
@@ -169,9 +168,9 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 * {@link #grandtotal} mutator.
 	 * @param grandtotal	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setGrandtotal(Decimal10 grandtotal) {
+	public void setGrandtotal(Decimal2 grandtotal) {
 		preset(grandtotalPropertyName, grandtotal);
 		this.grandtotal = grandtotal;
 	}

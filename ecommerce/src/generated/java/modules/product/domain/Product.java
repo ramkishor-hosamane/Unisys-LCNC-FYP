@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
-import org.skyve.domain.types.Decimal10;
+import org.skyve.domain.types.Decimal2;
 import org.skyve.impl.domain.AbstractPersistentBean;
-import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
+import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 
 /**
  * Product
@@ -48,7 +48,7 @@ public class Product extends AbstractPersistentBean {
 	/**
 	 * Product Id
 	 **/
-	private Decimal10 productid;
+	private String productid;
 	/**
 	 * Product Name
 	 **/
@@ -56,11 +56,11 @@ public class Product extends AbstractPersistentBean {
 	/**
 	 * Product Price
 	 **/
-	private Decimal10 productprice;
+	private Decimal2 productprice;
 	/**
 	 * Product Stock
 	 **/
-	private Decimal10 productstock;
+	private Decimal2 productstock;
 	/**
 	 * Small Image
 	 **/
@@ -119,7 +119,7 @@ public class Product extends AbstractPersistentBean {
 	 * {@link #productid} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getProductid() {
+	public String getProductid() {
 		return productid;
 	}
 
@@ -127,9 +127,8 @@ public class Product extends AbstractPersistentBean {
 	 * {@link #productid} mutator.
 	 * @param productid	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setProductid(Decimal10 productid) {
+	public void setProductid(String productid) {
 		preset(productidPropertyName, productid);
 		this.productid = productid;
 	}
@@ -156,7 +155,7 @@ public class Product extends AbstractPersistentBean {
 	 * {@link #productprice} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getProductprice() {
+	public Decimal2 getProductprice() {
 		return productprice;
 	}
 
@@ -164,9 +163,9 @@ public class Product extends AbstractPersistentBean {
 	 * {@link #productprice} mutator.
 	 * @param productprice	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setProductprice(Decimal10 productprice) {
+	public void setProductprice(Decimal2 productprice) {
 		preset(productpricePropertyName, productprice);
 		this.productprice = productprice;
 	}
@@ -175,7 +174,7 @@ public class Product extends AbstractPersistentBean {
 	 * {@link #productstock} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getProductstock() {
+	public Decimal2 getProductstock() {
 		return productstock;
 	}
 
@@ -183,9 +182,9 @@ public class Product extends AbstractPersistentBean {
 	 * {@link #productstock} mutator.
 	 * @param productstock	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setProductstock(Decimal10 productstock) {
+	public void setProductstock(Decimal2 productstock) {
 		preset(productstockPropertyName, productstock);
 		this.productstock = productstock;
 	}

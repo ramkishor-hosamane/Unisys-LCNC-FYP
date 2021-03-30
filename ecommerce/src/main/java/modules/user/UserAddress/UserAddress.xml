@@ -22,9 +22,11 @@
 		</association>
 
 
-		<decimal10 name="sequenceno" required="true">
+		<text name="sequenceno" required="true">
 			<displayName>Sequence number</displayName>
-		</decimal10>
+						<length>2</length>
+			
+		</text>
 
 		<text name="addresstype" required="true">
 			<displayName>Address Type</displayName>

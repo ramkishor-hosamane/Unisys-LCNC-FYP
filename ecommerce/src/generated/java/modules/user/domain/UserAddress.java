@@ -9,10 +9,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateTime;
-import org.skyve.domain.types.Decimal10;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
-import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
 
 /**
  * UserAddress
@@ -58,7 +56,7 @@ public class UserAddress extends AbstractPersistentBean {
 	/**
 	 * Sequence number
 	 **/
-	private Decimal10 sequenceno;
+	private String sequenceno;
 	/**
 	 * Address Type
 	 **/
@@ -155,7 +153,7 @@ public class UserAddress extends AbstractPersistentBean {
 	 * {@link #sequenceno} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getSequenceno() {
+	public String getSequenceno() {
 		return sequenceno;
 	}
 
@@ -163,9 +161,8 @@ public class UserAddress extends AbstractPersistentBean {
 	 * {@link #sequenceno} mutator.
 	 * @param sequenceno	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setSequenceno(Decimal10 sequenceno) {
+	public void setSequenceno(String sequenceno) {
 		preset(sequencenoPropertyName, sequenceno);
 		this.sequenceno = sequenceno;
 	}

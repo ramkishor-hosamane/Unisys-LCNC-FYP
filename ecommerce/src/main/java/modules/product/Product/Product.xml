@@ -8,9 +8,11 @@
 	<pluralAlias>Products</pluralAlias>
 	<bizKey expression="{productid}" />
 	<attributes>
-		<decimal10 name="productid" required="true">
+		<text name="productid" required="true">
 			<displayName>Product Id</displayName>
-		</decimal10>
+						<length>10</length>
+			
+		</text>
 
 		<text name="productname" required="true">
 			<displayName>Product Name</displayName>
@@ -18,12 +20,12 @@
 		</text>
 
 
-		<decimal10 name="productprice" required="true">
+		<decimal2 name="productprice" required="true">
 			<displayName>Product Price</displayName>
-		</decimal10>
-		<decimal10 name="productstock" required="true">
+		</decimal2>
+		<decimal2 name="productstock" required="true">
 			<displayName>Product Stock</displayName>
-		</decimal10>
+		</decimal2>
 
 		<image name="smallimg">
 			<displayName>Small Image</displayName>

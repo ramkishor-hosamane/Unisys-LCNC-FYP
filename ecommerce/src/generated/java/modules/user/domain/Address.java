@@ -9,10 +9,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateTime;
-import org.skyve.domain.types.Decimal10;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
-import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
 
 /**
  * Address
@@ -55,7 +53,7 @@ public class Address extends AbstractPersistentBean {
 	/**
 	 * Address Id
 	 **/
-	private Decimal10 addressid;
+	private String addressid;
 	/**
 	 * Address line 1
 	 **/
@@ -134,7 +132,7 @@ public class Address extends AbstractPersistentBean {
 	 * {@link #addressid} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getAddressid() {
+	public String getAddressid() {
 		return addressid;
 	}
 
@@ -142,9 +140,8 @@ public class Address extends AbstractPersistentBean {
 	 * {@link #addressid} mutator.
 	 * @param addressid	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setAddressid(Decimal10 addressid) {
+	public void setAddressid(String addressid) {
 		preset(addressidPropertyName, addressid);
 		this.addressid = addressid;
 	}

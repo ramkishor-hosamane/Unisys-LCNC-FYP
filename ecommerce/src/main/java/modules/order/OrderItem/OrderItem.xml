@@ -6,9 +6,10 @@
     <pluralAlias>orderitems</pluralAlias>
 	<bizKey expression="{orderitemid}" />
 	<attributes>
-		<decimal10 name="orderitemid" required="true">
+		<text name="orderitemid" required="true">
 			<displayName>Order Item Id</displayName>
-		</decimal10>
+			<length>10</length>
+		</text>
 		<!-- Foreign key -->
 		<association type="aggregation" name="orderid"
 			required="true">
@@ -16,15 +17,16 @@
 			<documentName>OrderHeader</documentName>
 		</association>
 
-		<decimal10 name="orderitemseqnum" required="true">
+		<text name="orderitemseqnum" required="true">
 			<displayName>Order Item Sequence Number</displayName>
-		</decimal10>
-		<decimal10 name="quantity" required="true">
+			<length>2</length>
+		</text>
+		<decimal2 name="quantity" required="true">
 			<displayName>Quantity</displayName>
-		</decimal10>
-		<decimal10 name="unitprice" required="true">
+		</decimal2>
+		<decimal2 name="unitprice" required="true">
 			<displayName>Unit Price</displayName>
-		</decimal10>
+		</decimal2>
 
 
 		<dateTime name="createdstamp">

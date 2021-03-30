@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import modules.product.domain.Product;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
-import org.skyve.domain.types.Decimal10;
+import org.skyve.domain.types.Decimal2;
 import org.skyve.impl.domain.AbstractPersistentBean;
-import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
+import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 
 /**
  * ShoppingCartItem
@@ -47,7 +47,7 @@ public class ShoppingCartItem extends AbstractPersistentBean {
 	/**
 	 * Cart Item Id
 	 **/
-	private Decimal10 cartitemid;
+	private String cartitemid;
 	/**
 	 * Cart Id
 	 **/
@@ -59,11 +59,11 @@ public class ShoppingCartItem extends AbstractPersistentBean {
 	/**
 	 * Quantity
 	 **/
-	private Decimal10 quantity;
+	private Decimal2 quantity;
 	/**
 	 * Price
 	 **/
-	private Decimal10 price;
+	private Decimal2 price;
 
 	@Override
 	@XmlTransient
@@ -110,7 +110,7 @@ public class ShoppingCartItem extends AbstractPersistentBean {
 	 * {@link #cartitemid} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getCartitemid() {
+	public String getCartitemid() {
 		return cartitemid;
 	}
 
@@ -118,9 +118,8 @@ public class ShoppingCartItem extends AbstractPersistentBean {
 	 * {@link #cartitemid} mutator.
 	 * @param cartitemid	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setCartitemid(Decimal10 cartitemid) {
+	public void setCartitemid(String cartitemid) {
 		preset(cartitemidPropertyName, cartitemid);
 		this.cartitemid = cartitemid;
 	}
@@ -169,7 +168,7 @@ public class ShoppingCartItem extends AbstractPersistentBean {
 	 * {@link #quantity} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getQuantity() {
+	public Decimal2 getQuantity() {
 		return quantity;
 	}
 
@@ -177,9 +176,9 @@ public class ShoppingCartItem extends AbstractPersistentBean {
 	 * {@link #quantity} mutator.
 	 * @param quantity	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setQuantity(Decimal10 quantity) {
+	public void setQuantity(Decimal2 quantity) {
 		preset(quantityPropertyName, quantity);
 		this.quantity = quantity;
 	}
@@ -188,7 +187,7 @@ public class ShoppingCartItem extends AbstractPersistentBean {
 	 * {@link #price} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getPrice() {
+	public Decimal2 getPrice() {
 		return price;
 	}
 
@@ -196,9 +195,9 @@ public class ShoppingCartItem extends AbstractPersistentBean {
 	 * {@link #price} mutator.
 	 * @param price	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setPrice(Decimal10 price) {
+	public void setPrice(Decimal2 price) {
 		preset(pricePropertyName, price);
 		this.price = price;
 	}

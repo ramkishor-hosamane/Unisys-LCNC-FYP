@@ -11,10 +11,10 @@ import modules.user.domain.UserAddress;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateTime;
-import org.skyve.domain.types.Decimal10;
+import org.skyve.domain.types.Decimal2;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
-import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
+import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 
 /**
  * OrderHeader
@@ -57,7 +57,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	/**
 	 * Order Id
 	 **/
-	private Decimal10 orderid;
+	private String orderid;
 	/**
 	 * User Login Id
 	 **/
@@ -65,11 +65,11 @@ public class OrderHeader extends AbstractPersistentBean {
 	/**
 	 * Sub Total
 	 **/
-	private Decimal10 subtotal;
+	private Decimal2 subtotal;
 	/**
 	 * Grand Total
 	 **/
-	private Decimal10 grandtotal;
+	private Decimal2 grandtotal;
 	/**
 	 * Address Id
 	 **/
@@ -132,7 +132,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * {@link #orderid} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getOrderid() {
+	public String getOrderid() {
 		return orderid;
 	}
 
@@ -140,9 +140,8 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * {@link #orderid} mutator.
 	 * @param orderid	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setOrderid(Decimal10 orderid) {
+	public void setOrderid(String orderid) {
 		preset(orderidPropertyName, orderid);
 		this.orderid = orderid;
 	}
@@ -171,7 +170,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * {@link #subtotal} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getSubtotal() {
+	public Decimal2 getSubtotal() {
 		return subtotal;
 	}
 
@@ -179,9 +178,9 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * {@link #subtotal} mutator.
 	 * @param subtotal	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setSubtotal(Decimal10 subtotal) {
+	public void setSubtotal(Decimal2 subtotal) {
 		preset(subtotalPropertyName, subtotal);
 		this.subtotal = subtotal;
 	}
@@ -190,7 +189,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * {@link #grandtotal} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getGrandtotal() {
+	public Decimal2 getGrandtotal() {
 		return grandtotal;
 	}
 
@@ -198,9 +197,9 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * {@link #grandtotal} mutator.
 	 * @param grandtotal	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setGrandtotal(Decimal10 grandtotal) {
+	public void setGrandtotal(Decimal2 grandtotal) {
 		preset(grandtotalPropertyName, grandtotal);
 		this.grandtotal = grandtotal;
 	}

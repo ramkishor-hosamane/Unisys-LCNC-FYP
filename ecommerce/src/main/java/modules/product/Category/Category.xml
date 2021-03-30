@@ -8,13 +8,17 @@
 	<pluralAlias>Categories</pluralAlias>
 	<bizKey expression="{categoryid}" />
 	<attributes>
-		<decimal10 name="categoryid" required="true">
+		<text name="categoryid" required="true">
 			<displayName>Category Id</displayName>
-		</decimal10>
+						<length>10</length>
+			
+		</text>
 
-		<decimal10 name="sequencenum" required="true">
+		<text name="sequencenum" required="true">
 			<displayName>Sequence number</displayName>
-		</decimal10>
+						<length>2</length>
+			
+		</text>
 		<text name="categoryname" required="true">
 			<displayName>Category</displayName>
 			<length>30</length>

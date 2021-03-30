@@ -4,14 +4,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import modules.product.domain.Category;
 import modules.product.domain.Product;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
-import org.skyve.domain.types.Decimal10;
 import org.skyve.impl.domain.AbstractPersistentBean;
-import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
 
 /**
  * ShoppingListItem
@@ -52,7 +49,7 @@ public class ShoppingListItem extends AbstractPersistentBean {
 	/**
 	 * Sequence number
 	 **/
-	private Decimal10 sequencenum;
+	private String sequencenum;
 
 	@Override
 	@XmlTransient
@@ -139,7 +136,7 @@ public class ShoppingListItem extends AbstractPersistentBean {
 	 * {@link #sequencenum} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getSequencenum() {
+	public String getSequencenum() {
 		return sequencenum;
 	}
 
@@ -147,9 +144,8 @@ public class ShoppingListItem extends AbstractPersistentBean {
 	 * {@link #sequencenum} mutator.
 	 * @param sequencenum	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setSequencenum(Decimal10 sequencenum) {
+	public void setSequencenum(String sequencenum) {
 		preset(sequencenumPropertyName, sequencenum);
 		this.sequencenum = sequencenum;
 	}

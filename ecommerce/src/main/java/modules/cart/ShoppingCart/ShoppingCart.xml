@@ -5,9 +5,10 @@
     <pluralAlias>shoppingcarts</pluralAlias>
 <bizKey expression="{cartid}" />
 	<attributes>
-		<decimal10 name="cartid" required="true">
+		<text name="cartid" required="true">
 			<displayName>Cart Id</displayName>
-		</decimal10>
+			<length>10</length>
+		</text>
 		
 		<association type="aggregation" name="userlogin"
 			required="true">
@@ -15,11 +16,11 @@
 			<documentName>UserAddress</documentName>
 		</association>
 		
-		<decimal10 name="subtotal" required="true">
+		<decimal2 name="subtotal" required="true">
 			<displayName>Sub Total</displayName>
-		</decimal10>
-		<decimal10 name="grandtotal" required="true">
+		</decimal2>
+		<decimal2 name="grandtotal" required="true">
 			<displayName>Grand Total</displayName>
-		</decimal10>
+		</decimal2>
 	</attributes>
 </document>

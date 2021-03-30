@@ -4,13 +4,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import modules.user.domain.UserAddress;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
-import org.skyve.domain.types.Decimal10;
 import org.skyve.impl.domain.AbstractPersistentBean;
-import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
 
 /**
  * ShoppingList
@@ -42,7 +39,7 @@ public class ShoppingList extends AbstractPersistentBean {
 	/**
 	 * List Id
 	 **/
-	private Decimal10 listid;
+	private String listid;
 	/**
 	 * User Login
 	 **/
@@ -97,7 +94,7 @@ public class ShoppingList extends AbstractPersistentBean {
 	 * {@link #listid} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getListid() {
+	public String getListid() {
 		return listid;
 	}
 
@@ -105,9 +102,8 @@ public class ShoppingList extends AbstractPersistentBean {
 	 * {@link #listid} mutator.
 	 * @param listid	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setListid(Decimal10 listid) {
+	public void setListid(String listid) {
 		preset(listidPropertyName, listid);
 		this.listid = listid;
 	}

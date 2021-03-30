@@ -6,9 +6,10 @@
     <pluralAlias>shoppinglists</pluralAlias>
 <bizKey expression="{listid}" />
 	<attributes>
-		<decimal10 name="listid" required="true">
+		<text name="listid" required="true">
 			<displayName>List Id</displayName>
-		</decimal10>
+			<length>10</length>
+		</text>
 		
 		<association type="aggregation" name="userlogin"
 			required="true">

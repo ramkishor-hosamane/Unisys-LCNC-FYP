@@ -9,10 +9,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateTime;
-import org.skyve.domain.types.Decimal10;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
-import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
 
 /**
  * UserLogin
@@ -62,7 +60,7 @@ public class UserLogin extends AbstractPersistentBean {
 	/**
 	 * Id
 	 **/
-	private Decimal10 id;
+	private String id;
 	/**
 	 * User Login Id
 	 **/
@@ -153,7 +151,7 @@ public class UserLogin extends AbstractPersistentBean {
 	 * {@link #id} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -161,9 +159,8 @@ public class UserLogin extends AbstractPersistentBean {
 	 * {@link #id} mutator.
 	 * @param id	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setId(Decimal10 id) {
+	public void setId(String id) {
 		preset(idPropertyName, id);
 		this.id = id;
 	}

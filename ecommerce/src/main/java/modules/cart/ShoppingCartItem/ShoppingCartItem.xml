@@ -6,9 +6,10 @@
     <pluralAlias>shoppingcartitems</pluralAlias>
 	<bizKey expression="{cartitemid}" />
 	<attributes>
-		<decimal10 name="cartitemid" required="true">
+		<text name="cartitemid" required="true">
 			<displayName>Cart Item Id</displayName>
-		</decimal10>
+			<length>10</length>
+		</text>
 		<association type="aggregation" name="cartid"
 			required="true">
 			<displayName>Cart Id</displayName>
@@ -20,13 +21,13 @@
 			<displayName>Product Id</displayName>
 			<documentName>Product</documentName>
 		</association>
-		<decimal10 name="quantity" required="true">
+		<decimal2 name="quantity" required="true">
 			<displayName>Quantity</displayName>
-		</decimal10>
+		</decimal2>
 		
-		<decimal10 name="price" required="true">
+		<decimal2 name="price" required="true">
 			<displayName>Price</displayName>
-		</decimal10>
+		</decimal2>
 		
 
 	</attributes>

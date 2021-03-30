@@ -9,10 +9,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateTime;
-import org.skyve.domain.types.Decimal10;
+import org.skyve.domain.types.Decimal2;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
-import org.skyve.impl.domain.types.jaxb.Decimal10Mapper;
+import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 
 /**
  * OrderItem
@@ -52,7 +52,7 @@ public class OrderItem extends AbstractPersistentBean {
 	/**
 	 * Order Item Id
 	 **/
-	private Decimal10 orderitemid;
+	private String orderitemid;
 	/**
 	 * Order Id
 	 **/
@@ -60,15 +60,15 @@ public class OrderItem extends AbstractPersistentBean {
 	/**
 	 * Order Item Sequence Number
 	 **/
-	private Decimal10 orderitemseqnum;
+	private String orderitemseqnum;
 	/**
 	 * Quantity
 	 **/
-	private Decimal10 quantity;
+	private Decimal2 quantity;
 	/**
 	 * Unit Price
 	 **/
-	private Decimal10 unitprice;
+	private Decimal2 unitprice;
 	/**
 	 * Created timestamp
 	 **/
@@ -123,7 +123,7 @@ public class OrderItem extends AbstractPersistentBean {
 	 * {@link #orderitemid} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getOrderitemid() {
+	public String getOrderitemid() {
 		return orderitemid;
 	}
 
@@ -131,9 +131,8 @@ public class OrderItem extends AbstractPersistentBean {
 	 * {@link #orderitemid} mutator.
 	 * @param orderitemid	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setOrderitemid(Decimal10 orderitemid) {
+	public void setOrderitemid(String orderitemid) {
 		preset(orderitemidPropertyName, orderitemid);
 		this.orderitemid = orderitemid;
 	}
@@ -162,7 +161,7 @@ public class OrderItem extends AbstractPersistentBean {
 	 * {@link #orderitemseqnum} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getOrderitemseqnum() {
+	public String getOrderitemseqnum() {
 		return orderitemseqnum;
 	}
 
@@ -170,9 +169,8 @@ public class OrderItem extends AbstractPersistentBean {
 	 * {@link #orderitemseqnum} mutator.
 	 * @param orderitemseqnum	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
 	@XmlElement
-	public void setOrderitemseqnum(Decimal10 orderitemseqnum) {
+	public void setOrderitemseqnum(String orderitemseqnum) {
 		preset(orderitemseqnumPropertyName, orderitemseqnum);
 		this.orderitemseqnum = orderitemseqnum;
 	}
@@ -181,7 +179,7 @@ public class OrderItem extends AbstractPersistentBean {
 	 * {@link #quantity} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getQuantity() {
+	public Decimal2 getQuantity() {
 		return quantity;
 	}
 
@@ -189,9 +187,9 @@ public class OrderItem extends AbstractPersistentBean {
 	 * {@link #quantity} mutator.
 	 * @param quantity	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setQuantity(Decimal10 quantity) {
+	public void setQuantity(Decimal2 quantity) {
 		preset(quantityPropertyName, quantity);
 		this.quantity = quantity;
 	}
@@ -200,7 +198,7 @@ public class OrderItem extends AbstractPersistentBean {
 	 * {@link #unitprice} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal10 getUnitprice() {
+	public Decimal2 getUnitprice() {
 		return unitprice;
 	}
 
@@ -208,9 +206,9 @@ public class OrderItem extends AbstractPersistentBean {
 	 * {@link #unitprice} mutator.
 	 * @param unitprice	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal10Mapper.class)
+	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setUnitprice(Decimal10 unitprice) {
+	public void setUnitprice(Decimal2 unitprice) {
 		preset(unitpricePropertyName, unitprice);
 		this.unitprice = unitprice;
 	}

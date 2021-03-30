@@ -8,9 +8,10 @@
 	<pluralAlias>Addresses</pluralAlias>
 	<bizKey expression="{addressid}" />
 	<attributes>
-		<decimal10 name="addressid" required="true">
+		<text name="addressid" required="true">
 			<displayName>Address Id</displayName>
-		</decimal10>
+			<length>10</length>
+		</text>
 		
 		<text name="address1" required="true">
 			<displayName>Address line 1</displayName>

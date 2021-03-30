@@ -20,8 +20,8 @@
 		<property name="bizFlagComment" length="1024" />
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
-		<property name="categoryid" type="Decimal10" precision="28" scale="10" />
-		<property name="sequencenum" type="Decimal10" precision="28" scale="10" />
+		<property name="categoryid" length="10" />
+		<property name="sequencenum" length="2" />
 		<property name="categoryname" length="30" />
 		<filter name="productCategoryNoneFilter" condition="1=0"/>
 		<filter name="productCategoryCustomerFilter" condition="bizCustomer=:customerParam"/>
@@ -38,10 +38,10 @@
 		<property name="bizFlagComment" length="1024" />
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
-		<property name="productid" type="Decimal10" precision="28" scale="10" />
+		<property name="productid" length="10" />
 		<property name="productname" length="50" />
-		<property name="productprice" type="Decimal10" precision="28" scale="10" />
-		<property name="productstock" type="Decimal10" precision="28" scale="10" />
+		<property name="productprice" type="Decimal2" precision="20" scale="2" />
+		<property name="productstock" type="Decimal2" precision="20" scale="2" />
 		<property name="smallimg" length="36" />
 		<property name="largeimg" length="36" />
 		<property name="description" length="50" />
@@ -62,7 +62,7 @@
 		<property name="bizUserId" length="36" not-null="true" />
 		<many-to-one name="categoryid" entity-name="productCategory" column="categoryid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ProductCategoryMember_categoryid"/>
 		<many-to-one name="productid" entity-name="productProduct" column="productid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ProductCategoryMember_productid"/>
-		<property name="sequencenum" type="Decimal10" precision="28" scale="10" />
+		<property name="sequencenum" length="2" />
 		<filter name="productProductCategoryMemberNoneFilter" condition="1=0"/>
 		<filter name="productProductCategoryMemberCustomerFilter" condition="bizCustomer=:customerParam"/>
 		<filter name="productProductCategoryMemberDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>

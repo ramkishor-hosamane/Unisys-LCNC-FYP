@@ -20,7 +20,7 @@
 		<property name="bizFlagComment" length="1024" />
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
-		<property name="listid" type="Decimal10" precision="28" scale="10" />
+		<property name="listid" length="10" />
 		<many-to-one name="userlogin" entity-name="userUserAddress" column="userlogin_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingList_userlogin"/>
 		<property name="type" length="20" />
 		<filter name="wishlistShoppingListNoneFilter" condition="1=0"/>
@@ -40,7 +40,7 @@
 		<property name="bizUserId" length="36" not-null="true" />
 		<many-to-one name="categoryid" entity-name="productCategory" column="categoryid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingListItem_categoryid"/>
 		<many-to-one name="productid" entity-name="productProduct" column="productid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingListItem_productid"/>
-		<property name="sequencenum" type="Decimal10" precision="28" scale="10" />
+		<property name="sequencenum" length="2" />
 		<filter name="wishlistShoppingListItemNoneFilter" condition="1=0"/>
 		<filter name="wishlistShoppingListItemCustomerFilter" condition="bizCustomer=:customerParam"/>
 		<filter name="wishlistShoppingListItemDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
