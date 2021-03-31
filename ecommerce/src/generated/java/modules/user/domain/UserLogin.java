@@ -15,6 +15,7 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 /**
  * UserLogin
  * 
+ * @navhas n userloginid 1 UserAddress
  * @stereotype "persistent"
  */
 @XmlType
@@ -61,9 +62,9 @@ public class UserLogin extends AbstractPersistentBean {
 	 **/
 	private String id;
 	/**
-	 * User Login ID
+	 * User Login Id
 	 **/
-	private String userloginid;
+	private UserAddress userloginid = null;
 	/**
 	 * Email ID
 	 **/
@@ -133,7 +134,7 @@ public class UserLogin extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 		try {
-			return org.skyve.util.Binder.formatMessage("{userloginid}", this);
+			return org.skyve.util.Binder.formatMessage("{id}", this);
 		}
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
@@ -168,7 +169,7 @@ public class UserLogin extends AbstractPersistentBean {
 	 * {@link #userloginid} accessor.
 	 * @return	The value.
 	 **/
-	public String getUserloginid() {
+	public UserAddress getUserloginid() {
 		return userloginid;
 	}
 
@@ -177,9 +178,11 @@ public class UserLogin extends AbstractPersistentBean {
 	 * @param userloginid	The new value.
 	 **/
 	@XmlElement
-	public void setUserloginid(String userloginid) {
-		preset(userloginidPropertyName, userloginid);
-		this.userloginid = userloginid;
+	public void setUserloginid(UserAddress userloginid) {
+		if (this.userloginid != userloginid) {
+			preset(userloginidPropertyName, userloginid);
+			this.userloginid = userloginid;
+		}
 	}
 
 	/**

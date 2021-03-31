@@ -14,7 +14,11 @@
 			<length>10</length>
 		</text>
 		<!-- Foreign key -->
-		
+		<association type="aggregation" name="userloginid"
+			required="true">
+			<displayName>User Login Id</displayName>
+			<documentName>UserAddress</documentName>
+		</association>
 
 		<decimal2 name="subtotal" required="true">
 			<displayName>Sub Total</displayName>
@@ -27,7 +31,7 @@
 		<association type="aggregation" name="addressid"
 			required="true">
 			<displayName>Address Id</displayName>
-			<documentName>UserAddress</documentName>
+			<documentName>Address</documentName>
 		</association>
 
 		<text name="paymentmethod" required="true">

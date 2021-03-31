@@ -15,7 +15,7 @@ import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 /**
  * ShoppingCart
  * 
- * @navhas n addressid 1 UserAddress
+ * @navhas n userlogin 1 UserAddress
  * @stereotype "persistent"
  */
 @XmlType
@@ -35,7 +35,7 @@ public class ShoppingCart extends AbstractPersistentBean {
 	/** @hidden */
 	public static final String cartidPropertyName = "cartid";
 	/** @hidden */
-	public static final String addressidPropertyName = "addressid";
+	public static final String userloginPropertyName = "userlogin";
 	/** @hidden */
 	public static final String subtotalPropertyName = "subtotal";
 	/** @hidden */
@@ -46,9 +46,9 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 **/
 	private String cartid;
 	/**
-	 * Address Id
+	 * User Login
 	 **/
-	private UserAddress addressid = null;
+	private UserAddress userlogin = null;
 	/**
 	 * Sub Total
 	 **/
@@ -118,22 +118,22 @@ public class ShoppingCart extends AbstractPersistentBean {
 	}
 
 	/**
-	 * {@link #addressid} accessor.
+	 * {@link #userlogin} accessor.
 	 * @return	The value.
 	 **/
-	public UserAddress getAddressid() {
-		return addressid;
+	public UserAddress getUserlogin() {
+		return userlogin;
 	}
 
 	/**
-	 * {@link #addressid} mutator.
-	 * @param addressid	The new value.
+	 * {@link #userlogin} mutator.
+	 * @param userlogin	The new value.
 	 **/
 	@XmlElement
-	public void setAddressid(UserAddress addressid) {
-		if (this.addressid != addressid) {
-			preset(addressidPropertyName, addressid);
-			this.addressid = addressid;
+	public void setUserlogin(UserAddress userlogin) {
+		if (this.userlogin != userlogin) {
+			preset(userloginPropertyName, userlogin);
+			this.userlogin = userlogin;
 		}
 	}
 

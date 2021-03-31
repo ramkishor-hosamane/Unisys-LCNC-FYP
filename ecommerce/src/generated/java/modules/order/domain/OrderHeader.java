@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import modules.user.domain.Address;
 import modules.user.domain.UserAddress;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
@@ -18,7 +19,8 @@ import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 /**
  * OrderHeader
  * 
- * @navhas n addressid 1 UserAddress
+ * @navhas n userloginid 1 UserAddress
+ * @navhas n addressid 1 Address
  * @stereotype "persistent"
  */
 @XmlType
@@ -38,6 +40,8 @@ public class OrderHeader extends AbstractPersistentBean {
 	/** @hidden */
 	public static final String orderidPropertyName = "orderid";
 	/** @hidden */
+	public static final String userloginidPropertyName = "userloginid";
+	/** @hidden */
 	public static final String subtotalPropertyName = "subtotal";
 	/** @hidden */
 	public static final String grandtotalPropertyName = "grandtotal";
@@ -55,6 +59,10 @@ public class OrderHeader extends AbstractPersistentBean {
 	 **/
 	private String orderid;
 	/**
+	 * User Login Id
+	 **/
+	private UserAddress userloginid = null;
+	/**
 	 * Sub Total
 	 **/
 	private Decimal2 subtotal;
@@ -65,7 +73,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	/**
 	 * Address Id
 	 **/
-	private UserAddress addressid = null;
+	private Address addressid = null;
 	/**
 	 * Payment Method
 	 **/
@@ -139,6 +147,26 @@ public class OrderHeader extends AbstractPersistentBean {
 	}
 
 	/**
+	 * {@link #userloginid} accessor.
+	 * @return	The value.
+	 **/
+	public UserAddress getUserloginid() {
+		return userloginid;
+	}
+
+	/**
+	 * {@link #userloginid} mutator.
+	 * @param userloginid	The new value.
+	 **/
+	@XmlElement
+	public void setUserloginid(UserAddress userloginid) {
+		if (this.userloginid != userloginid) {
+			preset(userloginidPropertyName, userloginid);
+			this.userloginid = userloginid;
+		}
+	}
+
+	/**
 	 * {@link #subtotal} accessor.
 	 * @return	The value.
 	 **/
@@ -180,7 +208,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * {@link #addressid} accessor.
 	 * @return	The value.
 	 **/
-	public UserAddress getAddressid() {
+	public Address getAddressid() {
 		return addressid;
 	}
 
@@ -189,7 +217,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * @param addressid	The new value.
 	 **/
 	@XmlElement
-	public void setAddressid(UserAddress addressid) {
+	public void setAddressid(Address addressid) {
 		if (this.addressid != addressid) {
 			preset(addressidPropertyName, addressid);
 			this.addressid = addressid;

@@ -6,9 +6,42 @@
 	
 	<singularAlias>Address</singularAlias>
 	<pluralAlias>Addresses</pluralAlias>
-	<bizKey expression="{createdstamp}" />
+	<bizKey expression="{addressid}" />
 	<attributes>
+		<text name="addressid" required="true">
+			<displayName>Address Id</displayName>
+			<length>10</length>
+		</text>
 		
+		<text name="address1" required="true">
+			<displayName>Address line 1</displayName>
+			<length>50</length>
+		</text>
+		
+		<text name="address2" required="false">
+			<displayName>Address line 2</displayName>
+			<length>50</length>
+		</text>
+		
+		<text name="city" required="true">
+			<displayName>City</displayName>
+			<length>15</length>
+		</text>
+		
+		<text name="state" required="true">
+			<displayName>State</displayName>
+			<length>15</length>
+		</text>
+		
+		<text name="zipcode" required="true">
+			<displayName>Zip code</displayName>
+			<length>6</length>
+		</text>
+		
+		<text name="country" required="true">
+			<displayName>Country</displayName>
+			<length>15</length>
+		</text>
 		
 		<dateTime name= "createdstamp">
 			<displayName>Created timestamp </displayName>

@@ -20,6 +20,13 @@
 		<property name="bizFlagComment" length="1024" />
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
+		<property name="addressid" length="10" />
+		<property name="address1" length="50" />
+		<property name="address2" length="50" />
+		<property name="city" length="15" />
+		<property name="state" length="15" />
+		<property name="zipcode" length="6" />
+		<property name="country" length="15" />
 		<property name="createdstamp" type="DateTime" />
 		<property name="updatedstamp" type="DateTime" />
 		<filter name="userAddressNoneFilter" condition="1=0"/>
@@ -37,14 +44,8 @@
 		<property name="bizFlagComment" length="1024" />
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
-		<property name="addressid" length="10" />
-		<many-to-one name="userloginid" entity-name="userUserLogin" column="userloginid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_UserAddress_userloginid"/>
-		<property name="address1" length="50" />
-		<property name="address2" length="50" />
-		<property name="city" length="15" />
-		<property name="state" length="15" />
-		<property name="zipcode" length="6" />
-		<property name="country" length="15" />
+		<property name="userloginid" length="20" />
+		<many-to-one name="addressid" entity-name="userAddress" column="addressid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_UserAddress_addressid"/>
 		<property name="sequenceno" length="2" />
 		<property name="addresstype" length="20" />
 		<property name="createdstamp" type="DateTime" />
@@ -65,7 +66,7 @@
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
 		<property name="id" length="10" />
-		<property name="userloginid" length="20" />
+		<many-to-one name="userloginid" entity-name="userUserAddress" column="userloginid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_UserLogin_userloginid"/>
 		<property name="emailid" length="20" />
 		<property name="mobileno" length="10" />
 		<property name="gender" length="10" />
