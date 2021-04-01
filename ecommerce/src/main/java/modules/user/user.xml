@@ -6,7 +6,7 @@
 	<homeRef>edit</homeRef>
 	<homeDocument>UserLogin</homeDocument>
 	<documents>
-		<document ref="Address" />
+		
 		<document ref="UserAddress" />
 		<document ref="UserLogin" />
 	</documents>
@@ -15,7 +15,7 @@
 			<description><![CDATA[Create, edit and delete permission within the Products module.]]></description>
 			<privileges>
 				<document name="UserLogin" permission="CRUDC" />
-				<document name="Address" permission="CRUDC" />
+				
 				<document name="UserAddress" permission="CRUDC" />
 
 			</privileges>
@@ -25,9 +25,7 @@
 		<list document="UserLogin" name="All UserLogin">
 			<role name="Maintainer" />
 		</list>
-		<list document="Address" name="All Address">
-			<role name="Maintainer" />
-		</list>
+	
 		<list document="UserAddress" name="All UserAddress">
 			<role name="Maintainer" />
 		</list>

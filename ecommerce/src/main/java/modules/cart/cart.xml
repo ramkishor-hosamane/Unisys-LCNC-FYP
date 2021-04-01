@@ -10,6 +10,7 @@
 		<document ref="ShoppingCartItem" />
 		<document ref="Product" moduleRef="product" />
 		<document ref="UserAddress" moduleRef="user" />
+		<document ref="UserLogin" moduleRef="user" />
 
 	</documents>
 	<roles>

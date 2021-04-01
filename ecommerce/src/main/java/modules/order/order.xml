@@ -6,7 +6,7 @@
         <document ref="OrderHeader"/>
         <document ref="OrderItem"/>
          <document ref="UserAddress" moduleRef="user" />
-         <document ref="Address" moduleRef="user" />
+         <document ref="UserLogin" moduleRef="user" />
 
     </documents>
     <roles>

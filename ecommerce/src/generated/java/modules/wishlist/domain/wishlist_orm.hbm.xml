@@ -21,7 +21,7 @@
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
 		<property name="listid" length="10" />
-		<many-to-one name="userlogin" entity-name="userUserAddress" column="userlogin_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingList_userlogin"/>
+		<many-to-one name="userlogin" entity-name="userUserLogin" column="userlogin_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingList_userlogin"/>
 		<property name="type" length="20" />
 		<filter name="wishlistShoppingListNoneFilter" condition="1=0"/>
 		<filter name="wishlistShoppingListCustomerFilter" condition="bizCustomer=:customerParam"/>

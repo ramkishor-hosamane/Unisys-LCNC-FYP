@@ -17,7 +17,7 @@
 		<association type="aggregation" name="userloginid"
 			required="true">
 			<displayName>User Login Id</displayName>
-			<documentName>UserAddress</documentName>
+			<documentName>UserLogin</documentName>
 		</association>
 
 		<decimal2 name="subtotal" required="true">
@@ -31,7 +31,7 @@
 		<association type="aggregation" name="addressid"
 			required="true">
 			<displayName>Address Id</displayName>
-			<documentName>Address</documentName>
+			<documentName>UserAddress</documentName>
 		</association>
 
 		<text name="paymentmethod" required="true">
