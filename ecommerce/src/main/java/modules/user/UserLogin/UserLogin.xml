@@ -6,21 +6,11 @@
 
 	<singularAlias>UserLogin</singularAlias>
 	<pluralAlias>userlogins</pluralAlias>
-	<bizKey expression="{id}" />
+	<bizKey expression="{userloginid}" />
 
 	<attributes>
-		<text name="id" required="true">
-			<displayName>Id</displayName>
-						<length>10</length>
-			
-		</text>
-		<!-- Foreign key -->
-		<association type="aggregation" name="userloginid"
-			required="true">
-			<displayName>User Login Id</displayName>
-			<documentName>UserAddress</documentName>
-		</association>
-
+		<text name="userloginid" required="true"> <displayName>User Login ID</displayName> 
+			<length>20</length> </text>
 		<text name="emailid" required="true">
 			<displayName>Email ID</displayName>
 			<length>20</length>

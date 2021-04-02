@@ -7,13 +7,13 @@
 
 	<singularAlias>UserAddress</singularAlias>
 	<pluralAlias>useraddresses</pluralAlias>
-	<bizKey expression="{userloginid}" />
-	<attributes>
-		
-		<!-- Primary key -->
-		<text name="userloginid" required="true"> <displayName>User Login ID</displayName> 
-			<length>20</length> </text>
-		
+	<bizKey expression="{userloginid}-{addressid}" />
+	<attributes>		
+		<association type="aggregation" name="userloginid"
+			required="true">
+			<displayName>User Login Id</displayName>
+			<documentName>UserLogin</documentName>
+		</association>
 		<!-- Foreign key -->
 		<association type="aggregation" name="addressid"
 			required="true">

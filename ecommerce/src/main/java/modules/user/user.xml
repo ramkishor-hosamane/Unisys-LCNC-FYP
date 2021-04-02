@@ -32,4 +32,94 @@
 			<role name="Maintainer" />
 		</list>
 	</menu>
+
+	<queries>
+
+		<query name="qUsers" documentName="UserAddress">
+			<description>All User-Address Details</description>
+			<columns>
+				<!-- select userloginid,...,updatedstamp from UserAddress; -->
+				<column binding="userloginid.userloginid" />
+				<column binding="userloginid.emailid" />
+				<column binding="userloginid.mobileno" />
+				<column binding="userloginid.gender" />
+				<column binding="userloginid.firstname" />
+
+				<column binding="addressid.addressid" />
+				<column binding="addressid.address1" />
+				<column binding="addressid.address2" />
+				<column binding="addressid.city" />
+				<column binding="addressid.state" />
+
+
+				<column binding="sequenceno" />
+				<column binding="addresstype" />
+				<column binding="createdstamp" />
+				<column binding="updatedstamp" />
+			</columns>
+		</query>
+
+
+		<query name="qUsers1" documentName="UserAddress">
+			<description>All User-Address Details</description>
+			<columns>
+
+			<column binding="userloginid.userloginid" />
+				<column binding="userloginid.emailid" />
+				<column binding="userloginid.mobileno" />
+				<column binding="userloginid.gender" />
+				<column binding="userloginid.firstname" />
+				<column binding="sequenceno" />
+			</columns>
+		</query>
+
+
+
+		<query name="qUsers2" documentName="UserAddress">
+			<description>All User-Address Details</description>
+			<columns />
+		</query>
+
+
+		<query name="qUsers3" documentName="UserAddress">
+			<description>All User-Address Details</description>
+
+			<!-- select userloginid,...,updatedstamp from UserAddress as bean where 
+				bean.sequenceno=1; -->
+
+			<from>
+				<![CDATA[
+					{user.UserAddress} as bean
+					
+				]]>			
+			</from>
+
+			<filter>
+				bean.sequenceno = 1
+			</filter>
+			<columns>
+				<column binding="userloginid.userloginid" />
+				<column binding="userloginid.emailid" />
+				<column binding="userloginid.mobileno" />
+				<column binding="userloginid.gender" />
+				<column binding="userloginid.firstname" />
+
+				<column binding="addressid.addressid" />
+				<column binding="addressid.address1" />
+				<column binding="addressid.address2" />
+				<column binding="addressid.city" />
+				<column binding="addressid.state" />
+				<column binding="sequenceno" />
+				<column binding="addresstype" />
+				<column binding="createdstamp" />
+				<column binding="updatedstamp" />
+			</columns>
+
+		</query>
+
+
+
+	</queries>
+
+
 </module>

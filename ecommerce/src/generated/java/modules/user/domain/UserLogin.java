@@ -15,7 +15,6 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 /**
  * UserLogin
  * 
- * @navhas n userloginid 1 UserAddress
  * @stereotype "persistent"
  */
 @XmlType
@@ -32,8 +31,6 @@ public class UserLogin extends AbstractPersistentBean {
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "UserLogin";
 
-	/** @hidden */
-	public static final String idPropertyName = "id";
 	/** @hidden */
 	public static final String userloginidPropertyName = "userloginid";
 	/** @hidden */
@@ -58,13 +55,9 @@ public class UserLogin extends AbstractPersistentBean {
 	public static final String updatedstampPropertyName = "updatedstamp";
 
 	/**
-	 * Id
+	 * User Login ID
 	 **/
-	private String id;
-	/**
-	 * User Login Id
-	 **/
-	private UserAddress userloginid = null;
+	private String userloginid;
 	/**
 	 * Email ID
 	 **/
@@ -134,7 +127,7 @@ public class UserLogin extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 		try {
-			return org.skyve.util.Binder.formatMessage("{id}", this);
+			return org.skyve.util.Binder.formatMessage("{userloginid}", this);
 		}
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
@@ -148,28 +141,10 @@ public class UserLogin extends AbstractPersistentBean {
 	}
 
 	/**
-	 * {@link #id} accessor.
-	 * @return	The value.
-	 **/
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * {@link #id} mutator.
-	 * @param id	The new value.
-	 **/
-	@XmlElement
-	public void setId(String id) {
-		preset(idPropertyName, id);
-		this.id = id;
-	}
-
-	/**
 	 * {@link #userloginid} accessor.
 	 * @return	The value.
 	 **/
-	public UserAddress getUserloginid() {
+	public String getUserloginid() {
 		return userloginid;
 	}
 
@@ -178,11 +153,9 @@ public class UserLogin extends AbstractPersistentBean {
 	 * @param userloginid	The new value.
 	 **/
 	@XmlElement
-	public void setUserloginid(UserAddress userloginid) {
-		if (this.userloginid != userloginid) {
-			preset(userloginidPropertyName, userloginid);
-			this.userloginid = userloginid;
-		}
+	public void setUserloginid(String userloginid) {
+		preset(userloginidPropertyName, userloginid);
+		this.userloginid = userloginid;
 	}
 
 	/**

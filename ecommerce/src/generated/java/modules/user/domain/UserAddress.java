@@ -15,6 +15,7 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 /**
  * UserAddress
  * 
+ * @navhas n userloginid 1 UserLogin
  * @navhas n addressid 1 Address
  * @stereotype "persistent"
  */
@@ -46,9 +47,9 @@ public class UserAddress extends AbstractPersistentBean {
 	public static final String updatedstampPropertyName = "updatedstamp";
 
 	/**
-	 * User Login ID
+	 * User Login Id
 	 **/
-	private String userloginid;
+	private UserLogin userloginid = null;
 	/**
 	 * Address Id
 	 **/
@@ -98,7 +99,7 @@ public class UserAddress extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 		try {
-			return org.skyve.util.Binder.formatMessage("{userloginid}", this);
+			return org.skyve.util.Binder.formatMessage("{userloginid}-{addressid}", this);
 		}
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
@@ -115,7 +116,7 @@ public class UserAddress extends AbstractPersistentBean {
 	 * {@link #userloginid} accessor.
 	 * @return	The value.
 	 **/
-	public String getUserloginid() {
+	public UserLogin getUserloginid() {
 		return userloginid;
 	}
 
@@ -124,9 +125,11 @@ public class UserAddress extends AbstractPersistentBean {
 	 * @param userloginid	The new value.
 	 **/
 	@XmlElement
-	public void setUserloginid(String userloginid) {
-		preset(userloginidPropertyName, userloginid);
-		this.userloginid = userloginid;
+	public void setUserloginid(UserLogin userloginid) {
+		if (this.userloginid != userloginid) {
+			preset(userloginidPropertyName, userloginid);
+			this.userloginid = userloginid;
+		}
 	}
 
 	/**
