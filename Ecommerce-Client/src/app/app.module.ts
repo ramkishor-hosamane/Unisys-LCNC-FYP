@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +17,7 @@ import { NotFoundComponent } from './Components/shared/not-found/not-found.compo
 import { AlertComponent } from './Components/shared/alert/alert.component';
 import { CheckoutComponent } from './Components/checkout/checkout.component';
 import { ContactComponent } from './Components/contact/contact.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { ContactComponent } from './Components/contact/contact.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
