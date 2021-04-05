@@ -13,7 +13,7 @@ def load_json_file(path,expexted_data):
         return data[expexted_data]
 tables = ['Address','UserAddress','UserLogin','Product','Category','ProductCategoryMember',
           'ShoppingCartItem','ShoppingCart','OrderHeader','OrderItem']
-#tables = ['Address','UserAddress']
+tables = ['Product','Category','ProductCategoryMember']
 for table in tables:
   try:        
     data = load_json_file(table+'.json',table)

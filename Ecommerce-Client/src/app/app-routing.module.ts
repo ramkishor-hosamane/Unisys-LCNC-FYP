@@ -5,7 +5,7 @@ import { LoginComponent } from './Components/login/login.component';
 import { SignupComponent } from './Components/signup/signup.component';
 import { CartComponent } from './Components/cart/cart.component';
 import { ShopComponent } from './Components/shop/shop.component';
-//import { ProductComponent } from './Components/shop/product/product.component';
+import { ProductComponent } from './Components/shop/product/product.component';
 import { NotFoundComponent } from './Components/shared/not-found/not-found.component';
 import { CheckoutComponent } from './Components/checkout/checkout.component';
 import { ContactComponent } from './Components/contact/contact.component';
@@ -13,6 +13,8 @@ import { ContactComponent } from './Components/contact/contact.component';
 
 const routes: Routes = [
   { path :'' ,redirectTo:'/home',pathMatch:'full'},
+  { path :'shop/:categoryType' , component:ShopComponent},
+  { path :'products/:categoryType/:id' , component:ProductComponent},
   { path :'shop' , component:ShopComponent},
   { path :'home' , component:HomeComponent},
   { path :'signup' , component:SignupComponent},

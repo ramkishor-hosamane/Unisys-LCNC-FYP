@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  server_url:'http://localhost:8080/ecommerce/'
+  server_url:'http://localhost:8080/ecommerce/',
+  server_api_url:'http://localhost:8080/ecommerce/rest/json/'
+
 
 };
 

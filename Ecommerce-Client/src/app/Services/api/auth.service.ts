@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/Models/user';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
   
 })
 export class AuthService {
-  public insert_url = environment.server_url + 'rest/json/insert';
+  public insert_url = environment.server_api_url + 'insert';
+  public users_url = environment.server_api_url + 'user/UserLogin';
+  
   //insert_url is 'http://localhost:8080/ecommerce/rest/json/insert'
   
   //Basic authorization details
@@ -53,10 +56,11 @@ export class AuthService {
 
 
   //Api call for login
-  loginUser(user:User)
-  {
+  loginUser(): Observable<any>{
     console.log("Trying to login user")
-    console.log(user)
+    // console.log(user)
+    return this.http.get<any>(this.users_url,{headers:this.httpHeaders});
+  
   }
 
 
