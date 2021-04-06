@@ -154,14 +154,14 @@
                                 <!-- <div class="tag-sale">ON SALE</div> -->
                                 <img src="http://localhost:8080/ecommerce/content?_n={{product.productid.smallimg}}&_doc=product.Product&_b=smallimg&pfdrid_c=true" alt="..">
                                 <div class="pi-links">
-                                    <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO
+                                    <a (click)="updateCart(product)" class="add-card"><i class="flaticon-bag"></i><span>ADD TO
                                             CART</span></a>
                                     <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
                                 </div>
                             </div>
                             <div class="pi-text">
-                                <h6>{{product.productid.productprice}}</h6>
-                                <a>{{product.productid.productname}}</a>
+                                <h6>{{product.productid.productprice | currency:'INR'}}</h6>
+                                <a routerLink="/shop/{{product.categoryid.categoryname}}/{{product.productid.bizId}}" routerLinkActive="active"><p>{{product.productid.productname}}</p></a>
                             </div>
                         </div>
                     </div>

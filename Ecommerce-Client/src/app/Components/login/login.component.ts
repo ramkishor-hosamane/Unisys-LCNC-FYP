@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/Services/api/auth.service';
 
@@ -10,13 +11,24 @@ import { AuthService } from 'src/app/Services/api/auth.service';
 })
 export class LoginComponent implements OnInit {
     Users = []
+    current_user:any;
     //User object 
     userModel = new User();
-  constructor(private auth:AuthService,private router:Router) { }
+  constructor(private auth:AuthService,private router:Router,private local_st:LocalStorageService,private session_st:SessionStorageService) { 
+    this.auth.current_user_observer.subscribe(
+      data =>{
+        this.current_user = data;
+      }
+    )
+
+  }
 
   ngOnInit(): void {
   }
   onSubmitLoginForm() {
+
+
+
     var resp;
     this.auth.loginUser().subscribe(
       data => {
@@ -30,8 +42,10 @@ export class LoginComponent implements OnInit {
           if(obj['emailid'] == this.userModel.emailid && obj['password']==this.userModel.password)
           {
             console.log("Login succssful");
-            alert("Successfully logined");
+            //alert("Successfully logined");
             is_logined = true
+            this.session_st.store("username",obj)
+            this.auth.updateUserSession(obj)
             this.router.navigate(['/home']).then()
           }
       

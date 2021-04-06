@@ -23,7 +23,7 @@
 		</role>
 	</roles>
 	<menu>
-		<list document="ShoppingList" name="All ShoppingList">
+		<list document="ShoppingList" name="ShoppingList">
 			<role name="Maintainer" />
 		</list>
 		<list document="ShoppingListItem" name="ShoppingListItem">

@@ -23,10 +23,10 @@
 		</role>
 	</roles>
 	<menu>
-		<list document="ShoppingCart" name="All ShoppingCart">
+		<list document="ShoppingCart" name="ShoppingCart">
 			<role name="Maintainer" />
 		</list>
-		<list document="ShoppingCartItem" name="All ShoppingCartItem">
+		<list document="ShoppingCartItem" name="ShoppingCartItem">
 			<role name="Maintainer" />
 		</list>
 

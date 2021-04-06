@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/Models/user';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { SessionStorageService } from 'ngx-webstorage';
 @Injectable({
   providedIn: 'root'
   
@@ -10,7 +11,6 @@ import { Observable } from 'rxjs';
 export class AuthService {
   public insert_url = environment.server_api_url + 'insert';
   public users_url = environment.server_api_url + 'user/UserLogin';
-  
   //insert_url is 'http://localhost:8080/ecommerce/rest/json/insert'
   
   //Basic authorization details
@@ -24,7 +24,24 @@ export class AuthService {
 };
 
 
-  constructor(private http:HttpClient) { }
+
+
+  private current_user_source = new BehaviorSubject<User>(this.session_st.retrieve("username"));
+  current_user_observer = this.current_user_source.asObservable();  
+  current_user:any;
+  
+
+
+
+  constructor(private http:HttpClient,private session_st:SessionStorageService) { 
+
+    this.current_user_observer.subscribe(
+      data =>{
+        this.current_user = data;
+      }
+    )
+
+  }
 
   //Api call to insert new user
   registerNewUser(user:User)
@@ -62,6 +79,29 @@ export class AuthService {
     return this.http.get<any>(this.users_url,{headers:this.httpHeaders});
   
   }
+  
+  logOut(){
+    this.current_user=null;
+    this.updateUserSession(this.current_user);
 
+  }
+
+  updateUserSession(user:User){
+    this.current_user = user;
+    this.current_user_source.next(this.current_user);
+  }
+  isLogined(){
+    if(this.current_user==null || this.session_st.retrieve("username")==null)
+    {
+      return false;
+    }
+
+    //return this.current_user['emailid']!='';
+    // console.log("Observer loginis "+this.current_user['emailid'])
+    // console.log("Session loginis "+this.session_st.retrieve("username")['emailid'])
+
+    return this.session_st.retrieve("username")['emailid']!='';
+  }
+  
 
 }

@@ -21,9 +21,9 @@
 			<displayName>Product Id</displayName>
 			<documentName>Product</documentName>
 		</association>
-		<decimal2 name="quantity" required="true">
+		<integer name="quantity" required="true">
 			<displayName>Quantity</displayName>
-		</decimal2>
+		</integer>
 		
 		<decimal2 name="price" required="true">
 			<displayName>Price</displayName>

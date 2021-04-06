@@ -13,7 +13,7 @@
 			<length>20</length> </text>
 		<text name="emailid" required="true">
 			<displayName>Email ID</displayName>
-			<length>20</length>
+			<length>40</length>
 		</text>
 
 		<text name="mobileno" required="true">

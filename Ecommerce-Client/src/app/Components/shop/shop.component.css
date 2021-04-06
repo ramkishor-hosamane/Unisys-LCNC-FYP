@@ -1,3 +1,10 @@
 .pi-pic img{
     height: 400px;
 }
+
+.add-card
+{
+    cursor: pointer;
+}
+
+

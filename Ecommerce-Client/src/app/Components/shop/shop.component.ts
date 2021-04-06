@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from 'src/app/Services/api/cart.service';
 import { ProductService } from 'src/app/Services/api/product.service';
 
 @Component({
@@ -13,16 +14,17 @@ export class ShopComponent implements OnInit {
   public page : number=1;
   products:Array<any> = []
   public isloading=false;
-  constructor(private route:ActivatedRoute,private product_api:ProductService) { 
+  constructor(private route:ActivatedRoute,private product_api:ProductService,private router:Router,private cart_api:CartService) { 
 
-    console.log("COnstructor")
-  }
+    route.params.subscribe(val => {
+      this.categoryType = this.route.snapshot.paramMap.get('categoryType');
+      console.log(this.categoryType)
+      this.getProducts();
+    });
+    }
 
   ngOnInit(): void {
-    console.log("ngOnInit")
-    this.categoryType = this.route.snapshot.paramMap.get('categoryType');
-    console.log(this.categoryType)
-    this.getProducts();
+
   }
 
  
@@ -41,8 +43,11 @@ export class ShopComponent implements OnInit {
 
   }
 
-  // selectProduct(id:any)
-  // {
-  //   this.router.navigate(['/products/'+this.productType+'/',id]).then()
-  // }
+
+  updateCart(product:any)
+  {
+    this.cart_api.addCartItem(product);
+    console.log("added");
+  }
+
 }

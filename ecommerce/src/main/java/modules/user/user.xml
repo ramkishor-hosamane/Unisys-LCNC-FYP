@@ -22,13 +22,13 @@
 		</role>
 	</roles>
 	<menu>
-		<list document="UserLogin" name="All UserLogin">
+		<list document="UserLogin" name="UserLogin">
 			<role name="Maintainer" />
 		</list>
-		<list document="Address" name="All Address">
+		<list document="Address" name="Address">
 			<role name="Maintainer" />
 		</list>
-		<list document="UserAddress" name="All UserAddress">
+		<list document="UserAddress" name="UserAddress">
 			<role name="Maintainer" />
 		</list>
 	</menu>

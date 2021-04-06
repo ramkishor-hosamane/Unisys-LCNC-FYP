@@ -18,13 +18,13 @@
         </role>
     </roles>
     <menu>
-        <list document="Category" name="All Category">
+        <list document="Category" name="Category">
             <role name="Maintainer"/>
         </list>
-        <list document="Product" name="All Product">
+        <list document="Product" name="Product">
             <role name="Maintainer"/>
         </list>
-        <list document="ProductCategoryMember" name="All ProductCategoryMember">
+        <list document="ProductCategoryMember" name="ProductCategoryMember">
             <role name="Maintainer"/>
         </list>
     </menu>

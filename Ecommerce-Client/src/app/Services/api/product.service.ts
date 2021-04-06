@@ -8,7 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
 
-  public product_url = environment.server_api_url + 'product/ProductCategoryMember/';
+  public product_category_url = environment.server_api_url + 'product/ProductCategoryMember/';
+  public product_url = environment.server_api_url + 'product/Product/';
+
   //Basic authorization details
   authorizationData = 'Basic ' + btoa('setup' + ':' + 'setup');
   httpHeaders = new HttpHeaders({'Content-type':'application/json','Authorization': this.authorizationData});
@@ -21,14 +23,15 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   allProduct(): Observable<any> {
-    return this.http.get(this.product_url,{headers:this.httpHeaders})
+    return this.http.get(this.product_category_url,{headers:this.httpHeaders})
   }
   // addNewProduct(product_dto): Observable<any> {
   //   return this.apiService.post(this.product_url, product_dto);
   // }
 
   singleProduct(id:string) {
-    return this.http.get(this.product_url + id)
+    console.log("Getting")
+    return this.http.get(this.product_url + id,{headers:this.httpHeaders})
   }
   
 }

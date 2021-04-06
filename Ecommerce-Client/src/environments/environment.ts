@@ -2,11 +2,14 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { HttpHeaders } from "@angular/common/http";
+
 export const environment = {
   production: false,
   server_url:'http://localhost:8080/ecommerce/',
-  server_api_url:'http://localhost:8080/ecommerce/rest/json/'
-
+  server_api_url:'http://localhost:8080/ecommerce/rest/json/',
+  //Basic authorization details
+  httpHeaders : new HttpHeaders({'Content-type':'application/json','Authorization': 'Basic ' + btoa('setup' + ':' + 'setup')}),
 
 };
 

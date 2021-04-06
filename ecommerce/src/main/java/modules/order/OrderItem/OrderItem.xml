@@ -21,9 +21,9 @@
 			<displayName>Order Item Sequence Number</displayName>
 			<length>2</length>
 		</text>
-		<decimal2 name="quantity" required="true">
+		<integer name="quantity" required="true">
 			<displayName>Quantity</displayName>
-		</decimal2>
+		</integer>
 		<decimal2 name="unitprice" required="true">
 			<displayName>Unit Price</displayName>
 		</decimal2>

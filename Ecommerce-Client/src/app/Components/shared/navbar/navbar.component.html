@@ -18,12 +18,16 @@
             <div class="user-panel">
               <div class="up-item">
                 <i class="flaticon-profile"></i>
-                <a routerLink="/login" routerLinkActive="active">SignIn</a> or <a routerLink="/signup" routerLinkActive="active">Create Account</a>
+                <span *ngIf="!isLogined(); else elseBlock">
+                  <a routerLink="/login" routerLinkActive="active">SignIn</a> or <a routerLink="/signup" routerLinkActive="active">Create Account</a>
+                </span>
+                <ng-template #elseBlock>
+                  <a (click)="logout()" routerLink="/logout" routerLinkActive="active">{{current_user.emailid}}</a></ng-template>
               </div>
               <div class="up-item">
                 <div class="shopping-card">
                   <i class="flaticon-bag"></i>
-                  <span>0</span>
+                  <span>{{cart.length}}</span>
                 </div>
                 <a routerLink="/cart" routerLinkActive="active">Shopping Cart</a>
               </div>

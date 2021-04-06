@@ -23,9 +23,9 @@
 		<decimal2 name="productprice" required="true">
 			<displayName>Product Price</displayName>
 		</decimal2>
-		<decimal2 name="productstock" required="true">
+		<integer name="productstock" required="true">
 			<displayName>Product Stock</displayName>
-		</decimal2>
+		</integer>
 
 		<image name="smallimg">
 			<displayName>Small Image</displayName>

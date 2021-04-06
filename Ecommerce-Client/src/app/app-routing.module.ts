@@ -14,11 +14,13 @@ import { ContactComponent } from './Components/contact/contact.component';
 const routes: Routes = [
   { path :'' ,redirectTo:'/home',pathMatch:'full'},
   { path :'shop/:categoryType' , component:ShopComponent},
-  { path :'products/:categoryType/:id' , component:ProductComponent},
+  { path :'shop/:categoryType/:id' , component:ProductComponent},
   { path :'shop' , component:ShopComponent},
   { path :'home' , component:HomeComponent},
   { path :'signup' , component:SignupComponent},
   { path :'login' , component:LoginComponent},
+  { path :'logout' , component:HomeComponent},
+
   { path :'cart' , component:CartComponent},
   { path :'checkout' , component:CheckoutComponent},
   { path :'contact' , component:ContactComponent},
