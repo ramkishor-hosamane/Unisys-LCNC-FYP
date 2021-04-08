@@ -13,14 +13,14 @@
 		<association type="aggregation" name="userlogin"
 			required="true">
 			<displayName>User Login</displayName>
-			<documentName>UserAddress</documentName>
+			<documentName>UserLogin</documentName>
 		</association>
 		
-		<decimal2 name="subtotal" required="true">
+		<integer name="subtotal" required="true">
 			<displayName>Sub Total</displayName>
-		</decimal2>
-		<decimal2 name="grandtotal" required="true">
+		</integer>
+		<integer name="grandtotal" required="true">
 			<displayName>Grand Total</displayName>
-		</decimal2>
+		</integer>
 	</attributes>
 </document>

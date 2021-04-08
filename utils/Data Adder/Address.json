@@ -1,38 +1,3 @@
 {
-    "Address": [
-        {
-            "bizModule": "user",
-            "bizDocument": "Address",
-            "addressid": "100",
-            "address1": "PSN Appartment",
-            "address2": "Whitfield",
-            "city": "Bangalore",
-            "state": "Karnataka",
-            "zipcode": "560048",
-            "country": "India",
-            "createdstamp": "",
-            "updatedstamp": "",
-            "bizId": "00eba478-6346-4e64-87d1-32972315ee03",
-            "bizCustomer": "unisys",
-            "bizDataGroupId": null,
-            "bizUserId": "6d8fed1b-21a1-43ba-8709-4d88ed42e2f8"
-        },
-        {
-            "bizModule": "user",
-            "bizDocument": "Address",
-            "addressid": "101",
-            "address1": "2101",
-            "address2": "Rajajinagar",
-            "city": "Bangalore",
-            "state": "Karnataka",
-            "zipcode": "560010",
-            "country": "India",
-            "createdstamp": "",
-            "updatedstamp": "",
-            "bizId": "a009b191-f72f-4f82-8505-0b9aacb9ac10",
-            "bizCustomer": "unisys",
-            "bizDataGroupId": null,
-            "bizUserId": "6d8fed1b-21a1-43ba-8709-4d88ed42e2f8"
-        }
-    ]
+    "Address": [{"bizModule":"user","bizDocument":"Address","addressid":"A1","address1":"2101","address2":"Rajajinagar","city":"Bangalore","state":"Karnataka","zipcode":"560010","country":"India","createdstamp":"","updatedstamp":"","bizId":"760e6c05-fd5a-456f-907e-4d3b3cc2ca9f","bizCustomer":"unisys","bizDataGroupId":null,"bizUserId":"216fa01c-6644-4884-a5fe-9cd05179f542"},{"bizModule":"user","bizDocument":"Address","addressid":"A2","address1":"PSN","address2":"Whitefield","city":"Bangalore","state":"Karnataka","zipcode":"560048","country":"India","createdstamp":"","updatedstamp":"","bizId":"8f17bc7e-711a-4c53-aeb5-d17faeeb8baa","bizCustomer":"unisys","bizDataGroupId":null,"bizUserId":"216fa01c-6644-4884-a5fe-9cd05179f542"}]
 }

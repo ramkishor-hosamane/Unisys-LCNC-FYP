@@ -21,8 +21,9 @@
                                 <tr>
                                     <th class="product-th">Product</th>
                                     <th class="quy-th">Quantity</th>
-                                    <th class="size-th">SizeSize</th>
                                     <th class="total-th">Price</th>
+                                    <!-- <th class="size-th"></th> -->
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,12 +45,13 @@
                                         </div>
                                         </td>
 
-                                    <td class="size-col">
-                                        <h4>Size M</h4>
-                                    </td>
+
                                     <td class="total-col">
                                         <h4>{{product.quantity * product.productid.productprice | currency:'INR'}}</h4>
                                     </td>
+                                    <!-- <td class="size-col">
+                                        <a href="#" class="site-btn sb-white remove-btn">Remove</a> 
+                                    </td> -->
                                 </tr>
 
                             </tbody>

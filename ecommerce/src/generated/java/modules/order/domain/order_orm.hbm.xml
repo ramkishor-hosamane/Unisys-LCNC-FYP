@@ -21,7 +21,7 @@
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
 		<property name="orderid" length="10" />
-		<many-to-one name="userloginid" entity-name="userUserAddress" column="userloginid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_OrderHeader_userloginid"/>
+		<many-to-one name="userloginid" entity-name="userUserLogin" column="userloginid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_OrderHeader_userloginid"/>
 		<property name="subtotal" type="Decimal2" precision="20" scale="2" />
 		<property name="grandtotal" type="Decimal2" precision="20" scale="2" />
 		<many-to-one name="addressid" entity-name="userAddress" column="addressid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_OrderHeader_addressid"/>
@@ -46,8 +46,8 @@
 		<property name="orderitemid" length="10" />
 		<many-to-one name="orderid" entity-name="orderOrderHeader" column="orderid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_OrderItem_orderid"/>
 		<property name="orderitemseqnum" length="2" />
-		<property name="quantity" type="Decimal2" precision="20" scale="2" />
-		<property name="unitprice" type="Decimal2" precision="20" scale="2" />
+		<property name="quantity" />
+		<property name="unitprice" />
 		<property name="createdstamp" type="DateTime" />
 		<property name="updatedstamp" type="DateTime" />
 		<filter name="orderOrderItemNoneFilter" condition="1=0"/>

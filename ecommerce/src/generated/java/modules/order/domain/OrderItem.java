@@ -9,10 +9,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateTime;
-import org.skyve.domain.types.Decimal2;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
-import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 
 /**
  * OrderItem
@@ -64,11 +62,11 @@ public class OrderItem extends AbstractPersistentBean {
 	/**
 	 * Quantity
 	 **/
-	private Decimal2 quantity;
+	private Integer quantity;
 	/**
 	 * Unit Price
 	 **/
-	private Decimal2 unitprice;
+	private Integer unitprice;
 	/**
 	 * Created timestamp
 	 **/
@@ -179,7 +177,7 @@ public class OrderItem extends AbstractPersistentBean {
 	 * {@link #quantity} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal2 getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
@@ -187,9 +185,8 @@ public class OrderItem extends AbstractPersistentBean {
 	 * {@link #quantity} mutator.
 	 * @param quantity	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setQuantity(Decimal2 quantity) {
+	public void setQuantity(Integer quantity) {
 		preset(quantityPropertyName, quantity);
 		this.quantity = quantity;
 	}
@@ -198,7 +195,7 @@ public class OrderItem extends AbstractPersistentBean {
 	 * {@link #unitprice} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal2 getUnitprice() {
+	public Integer getUnitprice() {
 		return unitprice;
 	}
 
@@ -206,9 +203,8 @@ public class OrderItem extends AbstractPersistentBean {
 	 * {@link #unitprice} mutator.
 	 * @param unitprice	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setUnitprice(Decimal2 unitprice) {
+	public void setUnitprice(Integer unitprice) {
 		preset(unitpricePropertyName, unitprice);
 		this.unitprice = unitprice;
 	}

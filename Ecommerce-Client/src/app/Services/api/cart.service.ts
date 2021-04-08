@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-
+import {Utils} from './../../utils';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +31,9 @@ export class CartService {
 
     //Get User Cart
     if (this.auth.isLogined()) {
+      console.log("Getting usercart")
       this.getUserCart();
+      
 
     }
 
@@ -47,8 +49,10 @@ export class CartService {
   current_user: any;
 
   cart_url = environment.server_api_url + 'cart/ShoppingCart';
+  cart_item_url = environment.server_api_url + 'cart/ShoppingCartItem';
   public insert_url = environment.server_api_url + 'insert';
   public update_url = environment.server_api_url + 'update';
+  public delete_url = environment.server_api_url + 'delete';
 
   user_cart: any;
 
@@ -56,23 +60,54 @@ export class CartService {
   getAllCarts(): Observable<any> {
     return this.http.get(this.cart_url, { headers: environment.httpHeaders })
   }
-
+  getAllCartItems(): Observable<any> {
+    return this.http.get(this.cart_item_url, { headers: environment.httpHeaders })
+  }
 
   getUserCart() {
     this.getAllCarts().subscribe(
       data => {
 
         for (var obj of data) {
-          // console.log("Obj is",obj['userlogin']['userloginid']['emailid'])
+          console.log("Obj is",obj['userlogin']['emailid'])
+          console.log(this.current_user['emailid'])
+
+          // console.log("Checking "+this.userModel.emailid +" and "+obj['emailid'])
+          // console.log("Checking "+this.userModel.password +" and "+obj['password'])
+          if (obj['userlogin']['emailid'] == this.current_user['emailid']) {
+            this.user_cart = obj;
+             console.log("Cart is there");
+             break;
+            //alert("Successfully logined");
+          }
+
+        }
+        this.getUserCartItems();
+
+
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+  getUserCartItems(){
+    this.getAllCartItems().subscribe(
+      data => {
+
+        for (var obj of data) {
+          // console.log("Obj is",obj['userlogin']['emailid'])
           // console.log(this.current_user['emailid'])
 
           // console.log("Checking "+this.userModel.emailid +" and "+obj['emailid'])
           // console.log("Checking "+this.userModel.password +" and "+obj['password'])
-          if (obj['userlogin']['userloginid']['emailid'] == this.current_user['emailid']) {
-            this.user_cart = obj;
-            // console.log("Cart is there");
-            //alert("Successfully logined");
-          }
+          if (obj['cartid']['cartid'] == this.user_cart['cartid']) {
+             console.log("CartItem is there",obj);
+             this.cart.push(obj)
+             this.cart_total+= parseInt(obj['price']);
+
+             this.updateCartSource(this.cart,this.cart_total);
+            }
 
         }
 
@@ -83,7 +118,6 @@ export class CartService {
       }
     )
   }
-
   addCartItem(product: any) {
     //console.log(product)
 
@@ -94,34 +128,51 @@ export class CartService {
       // console.log("Product is there price is "+parseInt(this.cart[i]['productid']['productprice']))
       // console.log(this.cart_total)
     
+
+      this.cart[i]['quantity'] = parseInt(this.cart[i]['quantity']) + 1;
+      this.cart_total += parseInt(this.cart[i]['productid']['productprice']);
       if (this.auth.isLogined()) {
-        console.log("Yes this User logined")
-        this.updateUserCart(product)
+        console.log("Yes this User logined and updated")
+        this.updateUserCart(this.cart[i]).subscribe(
+          data => console.log('Success!',data),
+          error => console.error('!error',error)
+        )
   
       }
-    
-      this.cart[i]['quantity'] += 1;
-      this.cart_total += parseInt(this.cart[i]['productid']['productprice']);
+
 
     }
     else {
-
-    if (this.auth.isLogined()) {
-      console.log("Yes this User logined")
-      this.insertUserCart(product)
-
-    }
       product['quantity'] = 1;
+      product['cartitemid'] = "CI"+(this.cart.length+1);
       this.cart.push(product);
       this.cart_total += parseInt(product['productid']['productprice']);
+    if (this.auth.isLogined()) {
+      console.log("Yes this User logined")
+      this.insertUserCart(product).subscribe(
+        data => {
+          console.log('Success!',data)
+          this.cart[this.cart.indexOf(product)]["bizId"] = data["bizId"];
+        },
+        error => console.error('!error',error)
+      )
+
+    }
+
+
     }
 
 
 
+    this.updateCartSource(this.cart,this.cart_total);
 
 
-    this.cart_total_source.next(this.cart_total)
-    this.cart_source.next(this.cart)
+  }
+
+
+  updateCartSource(cart:any,cart_total:any){
+    this.cart_total_source.next(cart_total)
+    this.cart_source.next(cart)
   }
 
   isInCart(product: any) {
@@ -136,108 +187,173 @@ export class CartService {
 
   updateUserCart(cart_item: any) {
 
-  }
-  insertUserCart(cart_item: any) {
-    console.log("Inside")
-    console.log(cart_item['productid'])
-    console.log(this.user_cart)
+  //   console.log("Inside")
+  //   console.log()
+  //   console.log(cart_item)
+  //   console.log("Outside")
+
+  //   console.log()
+  //  console.log(cart_item['productid'])
+
+   this.user_cart["bizLock"]= "20210407153447577setup";
+  //  console.log(this.user_cart)
+
+   //return new Observable()
+   let prod = Utils.makeJsonObject(cart_item['productid'])
+   //prod["bizLock"]="20210407150543853setup";
    let data = {
+     "bizModule": "cart",
+     "bizDocument": "ShoppingCartItem",
+     "bizId":cart_item["bizId"],
+
+     "cartitemid": cart_item["cartitemid"],
+     "cartid": {
+       "bizModule": "cart",
+       "bizDocument": "ShoppingCart",
+       "cartid": this.user_cart["cartid"],
+       "userlogin": Utils.makeJsonObject(this.user_cart["userlogin"]),
+       "subtotal": this.user_cart["subtotal"],
+       "grandtotal": this.user_cart["grandtotal"],
+       "bizId": "943b1096-ed84-4f24-80cf-71d96584f8cb",
+       "bizCustomer": "unisys",
+       "bizDataGroupId": null,
+       "bizUserId":this.user_cart["bizUserId"],
+       "bizVersion": 0,
+       "bizLock": this.user_cart["bizLock"]
+     },
+     "productid": prod,
+     "quantity": cart_item['quantity'],
+     "price":cart_item['productid']['productprice'] * cart_item['quantity'],
+     "bizCustomer": "unisys",
+     "bizDataGroupId": null,
+     "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
+   }
+       //Make http rest api call    
+   // console.log("Updating in ",this.insert_url)
+   return this.http.post<any>(this.update_url, data, { headers: environment.httpHeaders });
+
+
+
+
+  }
+
+
+  insertUserCart(cart_item: any) {
+    //  console.log("Inside")
+    //  console.log()
+    // console.log(cart_item['productid'])
+    this.user_cart["bizLock"]= "20210407153447577setup";
+    // console.log(this.user_cart)
+
+    //return new Observable()
+    let prod = Utils.makeJsonObject(cart_item['productid'])
+    //prod["bizLock"]="20210407150543853setup";
+    let data = {
       "bizModule": "cart",
       "bizDocument": "ShoppingCartItem",
-      "cartitemid": "CI3",
+      "cartitemid": cart_item["cartitemid"],
       "cartid": {
         "bizModule": "cart",
         "bizDocument": "ShoppingCart",
-        "cartid": "C1",
-        "userlogin": {
-            "bizModule": "user",
-            "bizDocument": "UserAddress",
-            "userloginid": {
-                "bizModule": "user",
-                "bizDocument": "UserLogin",
-                "userloginid": "Akanksha",
-                "emailid": "ak@gmail.com",
-                "mobileno": "9035416604",
-                "gender": " ",
-                "firstname": " ",
-                "lastname": " ",
-                "password": "123",
-                "confirmpassword": "123",
-                "isenabled": true,
-                "createdstamp": "",
-                "updatedstamp": "",
-                "bizId": "c254662e-969e-4698-bb08-b4e6f7db0a92",
-                "bizCustomer": "unisys",
-                "bizDataGroupId": null,
-                "bizUserId": "216fa01c-6644-4884-a5fe-9cd05179f542",
-                "bizVersion": 0,
-                "bizLock": "20210406100323209setup"
-            },
-            "addressid": {
-                "bizModule": "user",
-                "bizDocument": "Address",
-                "addressid": "A1",
-                "address1": "2101",
-                "address2": "Rajajinagar",
-                "city": "Bangalore",
-                "state": "Karnataka",
-                "zipcode": "560010",
-                "country": "India",
-                "createdstamp": "",
-                "updatedstamp": "",
-                "bizId": "760e6c05-fd5a-456f-907e-4d3b3cc2ca9f",
-                "bizCustomer": "unisys",
-                "bizDataGroupId": null,
-                "bizUserId": "216fa01c-6644-4884-a5fe-9cd05179f542",
-                "bizVersion": 0,
-                "bizLock": "20210406102738340setup"
-            },
-            "sequenceno": "1",
-            "addresstype": "Home",
-            "createdstamp": "",
-            "updatedstamp": "",
-            "bizId": "46027133-6fa2-432a-b5ac-cbff0edf15a3",
-            "bizCustomer": "unisys",
-            "bizDataGroupId": null,
-            "bizUserId": "216fa01c-6644-4884-a5fe-9cd05179f542",
-            "bizVersion": 0,
-            "bizLock": "20210406102818020setup"
-        },
-        "subtotal": "0.00",
-        "grandtotal": "0.00",
-        "bizId": "3bac345d-3ba9-4f58-9870-cc2f0ad6e692",
+        "cartid": this.user_cart["cartid"],
+        "userlogin": Utils.makeJsonObject(this.user_cart["userlogin"]),
+        "subtotal": this.user_cart["subtotal"],
+        "grandtotal": this.user_cart["grandtotal"],
+        "bizId": "943b1096-ed84-4f24-80cf-71d96584f8cb",
         "bizCustomer": "unisys",
         "bizDataGroupId": null,
-        "bizUserId": "216fa01c-6644-4884-a5fe-9cd05179f542",
+        "bizUserId":this.user_cart["bizUserId"],
         "bizVersion": 0,
-        "bizLock": "20210406175219507setup"
-    },
-    "productid": {
-        "bizModule": "product",
-        "bizDocument": "Product",
-        "productid": "P10",
-        "productname": "White formal shirt",
-        "productprice": "600.00",
-        "productstock": "10.00",
-        "smallimg": "9dca511a-ce06-49ff-a9a6-c794e850667b",
-        "largeimg": "",
-        "description": "White and black strip formal shirt",
-        "bizId": "224684d7-8618-484b-8355-e701e0d3631f",
-        "bizCustomer": "unisys",
-        "bizDataGroupId": null,
-        "bizUserId": "216fa01c-6644-4884-a5fe-9cd05179f542",
-        "bizVersion": 0,
-        "bizLock": "20210406100839923setup"
-    },
-      "quantity": "1.00",
-      "price": "2.00",
+        "bizLock": this.user_cart["bizLock"]
+      },
+      "productid": prod,
+      "quantity": 1,
+      "price":cart_item['productid']['productprice'],
       "bizCustomer": "unisys",
       "bizDataGroupId": null,
-      "bizUserId": "216fa01c-6644-4884-a5fe-9cd05179f542"
+      "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
     }
-    //Make http rest api call    
-    console.log("Putting in ",this.insert_url)
+        //Make http rest api call    
+    // console.log("Putting in ",this.insert_url)
     return this.http.put<any>(this.insert_url, data, { headers: environment.httpHeaders });
   }
 
+  deleteUserCart(cart_item: any) {
+    //  console.log("Inside")
+    //  console.log()
+    // console.log(cart_item['productid'])
+    this.user_cart["bizLock"]= "20210407153447577setup";
+    // console.log(this.user_cart)
+
+    //return new Observable()
+    let prod = Utils.makeJsonObject(cart_item['productid'])
+    //prod["bizLock"]="20210407150543853setup";
+    let data = {
+      "bizModule": "cart",
+      "bizDocument": "ShoppingCartItem",
+      "bizId":cart_item["bizId"],
+
+      "bizCustomer": "unisys",
+      "bizDataGroupId": null,
+      "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
+    }
+        //Make http rest api call    
+    // console.log("Putting in ",this.insert_url)
+    return this.http.request<any>('delete',this.delete_url,{headers: environment.httpHeaders,body:data});
+  }
+  removeCartItem(i:number){
+    if(this.auth.isLogined())
+    {
+
+      if(this.auth.isLogined())
+      {
+        this.deleteUserCart(this.cart[i]).subscribe(
+          data => console.log('Success!',data),
+          error => console.error('!error',error)
+        )
+   
+      }
+      
+    }
+    this.cart.splice(i,1)
+
+  }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* let prod={
+      "bizModule": "product",
+      "bizDocument": "Product",
+      "productid": cart_item['productid']["productid"],
+      "productname": cart_item['productid']["productname"],
+      "productprice": cart_item['productid']["productprice"],
+      "productstock": cart_item['productid']["productstock"],
+      "smallimg": cart_item['productid']["smallimg"],
+      "largeimg": cart_item['productid']["largeimg"],
+      "description": cart_item['productid']["description"],
+      "bizId": cart_item['productid']["bizId"],
+      "bizCustomer": "unisys",
+      "bizDataGroupId": null,
+      "bizUserId": cart_item['productid']["bizUserId"],
+      "bizVersion": cart_item['productid']["bizVersion"],
+      "bizLock": "20210407150543853setup"
+    }
+     */

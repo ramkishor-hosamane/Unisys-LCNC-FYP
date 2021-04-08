@@ -8,7 +8,7 @@
 	<documents>
 		<document ref="ShoppingList" />
 		<document ref="ShoppingListItem" />
-		<document ref="UserAddress" moduleRef="user" />
+		<document ref="UserLogin" moduleRef="user" />
 		<document ref="Product" moduleRef="product" />
 		<document ref="Category" moduleRef="product" />
 

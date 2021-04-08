@@ -25,9 +25,9 @@
 			<displayName>Quantity</displayName>
 		</integer>
 		
-		<decimal2 name="price" required="true">
+		<integer name="price" required="true">
 			<displayName>Price</displayName>
-		</decimal2>
+		</integer>
 		
 
 	</attributes>

@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import modules.user.domain.UserAddress;
+import modules.user.domain.UserLogin;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractPersistentBean;
@@ -12,7 +12,7 @@ import org.skyve.impl.domain.AbstractPersistentBean;
 /**
  * ShoppingList
  * 
- * @navhas n userlogin 1 UserAddress
+ * @navhas n userlogin 1 UserLogin
  * @stereotype "persistent"
  */
 @XmlType
@@ -43,7 +43,7 @@ public class ShoppingList extends AbstractPersistentBean {
 	/**
 	 * User Login
 	 **/
-	private UserAddress userlogin = null;
+	private UserLogin userlogin = null;
 	/**
 	 * Type
 	 **/
@@ -112,7 +112,7 @@ public class ShoppingList extends AbstractPersistentBean {
 	 * {@link #userlogin} accessor.
 	 * @return	The value.
 	 **/
-	public UserAddress getUserlogin() {
+	public UserLogin getUserlogin() {
 		return userlogin;
 	}
 
@@ -121,7 +121,7 @@ public class ShoppingList extends AbstractPersistentBean {
 	 * @param userlogin	The new value.
 	 **/
 	@XmlElement
-	public void setUserlogin(UserAddress userlogin) {
+	public void setUserlogin(UserLogin userlogin) {
 		if (this.userlogin != userlogin) {
 			preset(userloginPropertyName, userlogin);
 			this.userlogin = userlogin;

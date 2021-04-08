@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import modules.user.domain.Address;
-import modules.user.domain.UserAddress;
+import modules.user.domain.UserLogin;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateTime;
@@ -19,7 +19,7 @@ import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 /**
  * OrderHeader
  * 
- * @navhas n userloginid 1 UserAddress
+ * @navhas n userloginid 1 UserLogin
  * @navhas n addressid 1 Address
  * @stereotype "persistent"
  */
@@ -61,7 +61,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	/**
 	 * User Login Id
 	 **/
-	private UserAddress userloginid = null;
+	private UserLogin userloginid = null;
 	/**
 	 * Sub Total
 	 **/
@@ -150,7 +150,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * {@link #userloginid} accessor.
 	 * @return	The value.
 	 **/
-	public UserAddress getUserloginid() {
+	public UserLogin getUserloginid() {
 		return userloginid;
 	}
 
@@ -159,7 +159,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * @param userloginid	The new value.
 	 **/
 	@XmlElement
-	public void setUserloginid(UserAddress userloginid) {
+	public void setUserloginid(UserLogin userloginid) {
 		if (this.userloginid != userloginid) {
 			preset(userloginidPropertyName, userloginid);
 			this.userloginid = userloginid;

@@ -21,18 +21,18 @@
 			<length>10</length>
 		</text>
 
-		<text name="gender" required="true">
+		<text name="gender" >
 			<displayName>Gender</displayName>
 			<length>10</length>
 		</text>
-		<text name="firstname" required="true">
+		<text name="firstname">
 			<displayName>First Name</displayName>
 			<length>20</length>
 		</text>
 
 
 
-		<text name="lastname" required="true">
+		<text name="lastname">
 			<displayName>Last Name</displayName>
 			<length>20</length>
 		</text>

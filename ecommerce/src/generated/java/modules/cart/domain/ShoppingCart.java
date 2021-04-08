@@ -4,18 +4,15 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import modules.user.domain.UserAddress;
+import modules.user.domain.UserLogin;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
-import org.skyve.domain.types.Decimal2;
 import org.skyve.impl.domain.AbstractPersistentBean;
-import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 
 /**
  * ShoppingCart
  * 
- * @navhas n userlogin 1 UserAddress
+ * @navhas n userlogin 1 UserLogin
  * @stereotype "persistent"
  */
 @XmlType
@@ -48,15 +45,15 @@ public class ShoppingCart extends AbstractPersistentBean {
 	/**
 	 * User Login
 	 **/
-	private UserAddress userlogin = null;
+	private UserLogin userlogin = null;
 	/**
 	 * Sub Total
 	 **/
-	private Decimal2 subtotal;
+	private Integer subtotal;
 	/**
 	 * Grand Total
 	 **/
-	private Decimal2 grandtotal;
+	private Integer grandtotal;
 
 	@Override
 	@XmlTransient
@@ -121,7 +118,7 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 * {@link #userlogin} accessor.
 	 * @return	The value.
 	 **/
-	public UserAddress getUserlogin() {
+	public UserLogin getUserlogin() {
 		return userlogin;
 	}
 
@@ -130,7 +127,7 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 * @param userlogin	The new value.
 	 **/
 	@XmlElement
-	public void setUserlogin(UserAddress userlogin) {
+	public void setUserlogin(UserLogin userlogin) {
 		if (this.userlogin != userlogin) {
 			preset(userloginPropertyName, userlogin);
 			this.userlogin = userlogin;
@@ -141,7 +138,7 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 * {@link #subtotal} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal2 getSubtotal() {
+	public Integer getSubtotal() {
 		return subtotal;
 	}
 
@@ -149,9 +146,8 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 * {@link #subtotal} mutator.
 	 * @param subtotal	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setSubtotal(Decimal2 subtotal) {
+	public void setSubtotal(Integer subtotal) {
 		preset(subtotalPropertyName, subtotal);
 		this.subtotal = subtotal;
 	}
@@ -160,7 +156,7 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 * {@link #grandtotal} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal2 getGrandtotal() {
+	public Integer getGrandtotal() {
 		return grandtotal;
 	}
 
@@ -168,9 +164,8 @@ public class ShoppingCart extends AbstractPersistentBean {
 	 * {@link #grandtotal} mutator.
 	 * @param grandtotal	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setGrandtotal(Decimal2 grandtotal) {
+	public void setGrandtotal(Integer grandtotal) {
 		preset(grandtotalPropertyName, grandtotal);
 		this.grandtotal = grandtotal;
 	}

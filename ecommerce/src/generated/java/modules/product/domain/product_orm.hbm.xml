@@ -40,8 +40,8 @@
 		<property name="bizUserId" length="36" not-null="true" />
 		<property name="productid" length="10" />
 		<property name="productname" length="50" />
-		<property name="productprice" type="Decimal2" precision="20" scale="2" />
-		<property name="productstock" type="Decimal2" precision="20" scale="2" />
+		<property name="productprice" />
+		<property name="productstock" />
 		<property name="smallimg" length="36" />
 		<property name="largeimg" length="36" />
 		<property name="description" length="50" />

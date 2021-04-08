@@ -152,3 +152,31 @@
         }
     ]
 }
+
+
+
+
+
+
+
+
+
+
+
+{
+    "bizModule": "product",
+    "bizDocument": "Product",
+    "productid": cart_item['productid']["productid"],
+    "productname": cart_item['productid']["productname"],
+    "productprice": cart_item['productid']["productprice"],
+    "productstock": cart_item['productid']["productstock"],
+    "smallimg": cart_item['productid']["smallimg"],
+    "largeimg": cart_item['productid']["largeimg"],
+    "description": cart_item['productid']["description"],
+    "bizId": cart_item['productid']["bizId"],
+    "bizCustomer": "unisys",
+    "bizDataGroupId": null,
+    "bizUserId": cart_item['productid']["bizUserId"],
+    "bizVersion": 0,
+    "bizLock": "20210407150543853setup"
+  }

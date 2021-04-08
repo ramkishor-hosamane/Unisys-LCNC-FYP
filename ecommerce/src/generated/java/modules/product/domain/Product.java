@@ -4,12 +4,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
-import org.skyve.domain.types.Decimal2;
 import org.skyve.impl.domain.AbstractPersistentBean;
-import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 
 /**
  * Product
@@ -56,11 +53,11 @@ public class Product extends AbstractPersistentBean {
 	/**
 	 * Product Price
 	 **/
-	private Decimal2 productprice;
+	private Integer productprice;
 	/**
 	 * Product Stock
 	 **/
-	private Decimal2 productstock;
+	private Integer productstock;
 	/**
 	 * Small Image
 	 **/
@@ -155,7 +152,7 @@ public class Product extends AbstractPersistentBean {
 	 * {@link #productprice} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal2 getProductprice() {
+	public Integer getProductprice() {
 		return productprice;
 	}
 
@@ -163,9 +160,8 @@ public class Product extends AbstractPersistentBean {
 	 * {@link #productprice} mutator.
 	 * @param productprice	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setProductprice(Decimal2 productprice) {
+	public void setProductprice(Integer productprice) {
 		preset(productpricePropertyName, productprice);
 		this.productprice = productprice;
 	}
@@ -174,7 +170,7 @@ public class Product extends AbstractPersistentBean {
 	 * {@link #productstock} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal2 getProductstock() {
+	public Integer getProductstock() {
 		return productstock;
 	}
 
@@ -182,9 +178,8 @@ public class Product extends AbstractPersistentBean {
 	 * {@link #productstock} mutator.
 	 * @param productstock	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
-	public void setProductstock(Decimal2 productstock) {
+	public void setProductstock(Integer productstock) {
 		preset(productstockPropertyName, productstock);
 		this.productstock = productstock;
 	}

@@ -21,9 +21,9 @@
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
 		<property name="cartid" length="10" />
-		<many-to-one name="userlogin" entity-name="userUserAddress" column="userlogin_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingCart_userlogin"/>
-		<property name="subtotal" type="Decimal2" precision="20" scale="2" />
-		<property name="grandtotal" type="Decimal2" precision="20" scale="2" />
+		<many-to-one name="userlogin" entity-name="userUserLogin" column="userlogin_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingCart_userlogin"/>
+		<property name="subtotal" />
+		<property name="grandtotal" />
 		<filter name="cartShoppingCartNoneFilter" condition="1=0"/>
 		<filter name="cartShoppingCartCustomerFilter" condition="bizCustomer=:customerParam"/>
 		<filter name="cartShoppingCartDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
@@ -42,8 +42,8 @@
 		<property name="cartitemid" length="10" />
 		<many-to-one name="cartid" entity-name="cartShoppingCart" column="cartid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingCartItem_cartid"/>
 		<many-to-one name="productid" entity-name="productProduct" column="productid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingCartItem_productid"/>
-		<property name="quantity" type="Decimal2" precision="20" scale="2" />
-		<property name="price" type="Decimal2" precision="20" scale="2" />
+		<property name="quantity" />
+		<property name="price" />
 		<filter name="cartShoppingCartItemNoneFilter" condition="1=0"/>
 		<filter name="cartShoppingCartItemCustomerFilter" condition="bizCustomer=:customerParam"/>
 		<filter name="cartShoppingCartItemDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>

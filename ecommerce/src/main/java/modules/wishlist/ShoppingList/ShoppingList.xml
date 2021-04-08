@@ -14,7 +14,7 @@
 		<association type="aggregation" name="userlogin"
 			required="true">
 			<displayName>User Login</displayName>
-			<documentName>UserAddress</documentName>
+			<documentName>UserLogin</documentName>
 		</association>
 		
 		<text name="type" required="true">

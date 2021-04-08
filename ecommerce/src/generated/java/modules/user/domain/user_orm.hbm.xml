@@ -66,7 +66,7 @@
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
 		<property name="userloginid" length="20" />
-		<property name="emailid" length="20" />
+		<property name="emailid" length="40" />
 		<property name="mobileno" length="10" />
 		<property name="gender" length="10" />
 		<property name="firstname" length="20" />

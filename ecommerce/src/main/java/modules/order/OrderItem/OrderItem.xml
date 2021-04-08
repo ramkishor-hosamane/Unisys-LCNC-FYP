@@ -24,9 +24,9 @@
 		<integer name="quantity" required="true">
 			<displayName>Quantity</displayName>
 		</integer>
-		<decimal2 name="unitprice" required="true">
+		<integer name="unitprice" required="true">
 			<displayName>Unit Price</displayName>
-		</decimal2>
+		</integer>
 
 
 		<dateTime name="createdstamp">

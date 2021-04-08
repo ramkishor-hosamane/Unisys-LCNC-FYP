@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from 'src/app/Services/api/auth.service';
 import { CartService } from 'src/app/Services/api/cart.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { CartService } from 'src/app/Services/api/cart.service';
 export class CartComponent implements OnInit {
   cart:any;
   cart_total:any=0;
-  constructor(private cart_api:CartService) { }
+  constructor(private cart_api:CartService,private auth:AuthService) { }
 
   ngOnInit(): void {
     this.cart_api.cart_observer.subscribe(
@@ -29,20 +30,44 @@ export class CartComponent implements OnInit {
 
   increaseQuantity(i:number)
   {
-    this.cart[i]['quantity']+=1;
+    this.cart[i]['quantity'] = parseInt(this.cart[i]['quantity']) + 1;
     this.cart_total+= parseInt(this.cart[i]['productid']['productprice']);
+    if (this.auth.isLogined()) {
+      console.log("Yes this User logined and updated")
+      this.cart_api.updateUserCart(this.cart[i]).subscribe(
+        data => console.log('Success!',data),
+        error => console.error('!error',error)
+      )
+
+    }
+
+    this.cart_api.updateCartSource(this.cart,this.cart_total);
 
   }
   decreaseQuantity(i:number){
-    this.cart[i]['quantity']-=1;
+    this.cart[i]['quantity'] = parseInt(this.cart[i]['quantity']) - 1;
     this.cart_total-= parseInt(this.cart[i]['productid']['productprice']);
-
     if(this.cart[i]['quantity']==0)
-      this.removeProduct(i)
+      {
+        this.cart_api.removeCartItem(i)
+        
+    }
+    else
+    {
+      if(this.auth.isLogined())
+      {
+        this.cart_api.updateUserCart(this.cart[i]).subscribe(
+          data => console.log('Success!',data),
+          error => console.error('!error',error)
+        )
+   
+      }
+  
+    }
+    
+    this.cart_api.updateCartSource(this.cart,this.cart_total);
 
   }
 
-  removeProduct(i:number){
-    this.cart.splice(i,1)
-  }
+
 }

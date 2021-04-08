@@ -20,9 +20,9 @@
 		</text>
 
 
-		<decimal2 name="productprice" required="true">
+		<integer name="productprice" required="true">
 			<displayName>Product Price</displayName>
-		</decimal2>
+		</integer>
 		<integer name="productstock" required="true">
 			<displayName>Product Stock</displayName>
 		</integer>
