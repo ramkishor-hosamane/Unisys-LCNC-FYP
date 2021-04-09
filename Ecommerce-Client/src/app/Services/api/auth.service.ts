@@ -71,7 +71,6 @@ export class AuthService {
 
 
 
-
   //Api call for login
   loginUser(): Observable<any>{
     console.log("Trying to login user")
@@ -82,6 +81,7 @@ export class AuthService {
   
   logOut(){
     this.current_user=null;
+    this.session_st.clear("username")
     this.updateUserSession(this.current_user);
 
   }

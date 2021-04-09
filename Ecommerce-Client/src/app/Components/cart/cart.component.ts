@@ -34,7 +34,12 @@ export class CartComponent implements OnInit {
     this.cart_total+= parseInt(this.cart[i]['productid']['productprice']);
     if (this.auth.isLogined()) {
       console.log("Yes this User logined and updated")
-      this.cart_api.updateUserCart(this.cart[i]).subscribe(
+      this.cart_api.updateUserCartItem(this.cart[i]).subscribe(
+        data => console.log('Success!',data),
+        error => console.error('!error',error)
+      )
+
+      this.cart_api.updateUserCart().subscribe(
         data => console.log('Success!',data),
         error => console.error('!error',error)
       )
@@ -56,11 +61,15 @@ export class CartComponent implements OnInit {
     {
       if(this.auth.isLogined())
       {
-        this.cart_api.updateUserCart(this.cart[i]).subscribe(
+        this.cart_api.updateUserCartItem(this.cart[i]).subscribe(
           data => console.log('Success!',data),
           error => console.error('!error',error)
         )
-   
+        
+        this.cart_api.updateUserCart().subscribe(
+          data => console.log('Success!',data),
+          error => console.error('!error',error)
+        )
       }
   
     }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/Services/api/auth.service';
+import { CartService } from 'src/app/Services/api/cart.service';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +11,7 @@ import { AuthService } from 'src/app/Services/api/auth.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private auth:AuthService) { }
+  constructor(private auth:AuthService,private cart_api:CartService) { }
 
   //User object 
   userModel = new User();
@@ -23,7 +24,20 @@ export class SignupComponent implements OnInit {
   {
     //Make api call using auth service
     this.auth.registerNewUser(this.userModel).subscribe(
-      data => console.log('Success!',data),
+      data => {
+        console.log('Success!',data)
+        this.auth.loginUser().subscribe(
+          all_users=>{
+              this.cart_api.createUserCart(data,all_users.length,data).subscribe(
+                dat=>console.log("Success"),
+                er=>console.log("Error in creating cart",er)
+              );
+              console.log("Cart created")
+          },
+          err=>console.log(err)
+        )
+    
+    },
       error => console.error('!error',error)
     )
 

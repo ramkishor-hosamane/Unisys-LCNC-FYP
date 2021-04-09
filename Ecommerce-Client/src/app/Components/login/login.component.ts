@@ -46,7 +46,11 @@ export class LoginComponent implements OnInit {
             is_logined = true
             this.session_st.store("username",obj)
             this.auth.updateUserSession(obj)
-            this.router.navigate(['/home']).then()
+            this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => {
+
+          }); 
+            //this.router.navigateByUrl('/home').then()
+            //this.reload('/home')
           }
       
         }
@@ -64,4 +68,10 @@ export class LoginComponent implements OnInit {
     )
 
   }
+
+  // async reload(url: string): Promise<boolean> {
+  //   await this.router.navigateByUrl('.', { skipLocationChange: true });
+  //   return this.router.navigateByUrl(url);
+  // }
+  
 }

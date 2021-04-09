@@ -132,12 +132,19 @@ export class CartService {
       this.cart[i]['quantity'] = parseInt(this.cart[i]['quantity']) + 1;
       this.cart_total += parseInt(this.cart[i]['productid']['productprice']);
       if (this.auth.isLogined()) {
+
+
         console.log("Yes this User logined and updated")
-        this.updateUserCart(this.cart[i]).subscribe(
+        this.updateUserCartItem(this.cart[i]).subscribe(
           data => console.log('Success!',data),
           error => console.error('!error',error)
         )
-  
+        this.updateUserCart().subscribe(
+          data => console.log('Success!',data),
+          error => console.error('!error',error)
+        )
+
+        
       }
 
 
@@ -149,11 +156,16 @@ export class CartService {
       this.cart_total += parseInt(product['productid']['productprice']);
     if (this.auth.isLogined()) {
       console.log("Yes this User logined")
-      this.insertUserCart(product).subscribe(
+      this.insertUserCartItem(product).subscribe(
         data => {
           console.log('Success!',data)
           this.cart[this.cart.indexOf(product)]["bizId"] = data["bizId"];
         },
+        error => console.error('!error',error)
+      )
+
+      this.updateUserCart().subscribe(
+        data => console.log('Success!',data),
         error => console.error('!error',error)
       )
 
@@ -169,7 +181,46 @@ export class CartService {
 
   }
 
+  createUserCart(cart: any,cart_no:number,user:any) {
+    let data = 
+      {
+        "bizModule": "cart",
+        "bizDocument": "ShoppingCart",
+        "cartid": "C"+cart_no,
+        "userlogin": Utils.makeJsonObject(user),
+        "subtotal": "0",
+        "grandtotal": "0",
+        "bizCustomer": "unisys",
+        "bizDataGroupId": null,
+        "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
+      }
+    
 
+    return this.http.put<any>(this.insert_url, data, { headers: environment.httpHeaders });
+  }
+
+  updateUserCart() {
+    let user = Utils.makeJsonObject(this.current_user)
+    user["bizVersion"]= 0;
+    user["bizLock"]="20210407150542637setup";
+
+    let data = 
+      {
+        "bizModule": "cart",
+        "bizDocument": "ShoppingCart",
+        "cartid": this.user_cart["cartid"] ,
+        "userlogin": user,
+        "subtotal": this.cart_total,
+        "grandtotal": this.cart_total,
+        "bizId":this.user_cart["bizId"],
+        "bizCustomer": "unisys",
+        "bizDataGroupId": null,
+        "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
+      }
+    
+
+    return this.http.post<any>(this.update_url, data, { headers: environment.httpHeaders });
+  }
   updateCartSource(cart:any,cart_total:any){
     this.cart_total_source.next(cart_total)
     this.cart_source.next(cart)
@@ -185,7 +236,7 @@ export class CartService {
   }
 
 
-  updateUserCart(cart_item: any) {
+  updateUserCartItem(cart_item: any) {
 
   //   console.log("Inside")
   //   console.log()
@@ -237,8 +288,9 @@ export class CartService {
 
   }
 
+  
 
-  insertUserCart(cart_item: any) {
+  insertUserCartItem(cart_item: any) {
     //  console.log("Inside")
     //  console.log()
     // console.log(cart_item['productid'])
@@ -278,7 +330,7 @@ export class CartService {
     return this.http.put<any>(this.insert_url, data, { headers: environment.httpHeaders });
   }
 
-  deleteUserCart(cart_item: any) {
+  deleteUserCartItem(cart_item: any) {
     //  console.log("Inside")
     //  console.log()
     // console.log(cart_item['productid'])
@@ -307,7 +359,7 @@ export class CartService {
 
       if(this.auth.isLogined())
       {
-        this.deleteUserCart(this.cart[i]).subscribe(
+        this.deleteUserCartItem(this.cart[i]).subscribe(
           data => console.log('Success!',data),
           error => console.error('!error',error)
         )
