@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/Services/api/auth.service';
+import { CartService } from 'src/app/Services/api/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
     current_user:any;
     //User object 
     userModel = new User();
-  constructor(private auth:AuthService,private router:Router,private local_st:LocalStorageService,private session_st:SessionStorageService) { 
+  constructor(private auth:AuthService,private router:Router,private local_st:LocalStorageService,private session_st:SessionStorageService,private cart_api:CartService) { 
     this.auth.current_user_observer.subscribe(
       data =>{
         this.current_user = data;
@@ -46,8 +47,9 @@ export class LoginComponent implements OnInit {
             is_logined = true
             this.session_st.store("username",obj)
             this.auth.updateUserSession(obj)
+            this.cart_api.initializeCartService();
             this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => {
-
+            
           }); 
             //this.router.navigateByUrl('/home').then()
             //this.reload('/home')

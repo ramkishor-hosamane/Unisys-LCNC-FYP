@@ -4,13 +4,19 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import {Utils} from './../../utils';
+import { SharedService } from '../shared.service';
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  constructor(private auth: AuthService, private http: HttpClient) {
+  constructor(private auth: AuthService, private http: HttpClient,private shared:SharedService) {
 
+    this.initializeCartService();
+
+  }
+  initializeCartService()
+  {
     this.cart_observer.subscribe(
       data => {
         this.cart = data;
@@ -29,6 +35,18 @@ export class CartService {
       }
     )
 
+    this.shared.bizLock_observer.subscribe(
+      data => {
+        this.bizLocks = data;
+      }
+    )
+    
+    this.shared.bizVersion_observer.subscribe(
+      data => {
+        this.bizVersions = data;
+      }
+    )
+    
     //Get User Cart
     if (this.auth.isLogined()) {
       console.log("Getting usercart")
@@ -36,7 +54,6 @@ export class CartService {
       
 
     }
-
 
   }
   private cart_source = new BehaviorSubject<Array<any>>([]);
@@ -55,7 +72,8 @@ export class CartService {
   public delete_url = environment.server_api_url + 'delete';
 
   user_cart: any;
-
+  bizLocks:any;
+  bizVersions:any;
 
   getAllCarts(): Observable<any> {
     return this.http.get(this.cart_url, { headers: environment.httpHeaders })
@@ -69,14 +87,23 @@ export class CartService {
       data => {
 
         for (var obj of data) {
-          console.log("Obj is",obj['userlogin']['emailid'])
-          console.log(this.current_user['emailid'])
+          // console.log("Obj is",obj['userlogin']['emailid'])
+          // console.log(this.current_user['emailid'])
 
           // console.log("Checking "+this.userModel.emailid +" and "+obj['emailid'])
           // console.log("Checking "+this.userModel.password +" and "+obj['password'])
           if (obj['userlogin']['emailid'] == this.current_user['emailid']) {
             this.user_cart = obj;
              console.log("Cart is there");
+
+             this.bizLocks['user']= obj['userlogin']["bizLock"]
+             this.bizVersions['user']=obj['userlogin']["bizVersion"]
+             this.bizLocks['cart']= obj["bizLock"]
+             this.bizVersions['cart']=obj["bizVersion"]
+             this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
+             
+             
+             
              break;
             //alert("Successfully logined");
           }
@@ -159,15 +186,30 @@ export class CartService {
       this.insertUserCartItem(product).subscribe(
         data => {
           console.log('Success!',data)
+
+          // this.bizLocks['user']= obj['userlogin']["bizLock"]
+          // this.bizVersions['user']=obj['userlogin']["bizVersion"]
+          this.bizLocks['cart']= data["bizLock"]
+          this.bizVersions['cart']=data["bizVersion"]
+          this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
+
           this.cart[this.cart.indexOf(product)]["bizId"] = data["bizId"];
+
+          this.updateUserCart().subscribe(
+            data => {console.log('Success!',data)
+            
+            this.bizLocks['cart']= data["bizLock"]
+            this.bizVersions['cart']=data["bizVersion"]
+            this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
+            
+          },
+            error => console.error('!error',error)
+          )
         },
         error => console.error('!error',error)
       )
 
-      this.updateUserCart().subscribe(
-        data => console.log('Success!',data),
-        error => console.error('!error',error)
-      )
+
 
     }
 
@@ -200,9 +242,14 @@ export class CartService {
   }
 
   updateUserCart() {
+    this.current_user["bizVersion"]= 1,
+    this.current_user["bizLock"]="20210410135750085setup";
     let user = Utils.makeJsonObject(this.current_user)
-    user["bizVersion"]= 0;
-    user["bizLock"]="20210407150542637setup";
+
+    console.log("---------------")
+    console.log(user)
+    console.log(this.current_user)
+    console.log("---------------")
 
     let data = 
       {
@@ -294,9 +341,14 @@ export class CartService {
     //  console.log("Inside")
     //  console.log()
     // console.log(cart_item['productid'])
-    this.user_cart["bizLock"]= "20210407153447577setup";
-    // console.log(this.user_cart)
+    //this.user_cart["bizLock"]= "20210410134603731setup";
+    console.log("before")
+    console.log(this.user_cart["userlogin"])
+    console.log("After")
 
+    this.user_cart["bizLock"] = "20210410141235880setup"
+    this.user_cart["bizVersion"] = 2
+        
     //return new Observable()
     let prod = Utils.makeJsonObject(cart_item['productid'])
     //prod["bizLock"]="20210407150543853setup";
@@ -308,14 +360,14 @@ export class CartService {
         "bizModule": "cart",
         "bizDocument": "ShoppingCart",
         "cartid": this.user_cart["cartid"],
-        "userlogin": Utils.makeJsonObject(this.user_cart["userlogin"]),
+        "userlogin": Utils.makeJsonObject(this.user_cart["userlogin"]),//
         "subtotal": this.user_cart["subtotal"],
         "grandtotal": this.user_cart["grandtotal"],
-        "bizId": "943b1096-ed84-4f24-80cf-71d96584f8cb",
+        "bizId": this.user_cart["bizId"],
         "bizCustomer": "unisys",
         "bizDataGroupId": null,
         "bizUserId":this.user_cart["bizUserId"],
-        "bizVersion": 0,
+        "bizVersion":this.user_cart["bizVersion"],
         "bizLock": this.user_cart["bizLock"]
       },
       "productid": prod,
@@ -325,6 +377,10 @@ export class CartService {
       "bizDataGroupId": null,
       "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
     }
+    console.log("Make http rest api call")
+    console.log(data)
+    console.log("Make http rest api call ended")
+
         //Make http rest api call    
     // console.log("Putting in ",this.insert_url)
     return this.http.put<any>(this.insert_url, data, { headers: environment.httpHeaders });
