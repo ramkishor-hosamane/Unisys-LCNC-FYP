@@ -50,7 +50,7 @@ export class CartService {
     //Get User Cart
     if (this.auth.isLogined()) {
       console.log("Getting usercart")
-      this.getUserCart();
+      this.getUserCartFromAllCarts();
       
 
     }
@@ -70,7 +70,7 @@ export class CartService {
   public insert_url = environment.server_api_url + 'insert';
   public update_url = environment.server_api_url + 'update';
   public delete_url = environment.server_api_url + 'delete';
-
+  public cart_biz_url = environment.server_query_url+'cart/GetCartBiz';
   user_cart: any;
   bizLocks:any;
   bizVersions:any;
@@ -82,7 +82,12 @@ export class CartService {
     return this.http.get(this.cart_item_url, { headers: environment.httpHeaders })
   }
 
-  getUserCart() {
+
+  getUserCart(id:string): Observable<any>{
+    return this.http.get(this.cart_url+'/'+id, { headers: environment.httpHeaders })
+
+  }
+  getUserCartFromAllCarts() {
     this.getAllCarts().subscribe(
       data => {
 
@@ -93,14 +98,27 @@ export class CartService {
           // console.log("Checking "+this.userModel.emailid +" and "+obj['emailid'])
           // console.log("Checking "+this.userModel.password +" and "+obj['password'])
           if (obj['userlogin']['emailid'] == this.current_user['emailid']) {
-            this.user_cart = obj;
-             console.log("Cart is there");
 
-             this.bizLocks['user']= obj['userlogin']["bizLock"]
-             this.bizVersions['user']=obj['userlogin']["bizVersion"]
-             this.bizLocks['cart']= obj["bizLock"]
-             this.bizVersions['cart']=obj["bizVersion"]
-             this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
+            this.getUserCart(obj['bizId']).subscribe(
+              data=>{
+                this.user_cart = data;
+                console.log("Cart is there");
+                console.log(data);
+    
+                this.bizLocks['user']= data['userlogin']["bizLock"]
+                this.bizVersions['user']=data['userlogin']["bizVersion"]
+                this.bizLocks['cart']= data["bizLock"]
+                this.bizVersions['cart']=data["bizVersion"]
+                this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
+    
+              },
+              err=>{
+                console.error(err);
+
+              }
+              
+            )
+
              
              
              
@@ -163,13 +181,23 @@ export class CartService {
 
         console.log("Yes this User logined and updated")
         this.updateUserCartItem(this.cart[i]).subscribe(
-          data => console.log('Success!',data),
+          data => {
+            
+            console.log('Success!',data)
+            this.updateCartBiz(data['cartid']["bizLock"],data['cartid']["bizVersion"])
+
+          this.updateUserCart().subscribe(
+            data =>{
+              console.log('Success!',data)
+              this.updateCartBiz(data["bizLock"],data["bizVersion"])
+
+            } ,
+            error => console.error('!error',error)
+          )
+        },
           error => console.error('!error',error)
         )
-        this.updateUserCart().subscribe(
-          data => console.log('Success!',data),
-          error => console.error('!error',error)
-        )
+        
 
         
       }
@@ -185,23 +213,20 @@ export class CartService {
       console.log("Yes this User logined")
       this.insertUserCartItem(product).subscribe(
         data => {
-          console.log('Success!',data)
+          console.log('Success! cartitem is now',data)
 
           // this.bizLocks['user']= obj['userlogin']["bizLock"]
           // this.bizVersions['user']=obj['userlogin']["bizVersion"]
-          this.bizLocks['cart']= data["bizLock"]
-          this.bizVersions['cart']=data["bizVersion"]
-          this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
+
+          this.updateCartBiz(data['cartid']["bizLock"],data['cartid']["bizVersion"])
 
           this.cart[this.cart.indexOf(product)]["bizId"] = data["bizId"];
 
           this.updateUserCart().subscribe(
             data => {console.log('Success!',data)
             
-            this.bizLocks['cart']= data["bizLock"]
-            this.bizVersions['cart']=data["bizVersion"]
-            this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
-            
+            this.updateCartBiz(data["bizLock"],data["bizVersion"])
+           
           },
             error => console.error('!error',error)
           )
@@ -222,7 +247,12 @@ export class CartService {
 
 
   }
+  updateCartBiz(bizLock:any,bizVersion:any){
+    this.bizLocks['cart']= bizLock
+    this.bizVersions['cart']=bizVersion
+    this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
 
+  }
   createUserCart(cart: any,cart_no:number,user:any) {
     let data = 
       {
@@ -242,8 +272,8 @@ export class CartService {
   }
 
   updateUserCart() {
-    this.current_user["bizVersion"]= 1,
-    this.current_user["bizLock"]="20210410135750085setup";
+    this.current_user["bizVersion"]= this.bizVersions['user'],
+    this.current_user["bizLock"]= this.bizLocks['user'];
     let user = Utils.makeJsonObject(this.current_user)
 
     console.log("---------------")
@@ -293,7 +323,7 @@ export class CartService {
   //   console.log()
   //  console.log(cart_item['productid'])
 
-   this.user_cart["bizLock"]= "20210407153447577setup";
+   //this.user_cart["bizLock"]= "20210407153447577setup";
   //  console.log(this.user_cart)
 
    //return new Observable()
@@ -342,13 +372,13 @@ export class CartService {
     //  console.log()
     // console.log(cart_item['productid'])
     //this.user_cart["bizLock"]= "20210410134603731setup";
+
+
+    this.user_cart["bizLock"] = this.bizLocks['cart']
+    this.user_cart["bizVersion"] = this.bizVersions['cart']
     console.log("before")
     console.log(this.user_cart["userlogin"])
-    console.log("After")
-
-    this.user_cart["bizLock"] = "20210410141235880setup"
-    this.user_cart["bizVersion"] = 2
-        
+    console.log("After")   
     //return new Observable()
     let prod = Utils.makeJsonObject(cart_item['productid'])
     //prod["bizLock"]="20210407150543853setup";
@@ -367,8 +397,8 @@ export class CartService {
         "bizCustomer": "unisys",
         "bizDataGroupId": null,
         "bizUserId":this.user_cart["bizUserId"],
-        "bizVersion":this.user_cart["bizVersion"],
-        "bizLock": this.user_cart["bizLock"]
+        "bizVersion":this.bizVersions['cart'],
+        "bizLock": this.bizLocks['cart']
       },
       "productid": prod,
       "quantity": 1,
@@ -390,7 +420,9 @@ export class CartService {
     //  console.log("Inside")
     //  console.log()
     // console.log(cart_item['productid'])
-    this.user_cart["bizLock"]= "20210407153447577setup";
+    this.user_cart["bizLock"]= this.bizLocks['user'];
+    this.user_cart["bizVersion"]= this.bizVersions['user'];
+
     // console.log(this.user_cart)
 
     //return new Observable()
@@ -416,8 +448,20 @@ export class CartService {
       if(this.auth.isLogined())
       {
         this.deleteUserCartItem(this.cart[i]).subscribe(
-          data => console.log('Success!',data),
+          data => {
+            console.log('Success!',data)
+            this.updateUserCart().subscribe(
+              data => {console.log('Success!',data)
+              
+              this.updateCartBiz(data["bizLock"],data["bizVersion"])
+             
+            },
+              error => console.error('!error',error)
+            )
+          
+          },
           error => console.error('!error',error)
+
         )
    
       }

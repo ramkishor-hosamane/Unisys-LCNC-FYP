@@ -30,4 +30,15 @@
 		</list>
 
 	</menu>
+	<queries>
+	<query documentName="ShoppingCart" name="GetCartBiz">
+				<description>All Shopping Bizes</description>
+	
+		<columns>
+				<column binding="bizLock" />
+				<column binding="bizVersion" />
+		</columns>
+	
+	</query>
+	</queries>
 </module>
