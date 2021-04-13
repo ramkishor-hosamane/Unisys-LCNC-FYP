@@ -17,13 +17,30 @@
           <div class="col-xl-4 col-lg-5">
             <div class="user-panel">
               <div class="up-item">
-                <i class="flaticon-profile"></i>
+                <i class="flaticon-profile"></i>&nbsp;
                 <span *ngIf="!isLogined(); else elseBlock">
                   <a routerLink="/login" routerLinkActive="active">SignIn</a> or <a routerLink="/signup" routerLinkActive="active">Create Account</a>
                 </span>
                 <ng-template #elseBlock>
-                  <a (click)="logout()" routerLink="/logout" routerLinkActive="active">{{current_user.emailid}}</a></ng-template>
-              </div>
+                  <ul style="display: inline;" class="main-menu">
+
+                    <li>
+                      <a routerLink="/home" routerLinkActive="active">{{current_user.firstname}} {{current_user.lastname}}</a>
+
+                      <ul class="sub-menu">
+                        <li><a href="#">Settings</a></li>
+          
+                        <li><a (click)="logout()" routerLink="/logout" routerLinkActive="active">Logout</a></li>
+                      </ul>
+
+                    </li>
+                  </ul>
+
+                  
+                  </ng-template>
+                  
+
+                </div>
               <div class="up-item">
                 <div class="shopping-card">
                   <i class="flaticon-bag"></i>
@@ -68,7 +85,6 @@
               <li><a routerLink="/contact" routerLinkActive="active">Contact Page</a></li>
             </ul>
           </li-->
-          <li><a href="#">Blog</a></li>
         </ul>
       </div>
     </nav>

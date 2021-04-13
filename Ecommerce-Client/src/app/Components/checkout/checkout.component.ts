@@ -49,6 +49,7 @@ export class CheckoutComponent implements OnInit {
 
   onSubmitCheckoutForm(){
     this.checkout_api.placeOrderService(this.CheckoutModel,this.is_new_address);
+    this.is_ordered = true;
   }
 
   clearAddress(){

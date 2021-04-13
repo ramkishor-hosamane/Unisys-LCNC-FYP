@@ -4,10 +4,8 @@ export class User {
     public bizDocument:string="UserLogin";
     public bizCustomer:string="unisys";
     public bizDataGroupId=null;
-    public gender:string=" ";
-    public firstname:string=" ";
-    public lastname:string=" ";
-    public confirmpassword:string=" ";
+    public firstname:string="";
+    public lastname:string="";
     public isenabled:boolean=true;
     public userloginid:string="";
     public emailid:string="";

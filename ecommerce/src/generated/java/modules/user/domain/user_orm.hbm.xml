@@ -68,11 +68,9 @@
 		<property name="userloginid" length="20" />
 		<property name="emailid" length="40" />
 		<property name="mobileno" length="10" />
-		<property name="gender" length="10" />
 		<property name="firstname" length="20" />
 		<property name="lastname" length="20" />
 		<property name="password" length="20" />
-		<property name="confirmpassword" length="20" />
 		<property name="isenabled" />
 		<property name="createdstamp" type="DateTime" />
 		<property name="updatedstamp" type="DateTime" />

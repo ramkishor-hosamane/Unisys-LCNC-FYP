@@ -2,3 +2,15 @@
     font-size: 14;
     
 }
+
+.qty:hover{
+    background-color: #fa2275;
+}
+
+.qty:active{
+    background-color: #fff;
+}
+.qtybtn:hover{
+    color: white;
+
+}

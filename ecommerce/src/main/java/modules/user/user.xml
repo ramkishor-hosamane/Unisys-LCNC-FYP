@@ -42,7 +42,6 @@
 				<column binding="userloginid.userloginid" />
 				<column binding="userloginid.emailid" />
 				<column binding="userloginid.mobileno" />
-				<column binding="userloginid.gender" />
 				<column binding="userloginid.firstname" />
 
 				<column binding="addressid.addressid" />
@@ -67,7 +66,6 @@
 			<column binding="userloginid.userloginid" />
 				<column binding="userloginid.emailid" />
 				<column binding="userloginid.mobileno" />
-				<column binding="userloginid.gender" />
 				<column binding="userloginid.firstname" />
 				<column binding="sequenceno" />
 			</columns>
@@ -101,7 +99,6 @@
 				<column binding="userloginid.userloginid" />
 				<column binding="userloginid.emailid" />
 				<column binding="userloginid.mobileno" />
-				<column binding="userloginid.gender" />
 				<column binding="userloginid.firstname" />
 
 				<column binding="addressid.addressid" />

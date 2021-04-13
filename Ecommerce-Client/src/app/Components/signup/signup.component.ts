@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/Services/api/auth.service';
 import { CartService } from 'src/app/Services/api/cart.service';
@@ -11,7 +12,7 @@ import { CartService } from 'src/app/Services/api/cart.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private auth:AuthService,private cart_api:CartService) { }
+  constructor(private auth:AuthService,private cart_api:CartService,private router:Router) { }
 
   //User object 
   userModel = new User();
@@ -43,7 +44,7 @@ export class SignupComponent implements OnInit {
 
 
     alert("Account created Successfully")
-
+    this.router.navigate(['/login']).then()
     //Make the input fields blank in the page
     this.userModel = new User();
   }

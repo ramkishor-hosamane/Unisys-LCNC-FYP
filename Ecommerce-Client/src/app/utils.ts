@@ -23,8 +23,12 @@ export class Utils {
             
           }
         }
-        console.log(data)
 
         return data
       }
-}
+
+      public static getData(){
+        
+      }
+
+    }

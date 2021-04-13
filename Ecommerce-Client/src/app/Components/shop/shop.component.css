@@ -7,4 +7,16 @@
     cursor: pointer;
 }
 
+/* .add-card i:hover{
+    color: white;
+}
+.add-card span{
+    color: white;
 
+} */
+.add-card:hover{
+    background-color: #fa2275;
+}
+.add-card:active{
+    background-color: #fff;
+}

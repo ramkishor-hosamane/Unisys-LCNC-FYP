@@ -38,15 +38,11 @@ public class UserLogin extends AbstractPersistentBean {
 	/** @hidden */
 	public static final String mobilenoPropertyName = "mobileno";
 	/** @hidden */
-	public static final String genderPropertyName = "gender";
-	/** @hidden */
 	public static final String firstnamePropertyName = "firstname";
 	/** @hidden */
 	public static final String lastnamePropertyName = "lastname";
 	/** @hidden */
 	public static final String passwordPropertyName = "password";
-	/** @hidden */
-	public static final String confirmpasswordPropertyName = "confirmpassword";
 	/** @hidden */
 	public static final String isenabledPropertyName = "isenabled";
 	/** @hidden */
@@ -67,10 +63,6 @@ public class UserLogin extends AbstractPersistentBean {
 	 **/
 	private String mobileno;
 	/**
-	 * Gender
-	 **/
-	private String gender;
-	/**
 	 * First Name
 	 **/
 	private String firstname;
@@ -82,10 +74,6 @@ public class UserLogin extends AbstractPersistentBean {
 	 * Password
 	 **/
 	private String password;
-	/**
-	 * Confirm Password
-	 **/
-	private String confirmpassword;
 	/**
 	 * Is Enabled
 	 **/
@@ -195,24 +183,6 @@ public class UserLogin extends AbstractPersistentBean {
 	}
 
 	/**
-	 * {@link #gender} accessor.
-	 * @return	The value.
-	 **/
-	public String getGender() {
-		return gender;
-	}
-
-	/**
-	 * {@link #gender} mutator.
-	 * @param gender	The new value.
-	 **/
-	@XmlElement
-	public void setGender(String gender) {
-		preset(genderPropertyName, gender);
-		this.gender = gender;
-	}
-
-	/**
 	 * {@link #firstname} accessor.
 	 * @return	The value.
 	 **/
@@ -264,24 +234,6 @@ public class UserLogin extends AbstractPersistentBean {
 	public void setPassword(String password) {
 		preset(passwordPropertyName, password);
 		this.password = password;
-	}
-
-	/**
-	 * {@link #confirmpassword} accessor.
-	 * @return	The value.
-	 **/
-	public String getConfirmpassword() {
-		return confirmpassword;
-	}
-
-	/**
-	 * {@link #confirmpassword} mutator.
-	 * @param confirmpassword	The new value.
-	 **/
-	@XmlElement
-	public void setConfirmpassword(String confirmpassword) {
-		preset(confirmpasswordPropertyName, confirmpassword);
-		this.confirmpassword = confirmpassword;
 	}
 
 	/**

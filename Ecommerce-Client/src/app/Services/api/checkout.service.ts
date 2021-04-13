@@ -199,30 +199,41 @@ export class CheckoutService {
   
   }
 
+  insertOrderItemOnebyOne(order_header:any,user_addr:any,i:number){
+    if(i<0)
+      return;
+
+    var cart_item = this.cart[i];
+    this.total_order_items+=1
+    var id = this.total_order_items              
+
+    this.insertOrderItemApi(cart_item,order_header,user_addr,id).subscribe(
+      order_item=>{
+        console.log("Done inserting item")
+        i-=1;
+        this.bizLocks["order"] = order_item["orderid"]["bizLock"]
+        this.bizVersions["order"] = order_item["orderid"]["bizVersion"]
+        //console.log(this.bizLocks["order"],this.bizVersions["order"])
+        this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
+        this.insertOrderItemOnebyOne(order_header,user_addr,i)
+      },
+      error=>{
+        console.log("Error in inserting item",error)
+      }
+
+    )
+
+  }
+
   createOrder(user_addr:any){
     this.insertOrderHeaderApi(user_addr).subscribe(
       order_header=>{
         console.log("Success in inserting order header")
         this.total_order_headers+=1;
-        for(var cart_item of this.cart){
-          // console.log("Product is ",cart_item)
-          this.total_order_items+=1
-          var id = this.total_order_items              
+        this.bizLocks["order"] = order_header["bizLock"]
+        this.bizVersions["order"] = order_header["bizVersion"]
 
-          this.insertOrderItemApi(cart_item,order_header,user_addr,id).subscribe(
-            order_item=>{
-              console.log("Done inserting item")
-            },
-            error=>{
-              console.log("Error in inserting item",error)
-            }
-
-          )
-
-        }
-        
-
-
+        this.insertOrderItemOnebyOne(order_header,user_addr,this.cart.length-1)
       },
       error=>{
         console.log("Error in Placing Order header",error)
@@ -293,8 +304,8 @@ export class CheckoutService {
         "bizCustomer": "unisys",
         "bizDataGroupId": null,
         "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba",
-        "bizVersion": order_header['bizVersion'],
-        "bizLock": order_header['bizLock']
+        "bizVersion": this.bizVersions["order"],
+        "bizLock": this.bizLocks["order"]
       },
       "orderitemseqnum": "1",
       "quantity": order_item["quantity"],

@@ -28,8 +28,16 @@
                             Please Create an Account</h3>
                         <form class="row generic-form" #SignupForm="ngForm" name="SignupForm"
                             (ngSubmit)="onSubmitSignupForm()" novalidate>
-                            <input [(ngModel)]="userModel.userloginid" #username="ngModel" name="username"
+
+  
+                            
+                                
+                                    <input [(ngModel)]="userModel.firstname" #firstname="ngModel" name="firstname" type="text" class="input-field col-md-6" placeholder="First Name" required>
+                                    <input [(ngModel)]="userModel.lastname" #lastname="ngModel" name="lastname" type="text" class="input-field col-md-6" placeholder="Last Name">
+
+                            <!-- <input [(ngModel)]="userModel.userloginid" #username="ngModel" name="username"
                                 class="input-field" type="text" placeholder="Username " required>
+                             -->
                             <input [(ngModel)]="userModel.emailid" #email="ngModel" name="email" class="input-field"
                                 type="email" placeholder="Email" required>
                             <input [(ngModel)]="userModel.mobileno" #mobileno="ngModel" name="mobileno"
@@ -38,7 +46,7 @@
                                 class="input-field" type="password" placeholder="Password" required>
 
                             <div class="d-flex justify-content-center" >
-                                <button class="site-btn" [disabled]="SignupForm.form.invalid">Signup</button>
+                                <button class="site-btn" [disabled]="SignupForm.form.invalid" >Signup</button>
                     
                             </div>
 

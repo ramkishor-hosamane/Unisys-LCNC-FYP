@@ -8,7 +8,7 @@
 	<singularAlias>UserAddress</singularAlias>
 	<pluralAlias>useraddresses</pluralAlias>
 	<bizKey expression="{userloginid}-{addressid}" />
-	<attributes>		
+	<attributes>
 		<association type="aggregation" name="userloginid"
 			required="true">
 			<displayName>User Login Id</displayName>
@@ -22,10 +22,10 @@
 		</association>
 
 
-		<text name="sequenceno" required="true">
+		<text name="sequenceno">
 			<displayName>Sequence number</displayName>
-						<length>2</length>
-			
+			<length>2</length>
+
 		</text>
 
 		<text name="addresstype" required="true">

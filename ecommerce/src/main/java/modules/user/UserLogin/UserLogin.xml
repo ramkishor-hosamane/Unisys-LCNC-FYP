@@ -21,16 +21,10 @@
 			<length>10</length>
 		</text>
 
-		<text name="gender" >
-			<displayName>Gender</displayName>
-			<length>10</length>
-		</text>
 		<text name="firstname">
 			<displayName>First Name</displayName>
 			<length>20</length>
 		</text>
-
-
 
 		<text name="lastname">
 			<displayName>Last Name</displayName>
@@ -41,15 +35,10 @@
 			<displayName>Password</displayName>
 			<length>20</length>
 		</text>
-		<text name="confirmpassword" required="true">
-			<displayName>Confirm Password</displayName>
-			<length>20</length>
-		</text>
+
 		<boolean name="isenabled" required="true">
 			<displayName>Is Enabled</displayName>
 		</boolean>
-
-
 
 		<dateTime name="createdstamp">
 			<displayName>Created timestamp </displayName>
