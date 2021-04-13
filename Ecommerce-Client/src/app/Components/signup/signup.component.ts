@@ -28,7 +28,7 @@ export class SignupComponent implements OnInit {
         console.log('Success!',data)
         this.auth.loginUser().subscribe(
           all_users=>{
-              this.cart_api.createUserCart(data,all_users.length,data).subscribe(
+              this.cart_api.createUserCartApi(data,all_users.length,data).subscribe(
                 dat=>console.log("Success"),
                 er=>console.log("Error in creating cart",er)
               );

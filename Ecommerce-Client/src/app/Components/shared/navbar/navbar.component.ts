@@ -44,6 +44,7 @@ export class NavbarComponent implements OnInit {
 
   logout(){
     this.auth.logOut();
+    this.cart_api.destroyCartService();
   }
 
   ngOnInit(): void {

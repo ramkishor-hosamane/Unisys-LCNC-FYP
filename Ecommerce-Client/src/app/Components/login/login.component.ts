@@ -48,11 +48,8 @@ export class LoginComponent implements OnInit {
             this.session_st.store("username",obj)
             this.auth.updateUserSession(obj)
             this.cart_api.initializeCartService();
-            this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => {
-            
-          }); 
-            //this.router.navigateByUrl('/home').then()
-            //this.reload('/home')
+           this.router.navigate(['/home']).then()
+           
           }
       
         }

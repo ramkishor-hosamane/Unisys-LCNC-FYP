@@ -35,7 +35,7 @@
 				<description>All Shopping Bizes</description>
 	
 		<columns>
-				<column binding="bizLock" />
+					<column binding="bizLock" />
 				<column binding="bizVersion" />
 		</columns>
 	

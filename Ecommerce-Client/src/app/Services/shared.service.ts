@@ -12,7 +12,9 @@ export class SharedService {
       "user":0,
       "cart":0,
       "product":0,
-      "order":0      
+      "order":0,
+      "address":0
+      
     }
   );
   bizLock_observer = this.bizLock_source.asObservable();
@@ -24,7 +26,8 @@ export class SharedService {
       "user":0,
       "cart":0,
       "product":0,
-      "order":0      
+      "order":0,
+      "address":0      
     }
   );
   bizVersion_observer = this.bizVersion_source.asObservable();

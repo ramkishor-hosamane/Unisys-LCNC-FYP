@@ -29,6 +29,7 @@
                         <form class="row generic-form" #LoginForm="ngForm" name="LoginForm"
                         (ngSubmit)="onSubmitLoginForm()" novalidate="novalidate">
                             <input [(ngModel)]="userModel.emailid" #emailid="ngModel" name="emailid" class="input-field" type="text" placeholder="Email Id">
+                            
                             <input  [(ngModel)]="userModel.password" #password="ngModel" name="password" class="input-field" type="password" placeholder="Password">
                                 <div class="creat_account">
                                     <input type="checkbox" id="f-option" name="selector">

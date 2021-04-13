@@ -83,7 +83,7 @@ export class AuthService {
     this.current_user=null;
     this.session_st.clear("username")
     this.updateUserSession(this.current_user);
-
+    
   }
 
   updateUserSession(user:User){
