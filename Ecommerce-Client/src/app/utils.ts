@@ -1,4 +1,6 @@
+
 export class Utils {
+  constructor(){}
     public static log(msg:string){
         console.log(msg);
     }
@@ -27,8 +29,5 @@ export class Utils {
         return data
       }
 
-      public static getData(){
-        
-      }
 
     }

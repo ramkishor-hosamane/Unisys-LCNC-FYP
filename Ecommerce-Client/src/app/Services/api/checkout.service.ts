@@ -6,13 +6,14 @@ import { AuthService } from './auth.service';
 import { Utils } from './../../utils';
 import { SharedService } from '../shared.service';
 import { CartService } from './cart.service';
+import { ApiService } from './api.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutService {
 
-  constructor(private auth: AuthService, private http: HttpClient, private shared: SharedService,private cart_api:CartService) {
-
+  constructor(private api:ApiService,private auth: AuthService, private http: HttpClient, private shared: SharedService,private cart_api:CartService) {
     this.initializeCheckoutProcess();
 
 
@@ -103,18 +104,14 @@ export class CheckoutService {
   insertUserAddress(user_addr: any) {
     this.insertAddressApi(user_addr['addressid']).subscribe(
       data => {
-
-        this.bizLocks['address'] = data['bizLock'];
-        this.bizVersions['address'] = data['bizVersion'];
-        this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions);
+        this.shared.updateBiz(data['bizLock'],data['bizVersion'],'address');
         
         console.log("Sucess inserting new address")
         this.insertUserAddressApi(user_addr, data).subscribe(
           data => {
             console.log("Sucesss in inserting new Useradress")
-            this.bizLocks['address'] = data['addressid']['bizLock'];
-            this.bizVersions['address'] = data['addressid']['bizVersion'];
-            this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions);
+
+            this.shared.updateBiz(data['addressid']['bizLock'],data['addressid']['bizVersion'],'address');
             this.createOrder(data)
           },
           error => {
@@ -132,21 +129,12 @@ export class CheckoutService {
     this.getAllUserAddressApi().subscribe(
       data => {
         for (var obj of data) {
-          //console.log("Obj is",obj['userlogin']['emailid'])
-
-          //console.log(this.current_user['emailid'])
-
-          // console.log("Checking "+this.userModel.emailid +" and "+obj['emailid'])
-          // console.log("Checking "+this.userModel.password +" and "+obj['password'])
           if (obj['userloginid']['emailid'] == this.current_user['emailid']) {
-
-            this.getUserAddressApi(obj['bizId']).subscribe(
+            this.api.getDataById(this.user_address_url,obj['bizId']).subscribe(
               data => {
                 console.log("Address is there");
                 console.log(data);
-                this.bizLocks['user'] = data['userloginid']["bizLock"]
-                this.bizVersions['user'] = data['userloginid']["bizVersion"]
-                this.shared.updateBizVersionandBizLock(this.bizLocks, this.bizVersions)
+                this.shared.updateBiz(data['userloginid']["bizLock"], data['userloginid']["bizVersion"],'user')
                 this.all_user_adresses.push(data)
               },
               err => {
@@ -155,12 +143,7 @@ export class CheckoutService {
               }
 
             )
-
-
-
-
-            //alert("Successfully logined");
-          }
+                    }
 
         }
         this.total_adresses = data.length;
@@ -205,17 +188,13 @@ export class CheckoutService {
 
     var cart_item = this.cart[i];
     this.total_order_items+=1
-    var id = this.total_order_items              
+    var id = (i+1)              
 
     this.insertOrderItemApi(cart_item,order_header,user_addr,id).subscribe(
       order_item=>{
         console.log("Done inserting item")
         i-=1;
-        this.bizLocks["order"] = order_item["orderid"]["bizLock"]
-        this.bizVersions["order"] = order_item["orderid"]["bizVersion"]
-        //console.log(this.bizLocks["order"],this.bizVersions["order"])
-        this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
-        
+        this.shared.updateBiz(order_item["orderid"]["bizLock"],order_item["orderid"]["bizVersion"],'order')        
         this.insertOrderItemOnebyOne(order_header,user_addr,i)
       },
       error=>{
@@ -231,8 +210,7 @@ export class CheckoutService {
       order_header=>{
         console.log("Success in inserting order header")
         this.total_order_headers+=1;
-        this.bizLocks["order"] = order_header["bizLock"]
-        this.bizVersions["order"] = order_header["bizVersion"]
+        this.shared.updateBiz(order_header["bizLock"],order_header["bizVersion"],'order')
         this.insertOrderItemOnebyOne(order_header,user_addr,this.cart.length-1)
       },
       error=>{
@@ -285,11 +263,11 @@ export class CheckoutService {
     let addr = Utils.makeJsonObject(user_addr["addressid"])
     user["bizLock"]=this.bizLocks['user']
     user["bizVersion"]=this.bizVersions['user']
-    console.log("Before inserting order item jsut checking")
-    console.log(order_item)
+    // console.log("Before inserting order item jsut checking")
+    // console.log(order_item)
 
-    console.log(order_item["price"])
-    console.log("---->")
+    // console.log(order_item["price"])
+    // console.log("---->")
     let data = {
       "bizModule": "order",
       "bizDocument": "OrderItem",
@@ -366,7 +344,6 @@ export class CheckoutService {
     let user = Utils.makeJsonObject(this.current_user)
     user["bizLock"]=this.bizLocks['user']
     user["bizVersion"]=this.bizVersions['user']
-    //let addr = Utils.makeJsonObject(user_addr["addressid"])
 
     let data = {
       "bizModule": "user",
@@ -392,16 +369,13 @@ export class CheckoutService {
 
 
 
-  getUserAddressApi(id: string): Observable<any> {
-    return this.http.get(this.user_address_url + '/' + id, { headers: environment.httpHeaders })
-
-  }
 
 
-  getUserCartApi(id: string): Observable<any> {
-    return this.http.get(this.cart_url + '/' + id, { headers: environment.httpHeaders })
 
-  }
+  // getUserCartApi(id: string): Observable<any> {
+  //   return this.http.get(this.cart_url + '/' + id, { headers: environment.httpHeaders })
+
+  // }
 
 
 

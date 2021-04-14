@@ -5,12 +5,13 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import {Utils} from './../../utils';
 import { SharedService } from '../shared.service';
+import { ApiService } from './api.service';
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  constructor(private auth: AuthService, private http: HttpClient,private shared:SharedService) {
+  constructor(private auth: AuthService, private http: HttpClient,private shared:SharedService,private api:ApiService) {
 
     this.initializeCartService();
 
@@ -66,7 +67,6 @@ export class CartService {
       }
     )
     
-    //Get User Cart
     if (this.auth.isLogined()) {
       console.log("Getting usercart")
       this.getUserCartFromAllCarts();
@@ -77,28 +77,17 @@ export class CartService {
   }
 
   getUserCartFromAllCarts() {
-    this.getAllCartsApi().subscribe(
+    this.api.getData(this.cart_url).subscribe(
       data => {
 
         for (var obj of data) {
-          // console.log("Obj is",obj['userlogin']['emailid'])
-          // console.log(this.current_user['emailid'])
 
-          // console.log("Checking "+this.userModel.emailid +" and "+obj['emailid'])
-          // console.log("Checking "+this.userModel.password +" and "+obj['password'])
           if (obj['userlogin']['emailid'] == this.current_user['emailid']) {
-
-            this.getUserCartApi(obj['bizId']).subscribe(
+            this.api.getDataById(this.cart_url,obj['bizId']).subscribe(
               data=>{
-                this.user_cart = data;
-                console.log("Cart is there");
-                console.log(data);
-    
-                this.bizLocks['user']= data['userlogin']["bizLock"]
-                this.bizVersions['user']=data['userlogin']["bizVersion"]
-                this.bizLocks['cart']= data["bizLock"]
-                this.bizVersions['cart']=data["bizVersion"]
-                this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
+                this.user_cart = data;    
+                this.shared.updateBiz(data['userlogin']["bizLock"],data['userlogin']["bizVersion"],'user')
+                this.shared.updateBiz(data["bizLock"],data["bizVersion"],'cart')
                 this.getUserCartItems();
 
               },
@@ -108,17 +97,10 @@ export class CartService {
               }
               
             )
-
-             
-             
-
-             break;
-            //alert("Successfully logined");
+            break;
           }
 
         }
-
-
       },
       error => {
         console.log(error);
@@ -126,20 +108,14 @@ export class CartService {
     )
   }
   getUserCartItems(){
-    this.getAllCartItemsApi().subscribe(
+    this.api.getData(this.cart_item_url).subscribe(
       data => {
 
         for (var obj of data) {
-          // console.log("Obj is",obj['userlogin']['emailid'])
-          // console.log(this.current_user['emailid'])
-
-          // console.log("Checking "+this.userModel.emailid +" and "+obj['emailid'])
-          // console.log("Checking "+this.userModel.password +" and "+obj['password'])
-          if (obj['cartid']['cartid'] == this.user_cart['cartid']) {
+         if (obj['cartid']['cartid'] == this.user_cart['cartid']) {
              console.log("CartItem is there",obj);
              this.cart.push(obj)
              this.cart_total+= parseInt(obj['price']);
-
              this.updateCartSource(this.cart,this.cart_total);
             }
 
@@ -153,27 +129,21 @@ export class CartService {
     )
   }
   addCartItem(product: any) {
-    //console.log(product)
-
-
-
+    //Check if item is already present in cart
     var i = this.isInCart(product)
-    if (i >= 0) {
-      // console.log("Product is there price is "+parseInt(this.cart[i]['productid']['productprice']))
-      // console.log(this.cart_total)
-    
-      // console.log("Product is there")
+    if (i >= 0) 
+    {
+      //If item is present update the quantity and cart total and update User cart via api call
       this.cart[i]['quantity'] = parseInt(this.cart[i]['quantity']) + 1;
       this.cart_total += parseInt(this.cart[i]['productid']['productprice']);
       if (this.auth.isLogined()) {
         console.log("Yes this User logined and updated")
         this.updateCartItemService(this.cart[i]);                
       }
-
-
     }
     else {
       product['quantity'] = 1;
+      //Logic to to assign cart id
       if(this.cart.length>0)
       {
         var last_element = this.cart[this.cart.length-1]
@@ -186,12 +156,15 @@ export class CartService {
         product['cartitemid'] = this.user_cart["cartid"]+"-"+1;
 
       }
-      this.cart.push(product);
-      this.cart_total += parseInt(product['productid']['productprice']);
-    if (this.auth.isLogined()) {
-      console.log("Yes this User logined")
 
-      this.insertCartItemService(product);
+
+      this.cart.push(product);
+      this.cart[this.cart.length-1]['price'] = product['productid']['productprice']
+      this.cart_total += parseInt(product['productid']['productprice']);
+    
+    
+      if (this.auth.isLogined()) {
+      this.insertCartItemService(this.cart[this.cart.length-1]);
 
     }
 
@@ -202,14 +175,8 @@ export class CartService {
 
     this.updateCartSource(this.cart,this.cart_total);
 
-
   }
-  updateCartBiz(bizLock:any,bizVersion:any){
-    this.bizLocks['cart']= bizLock
-    this.bizVersions['cart']=bizVersion
-    this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
-
-  }
+  
 
   updateCartSource(cart:any,cart_total:any){
     this.cart_total_source.next(cart_total)
@@ -244,12 +211,12 @@ export class CartService {
     this.updateUserCartItemApi(product).subscribe(
       data => {
         console.log('Updating Cartitem Success!',data)
-        this.updateCartBiz(data['cartid']["bizLock"],data['cartid']["bizVersion"])
+        this.shared.updateBiz(data['cartid']["bizLock"],data['cartid']["bizVersion"],'cart')
 
       this.updateUserCartApi().subscribe(
         data =>{
           console.log('Updating Cart Success!',data)
-          this.updateCartBiz(data["bizLock"],data["bizVersion"])
+          this.shared.updateBiz(data["bizLock"],data["bizVersion"],'cart')
 
         } ,
         error => console.error('Updating Cart !error',error)
@@ -264,17 +231,14 @@ export class CartService {
         data => {
           console.log('Success! cartitem is now',data)
 
-          // this.bizLocks['user']= obj['userlogin']["bizLock"]
-          // this.bizVersions['user']=obj['userlogin']["bizVersion"]
-
-          this.updateCartBiz(data['cartid']["bizLock"],data['cartid']["bizVersion"])
+          this.shared.updateBiz(data['cartid']["bizLock"],data['cartid']["bizVersion"],'cart')
 
           this.cart[this.cart.indexOf(product)]["bizId"] = data["bizId"];
 
           this.updateUserCartApi().subscribe(
             data => {console.log('Updating Cart after inserting Success!',data)
             
-            this.updateCartBiz(data["bizLock"],data["bizVersion"])
+            this.shared.updateBiz(data["bizLock"],data["bizVersion"],'cart')
            
           },
             error => console.error('Updating Cart after inserting !error',error)
@@ -292,7 +256,7 @@ export class CartService {
               data => {
                 console.log('Updating Cart Success!',data)
               
-              this.updateCartBiz(data["bizLock"],data["bizVersion"])
+              this.shared.updateBiz(data["bizLock"],data["bizVersion"],'cart')
              
             },
               error => console.error('Updating Cart error',error)
@@ -322,18 +286,6 @@ export class CartService {
   /* -------------------------------All Api Call Functions------------------------------- */
   /* ------------------------------------------------------------------------------------ */
 
-  getAllCartsApi(): Observable<any> {
-    return this.http.get(this.cart_url, { headers: environment.httpHeaders })
-  }
-  getAllCartItemsApi(): Observable<any> {
-    return this.http.get(this.cart_item_url, { headers: environment.httpHeaders })
-  }
-
-
-  getUserCartApi(id:string): Observable<any>{
-    return this.http.get(this.cart_url+'/'+id, { headers: environment.httpHeaders })
-
-  }
   createUserCartApi(cart: any,cart_no:number,user:any) {
     let data = 
       {
@@ -380,26 +332,11 @@ export class CartService {
     return this.http.post<any>(this.update_url, data, { headers: environment.httpHeaders });
   }
   updateUserCartItemApi(cart_item: any) {
-
-    //   console.log("Inside")
-    //   console.log()
-    //   console.log(cart_item)
-    //   console.log("Outside")
-  
-    //   console.log()
-    //  console.log(cart_item['productid'])
-  
-     //this.user_cart["bizLock"]= "20210407153447577setup";
-    //  console.log(this.user_cart)
-  
-     //return new Observable()
      let prod = Utils.makeJsonObject(cart_item['productid'])
-     //prod["bizLock"]="20210407150543853setup";
      let data = {
        "bizModule": "cart",
        "bizDocument": "ShoppingCartItem",
        "bizId":cart_item["bizId"],
-  
        "cartitemid": cart_item["cartitemid"],
        "cartid": {
          "bizModule": "cart",
@@ -434,20 +371,9 @@ export class CartService {
     
   
     insertUserCartItemApi(cart_item: any) {
-      //  console.log("Inside")
-      //  console.log()
-      // console.log(cart_item['productid'])
-      //this.user_cart["bizLock"]= "20210410134603731setup";
-  
-  
       this.user_cart["bizLock"] = this.bizLocks['cart']
       this.user_cart["bizVersion"] = this.bizVersions['cart']
-      console.log("before")
-      console.log(this.user_cart["userlogin"])
-      console.log("After")   
-      //return new Observable()
       let prod = Utils.makeJsonObject(cart_item['productid'])
-      //prod["bizLock"]="20210407150543853setup";
       let data = {
         "bizModule": "cart",
         "bizDocument": "ShoppingCartItem",
@@ -468,17 +394,12 @@ export class CartService {
         },
         "productid": prod,
         "quantity": 1,
-        "price":cart_item['productid']['productprice'],
+        "price":cart_item['price'],
         "bizCustomer": "unisys",
         "bizDataGroupId": null,
         "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
       }
-      console.log("Make http rest api call")
-      console.log(data)
-      console.log("Make http rest api call ended")
   
-          //Make http rest api call    
-      // console.log("Putting in ",this.insert_url)
       return this.http.put<any>(this.insert_url, data, { headers: environment.httpHeaders });
     }
   

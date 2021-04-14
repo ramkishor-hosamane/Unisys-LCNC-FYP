@@ -18,7 +18,7 @@ export class SharedService {
     }
   );
   bizLock_observer = this.bizLock_source.asObservable();
-  bizLock:any;
+  bizLocks:any;
   
 
   private bizVersion_source = new BehaviorSubject<Object>(
@@ -31,9 +31,24 @@ export class SharedService {
     }
   );
   bizVersion_observer = this.bizVersion_source.asObservable();
-  bizVersion: any; 
+  bizVersions: any; 
 
-  constructor() { }
+  constructor() { 
+
+    this.bizLock_observer.subscribe(
+      data => {
+        this.bizLocks = data;
+      }
+    )
+    
+    this.bizVersion_observer.subscribe(
+      data => {
+        this.bizVersions = data;
+      }
+    )
+
+
+  }
 
 
   updateBizVersion(obj:any)
@@ -45,8 +60,17 @@ export class SharedService {
   {
     this.bizLock_source.next(obj);
   }
-  updateBizVersionandBizLock(bizlock:any,bizversion:any){
-    this.updateBizLock(bizlock)
-    this.updateBizVersion(bizversion)
+  
+
+  updateBiz(bizLock:any,bizVersion:any,module:string){
+    this.bizLocks[module]= bizLock
+    this.bizVersions[module]=bizVersion
+    this.updateBizLock(this.bizLocks)
+    this.updateBizVersion(this.bizVersions)
+
   }
+
+
+
+
 }
