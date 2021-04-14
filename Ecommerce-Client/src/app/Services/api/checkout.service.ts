@@ -78,7 +78,6 @@ export class CheckoutService {
     )
 
     if (this.auth.isLogined()) {
-      console.log("Getting usercart")
       this.getUserAddressFromAllAddresses();
 
 
@@ -107,6 +106,7 @@ export class CheckoutService {
 
         this.bizLocks['address'] = data['bizLock'];
         this.bizVersions['address'] = data['bizVersion'];
+        this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions);
         
         console.log("Sucess inserting new address")
         this.insertUserAddressApi(user_addr, data).subscribe(
@@ -173,11 +173,7 @@ export class CheckoutService {
     return this.all_user_adresses;
   }
 
-
-  initializeCartService() {
-
-  }
-
+  
  
  
 
@@ -195,13 +191,17 @@ export class CheckoutService {
     else{
       this.createOrder(user_addr)
     }
-
+    this.initializeCheckoutProcess()
   
   }
 
   insertOrderItemOnebyOne(order_header:any,user_addr:any,i:number){
     if(i<0)
+    {
+      this.cart_api.deleteAllCartItemService()
       return;
+
+    }
 
     var cart_item = this.cart[i];
     this.total_order_items+=1
@@ -215,6 +215,7 @@ export class CheckoutService {
         this.bizVersions["order"] = order_item["orderid"]["bizVersion"]
         //console.log(this.bizLocks["order"],this.bizVersions["order"])
         this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
+        
         this.insertOrderItemOnebyOne(order_header,user_addr,i)
       },
       error=>{
@@ -232,7 +233,6 @@ export class CheckoutService {
         this.total_order_headers+=1;
         this.bizLocks["order"] = order_header["bizLock"]
         this.bizVersions["order"] = order_header["bizVersion"]
-
         this.insertOrderItemOnebyOne(order_header,user_addr,this.cart.length-1)
       },
       error=>{
@@ -285,10 +285,15 @@ export class CheckoutService {
     let addr = Utils.makeJsonObject(user_addr["addressid"])
     user["bizLock"]=this.bizLocks['user']
     user["bizVersion"]=this.bizVersions['user']
+    console.log("Before inserting order item jsut checking")
+    console.log(order_item)
+
+    console.log(order_item["price"])
+    console.log("---->")
     let data = {
       "bizModule": "order",
       "bizDocument": "OrderItem",
-      "orderitemid": "OI" + id,
+      "orderitemid": order_header['orderid']+"-" + id,
       "orderid": {
         "bizModule": "order",
         "bizDocument": "OrderHeader",

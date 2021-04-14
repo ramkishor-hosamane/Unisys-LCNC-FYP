@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { BillAddress } from 'src/app/Models/bill-address';
 import { CartService } from 'src/app/Services/api/cart.service';
@@ -11,7 +12,7 @@ import { CheckoutService } from 'src/app/Services/api/checkout.service';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor(private checkout_api:CheckoutService,private cart_api:CartService) {
+  constructor(private checkout_api:CheckoutService,private cart_api:CartService,private router:Router) {
     this.cart_api.cart_observer.subscribe(
       data =>{
         this.cart = data;
@@ -48,6 +49,9 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmitCheckoutForm(){
+    if(this.is_new_address){
+      this.all_user_adresses.push(this.CheckoutModel["addressid"])
+    }
     this.checkout_api.placeOrderService(this.CheckoutModel,this.is_new_address);
     this.is_ordered = true;
   }
@@ -66,5 +70,10 @@ export class CheckoutComponent implements OnInit {
 
 
 
+  }
+
+  routeHome()
+  {
+    this.router.navigate(['/home']);
   }
 }

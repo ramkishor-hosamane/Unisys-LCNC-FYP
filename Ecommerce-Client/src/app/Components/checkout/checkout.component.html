@@ -24,8 +24,8 @@
                         <div class="col-md-5">
                             <div class="cf-radio-btns address-rb">
                                 <div class="cfr-item" *ngFor="let user_address of all_user_adresses; let i = index">
-                                    <input type="radio" name="pm" id="one" (click)="selectAddress(i)">
-                                    <label for="one">Use my regular address {{i+1}}</label>                                
+                                    <input type="radio" name="pm" id="one-{{i+1}}" (click)="selectAddress(i)">
+                                    <label for="one-{{i+1}}">Use my regular address {{i+1}}</label>                                
                                 </div>
                                 <div class="cfr-item">
                                     <input type="radio" name="pm" id="two" (click)="clearAddress()" checked=true>
@@ -121,7 +121,7 @@
 
                     <h3 class="d-flex justify-content-center">Your Order is placed</h3>
                     
-                    <button class="site-btn checkout-order-btn">Go Back to Home</button>
+                    <button class="site-btn checkout-order-btn" (click)="routeHome()">Go Back to Home</button>
 
         </div>
 

@@ -99,7 +99,8 @@ export class CartService {
                 this.bizLocks['cart']= data["bizLock"]
                 this.bizVersions['cart']=data["bizVersion"]
                 this.shared.updateBizVersionandBizLock(this.bizLocks,this.bizVersions)
-    
+                this.getUserCartItems();
+
               },
               err=>{
                 console.error(err);
@@ -110,13 +111,12 @@ export class CartService {
 
              
              
-             
+
              break;
             //alert("Successfully logined");
           }
 
         }
-        this.getUserCartItems();
 
 
       },
@@ -162,7 +162,7 @@ export class CartService {
       // console.log("Product is there price is "+parseInt(this.cart[i]['productid']['productprice']))
       // console.log(this.cart_total)
     
-
+      // console.log("Product is there")
       this.cart[i]['quantity'] = parseInt(this.cart[i]['quantity']) + 1;
       this.cart_total += parseInt(this.cart[i]['productid']['productprice']);
       if (this.auth.isLogined()) {
@@ -174,7 +174,18 @@ export class CartService {
     }
     else {
       product['quantity'] = 1;
-      product['cartitemid'] = "CI"+(this.cart.length+1);
+      if(this.cart.length>0)
+      {
+        var last_element = this.cart[this.cart.length-1]
+        var arr = last_element["cartitemid"].split("-")
+        var index = Number(arr[arr.length-1])+1
+        product['cartitemid'] = this.user_cart["cartid"]+"-"+index;
+      }
+      else
+      {
+        product['cartitemid'] = this.user_cart["cartid"]+"-"+1;
+
+      }
       this.cart.push(product);
       this.cart_total += parseInt(product['productid']['productprice']);
     if (this.auth.isLogined()) {
@@ -207,8 +218,9 @@ export class CartService {
 
   isInCart(product: any) {
     for (let i = 0; i < this.cart.length; i++) {
-      if (this.cart[i]['bizId'] == product['bizId'])
+      if (this.cart[i]['productid']['bizId'] == product['productid']['bizId'])
         return i;
+      // console.log("inserted",this.cart[i],product)
 
     }
     return -1;
@@ -296,6 +308,15 @@ export class CartService {
     this.user_cart = null;
     this.cart_total = 0;
     this.updateCartSource(this.cart,this.cart_total);
+  }
+  deleteAllCartItemService(){
+    while(this.cart.length>0)
+    {
+      this.cart_total -= this.cart[0]["price"]
+      this.removeCartItem(0)
+    }
+    
+  
   }
   /* -------------------------------------------------------------------------------------- */
   /* -------------------------------All Api Call Functions------------------------------- */
