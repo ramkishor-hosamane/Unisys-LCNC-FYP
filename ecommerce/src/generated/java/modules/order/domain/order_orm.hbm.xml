@@ -26,6 +26,8 @@
 		<property name="grandtotal" type="Decimal2" precision="20" scale="2" />
 		<many-to-one name="addressid" entity-name="userAddress" column="addressid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_OrderHeader_addressid"/>
 		<property name="paymentmethod" length="20" />
+		<property name="orderstatus" length="20" />
+		<property name="orderdate" type="DateTime" />
 		<property name="createdstamp" type="DateTime" />
 		<property name="updatedstamp" type="DateTime" />
 		<filter name="orderOrderHeaderNoneFilter" condition="1=0"/>

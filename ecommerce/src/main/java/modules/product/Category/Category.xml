@@ -14,7 +14,7 @@
 			
 		</text>
 
-		<text name="sequencenum" required="true">
+		<text name="sequencenum">
 			<displayName>Sequence number</displayName>
 						<length>2</length>
 			

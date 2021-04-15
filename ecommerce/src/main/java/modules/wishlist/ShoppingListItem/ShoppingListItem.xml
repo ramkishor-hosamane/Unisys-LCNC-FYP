@@ -9,7 +9,13 @@
 	<pluralAlias>shoppinglistitems</pluralAlias>
 <bizKey expression="{categoryid}" />
 	<attributes>
-		
+
+		<association type="aggregation" name="userlogin"
+			required="true">
+			<displayName>User Login</displayName>
+			<documentName>UserLogin</documentName>
+		</association>
+				
 		<association type="aggregation" name="categoryid"
 			required="true">
 			<displayName>Category id</displayName>
@@ -21,9 +27,5 @@
 			<displayName>Product id</displayName>
 			<documentName>Product</documentName>
 		</association>
-		<text name="sequencenum" required="true">
-			<displayName>Sequence number</displayName>
-						<length>2</length>
-			
-		</text>
-	</attributes></document>
+	</attributes>
+	</document>

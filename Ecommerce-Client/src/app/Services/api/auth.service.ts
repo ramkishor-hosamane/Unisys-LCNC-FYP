@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/Models/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SessionStorageService } from 'ngx-webstorage';
+import { Utils } from 'src/app/utils';
 @Injectable({
   providedIn: 'root'
   
@@ -41,7 +42,8 @@ export class AuthService {
     
     console.log("Trying to send ")
     console.log(user);
-    
+
+
     let data = {
       "bizModule": "user",
       "bizDocument": "UserLogin",
@@ -52,11 +54,14 @@ export class AuthService {
       "lastname": user.lastname,
       "password": user.password,
       "isenabled": true,
+      "createdstamp":Utils.getCurrentDateTime(),
+      "updatedstamp":Utils.getCurrentDateTime(),
       "bizCustomer": "unisys",
       "bizDataGroupId": null
     }
     //Make http rest api call    
     return this.http.put<any>(this.insert_url,data,{headers:environment.httpHeaders});
+    //return new Observable<any>();
   }
 
 

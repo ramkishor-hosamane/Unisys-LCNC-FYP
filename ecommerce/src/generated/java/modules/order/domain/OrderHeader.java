@@ -50,6 +50,10 @@ public class OrderHeader extends AbstractPersistentBean {
 	/** @hidden */
 	public static final String paymentmethodPropertyName = "paymentmethod";
 	/** @hidden */
+	public static final String orderstatusPropertyName = "orderstatus";
+	/** @hidden */
+	public static final String orderdatePropertyName = "orderdate";
+	/** @hidden */
 	public static final String createdstampPropertyName = "createdstamp";
 	/** @hidden */
 	public static final String updatedstampPropertyName = "updatedstamp";
@@ -78,6 +82,14 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * Payment Method
 	 **/
 	private String paymentmethod;
+	/**
+	 * Order Status
+	 **/
+	private String orderstatus;
+	/**
+	 * Order Date
+	 **/
+	private DateTime orderdate;
 	/**
 	 * Created timestamp
 	 **/
@@ -240,6 +252,44 @@ public class OrderHeader extends AbstractPersistentBean {
 	public void setPaymentmethod(String paymentmethod) {
 		preset(paymentmethodPropertyName, paymentmethod);
 		this.paymentmethod = paymentmethod;
+	}
+
+	/**
+	 * {@link #orderstatus} accessor.
+	 * @return	The value.
+	 **/
+	public String getOrderstatus() {
+		return orderstatus;
+	}
+
+	/**
+	 * {@link #orderstatus} mutator.
+	 * @param orderstatus	The new value.
+	 **/
+	@XmlElement
+	public void setOrderstatus(String orderstatus) {
+		preset(orderstatusPropertyName, orderstatus);
+		this.orderstatus = orderstatus;
+	}
+
+	/**
+	 * {@link #orderdate} accessor.
+	 * @return	The value.
+	 **/
+	public DateTime getOrderdate() {
+		return orderdate;
+	}
+
+	/**
+	 * {@link #orderdate} mutator.
+	 * @param orderdate	The new value.
+	 **/
+	@XmlSchemaType(name = "dateTime")
+	@XmlJavaTypeAdapter(DateTimeMapper.class)
+	@XmlElement
+	public void setOrderdate(DateTime orderdate) {
+		preset(orderdatePropertyName, orderdate);
+		this.orderdate = orderdate;
 	}
 
 	/**

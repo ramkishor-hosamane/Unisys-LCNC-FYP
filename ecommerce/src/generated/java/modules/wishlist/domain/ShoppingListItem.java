@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import modules.product.domain.Category;
 import modules.product.domain.Product;
+import modules.user.domain.UserLogin;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractPersistentBean;
@@ -15,6 +16,7 @@ import org.skyve.impl.domain.AbstractPersistentBean;
  * 
  * @navhas n productid 1 Product
  * @navhas n categoryid 1 Category
+ * @navhas n userlogin 1 UserLogin
  * @stereotype "persistent"
  */
 @XmlType
@@ -32,12 +34,16 @@ public class ShoppingListItem extends AbstractPersistentBean {
 	public static final String DOCUMENT_NAME = "ShoppingListItem";
 
 	/** @hidden */
+	public static final String userloginPropertyName = "userlogin";
+	/** @hidden */
 	public static final String categoryidPropertyName = "categoryid";
 	/** @hidden */
 	public static final String productidPropertyName = "productid";
-	/** @hidden */
-	public static final String sequencenumPropertyName = "sequencenum";
 
+	/**
+	 * User Login
+	 **/
+	private UserLogin userlogin = null;
 	/**
 	 * Category id
 	 **/
@@ -46,10 +52,6 @@ public class ShoppingListItem extends AbstractPersistentBean {
 	 * Product id
 	 **/
 	private Product productid = null;
-	/**
-	 * Sequence number
-	 **/
-	private String sequencenum;
 
 	@Override
 	@XmlTransient
@@ -93,6 +95,26 @@ public class ShoppingListItem extends AbstractPersistentBean {
 	}
 
 	/**
+	 * {@link #userlogin} accessor.
+	 * @return	The value.
+	 **/
+	public UserLogin getUserlogin() {
+		return userlogin;
+	}
+
+	/**
+	 * {@link #userlogin} mutator.
+	 * @param userlogin	The new value.
+	 **/
+	@XmlElement
+	public void setUserlogin(UserLogin userlogin) {
+		if (this.userlogin != userlogin) {
+			preset(userloginPropertyName, userlogin);
+			this.userlogin = userlogin;
+		}
+	}
+
+	/**
 	 * {@link #categoryid} accessor.
 	 * @return	The value.
 	 **/
@@ -130,23 +152,5 @@ public class ShoppingListItem extends AbstractPersistentBean {
 			preset(productidPropertyName, productid);
 			this.productid = productid;
 		}
-	}
-
-	/**
-	 * {@link #sequencenum} accessor.
-	 * @return	The value.
-	 **/
-	public String getSequencenum() {
-		return sequencenum;
-	}
-
-	/**
-	 * {@link #sequencenum} mutator.
-	 * @param sequencenum	The new value.
-	 **/
-	@XmlElement
-	public void setSequencenum(String sequencenum) {
-		preset(sequencenumPropertyName, sequencenum);
-		this.sequencenum = sequencenum;
 	}
 }

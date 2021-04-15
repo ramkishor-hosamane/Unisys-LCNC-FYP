@@ -18,7 +18,7 @@
 			<displayName>Product id</displayName>
 			<documentName>Product</documentName>
 		</association>
-		<text name="sequencenum" required="true">
+		<text name="sequencenum">
 			<displayName>Sequence number</displayName>
 						<length>2</length>
 			

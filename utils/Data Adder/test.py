@@ -33,5 +33,11 @@ j = {
   }
 
 
-resp = requests.request("PUT",URL,auth=(username, password),json=j) 
-print(resp.text)
+# resp = requests.request("PUT",URL,auth=(username, password),json=j)
+URL = "http://localhost:8080/ecommerce/rest/json/product/Product" 
+resp = requests.request("GET",URL,auth=(username, password))
+result_dict = json.loads(resp.text) 
+for product in result_dict:
+  product_resp = requests.request("GET",URL+"/"+product["bizId"],auth=(username, password))
+  product_dict = json.loads(product_resp.text) 
+  print(product["productid"],"--->",product_dict["bizLock"])

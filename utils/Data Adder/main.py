@@ -15,40 +15,40 @@ tables = ['Address','UserLogin','UserAddress','Category','Product','ProductCateg
 #          'ShoppingCartItem','ShoppingCart','OrderHeader','OrderItem']
 tables = ['ProductCategoryMember']
 
-product_bizLock ="20210413214253766setup" 
-product_bizVersion = 0
+PRODUCT_URL = "http://localhost:8080/ecommerce/rest/json/product/Product" 
+CATEGORY_URL = "http://localhost:8080/ecommerce/rest/json/product/Category" 
 
-category_bizLock ="20210413214253766setup" 
-category_bizVersion = 0
+
+
 
 for table in tables:
   try:        
     data = load_json_file(table+'.json',table)
     for row in data:
       #Specific to Product Category mmeber
-      print("Came here")
       if table=="ProductCategoryMember":
-        row["categoryid"]["bizVersion"] = category_bizVersion
-        row["categoryid"]["bizLock"] = category_bizLock
-
-        row["productid"]["bizVersion"] = product_bizVersion
-        row["productid"]["bizLock"] = product_bizLock
-        #print("Came here",row)
-
+          product_resp = requests.request("GET",PRODUCT_URL+"/"+row['productid']["bizId"],auth=(username, password))
+          product_dict = json.loads(product_resp.text) 
+          category_resp = requests.request("GET",CATEGORY_URL+"/"+row['categoryid']["bizId"],auth=(username, password))
+          category_dict = json.loads(category_resp.text) 
+          row["productid"]["bizLock"] = product_dict["bizLock"]
+          row["productid"]["bizVersion"] = product_dict["bizVersion"]
+          row["categoryid"]["bizLock"] = category_dict["bizLock"]
+          row["categoryid"]["bizVersion"] = category_dict["bizVersion"]
+          #print(row)
+          
       resp = requests.request("PUT",URL,auth=(username, password),json=row)
       print("done")
       result_dict = json.loads(resp.text)
       print(resp.text)
-      # product_bizLock = result_dict["productid"]["bizLock"]
-      # product_bizVersion = int(result_dict["productid"]["bizVersion"])
-      # category_bizVersion = result_dict["categoryid"]["bizLock"]
-      # category_bizLock = int(result_dict["categoryid"]["bizVersion"])
     
     print()
     print()   
     print(table," done ...")
     print()
     print()   
-    
+
+        #for product in result_dict:
+
   except Exception as e:
     print("Something Went Wrong ...",e)

@@ -27,6 +27,7 @@
 			<displayName>Grand Total</displayName>
 		</decimal2>
 
+		
 		<!-- Foreign key -->
 		<association type="aggregation" name="addressid"
 			required="true">
@@ -38,6 +39,15 @@
 			<displayName>Payment Method</displayName>
 			<length>20</length>
 		</text>
+		<text name="orderstatus" required="true">
+			<displayName>Order Status</displayName>
+			<length>20</length>
+		</text>
+		<dateTime name="orderdate">
+			<displayName>Order Date </displayName>
+<!-- 			<defaultValue></defaultValue> -->
+		</dateTime>
+
 
 		<dateTime name="createdstamp">
 			<displayName>Created timestamp </displayName>
