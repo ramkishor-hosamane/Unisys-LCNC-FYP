@@ -5,9 +5,9 @@
     <documents>
         <document ref="OrderHeader"/>
         <document ref="OrderItem"/>
-         <document ref="UserLogin" moduleRef="user" />
-         <document ref="Address" moduleRef="user" />
-
+        <document ref="Product" moduleRef="product"/> 
+        <document ref="UserLogin" moduleRef="user" />
+        <document ref="Address" moduleRef="user" />
     </documents>
     <roles>
         <role name="Maintainer">

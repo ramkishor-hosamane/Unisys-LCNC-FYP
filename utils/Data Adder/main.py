@@ -13,7 +13,7 @@ def load_json_file(path,expexted_data):
         return data[expexted_data]
 tables = ['Address','UserLogin','UserAddress','Category','Product','ProductCategoryMember']
 #          'ShoppingCartItem','ShoppingCart','OrderHeader','OrderItem']
-tables = ['ProductCategoryMember']
+tables = ['Category','Product','ProductCategoryMember']
 
 PRODUCT_URL = "http://localhost:8080/ecommerce/rest/json/product/Product" 
 CATEGORY_URL = "http://localhost:8080/ecommerce/rest/json/product/Category" 

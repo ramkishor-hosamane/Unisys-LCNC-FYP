@@ -15,8 +15,6 @@ export class Utils {
       // console.log(cur_date_time.getDate());
       // console.log(cur_date_time.getDay());
       // console.log(cur_date_time.getMonth());
-  
-      console.log(cur_timestamp)
       var month = cur_timestamp.substring(4,7)
       var year = cur_timestamp.substring(11,15)
       var day = cur_timestamp.substring(8,10)
@@ -25,8 +23,9 @@ export class Utils {
       // console.log("month is"+month)
       // console.log("year is"+year)
       // console.log("timestamp is"+timestamp)
-
-      return day+"-"+month+"-"+year+" "+timestamp;
+      var result = day+"-"+month+"-"+year+" "+timestamp;
+      console.log("Result is ",result)
+      return result;
     }
 
     public static makeJsonObject(obj:any){

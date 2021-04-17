@@ -1,0 +1,16 @@
+
+
+table .scope{
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+background-color: #212529;
+color: #fff
+}
+
+table tr td{
+  font-size: 18px;
+  text-align: center;
+  padding: 15px;
+
+}

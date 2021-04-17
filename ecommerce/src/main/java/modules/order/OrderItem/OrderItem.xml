@@ -17,10 +17,12 @@
 			<documentName>OrderHeader</documentName>
 		</association>
 
-		<text name="orderitemseqnum" required="true">
-			<displayName>Order Item Sequence Number</displayName>
-			<length>2</length>
-		</text>
+		<!-- Foreign key -->
+		<association type="aggregation" name="productid"
+			required="true">
+			<displayName>Product Id</displayName>
+			<documentName>Product</documentName>
+		</association>
 		<integer name="quantity" required="true">
 			<displayName>Quantity</displayName>
 		</integer>

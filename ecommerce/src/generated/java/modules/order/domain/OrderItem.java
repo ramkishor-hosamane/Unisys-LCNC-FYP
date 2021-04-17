@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import modules.product.domain.Product;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateTime;
@@ -15,6 +16,7 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 /**
  * OrderItem
  * 
+ * @navhas n productid 1 Product
  * @navhas n orderid 1 OrderHeader
  * @stereotype "persistent"
  */
@@ -37,7 +39,7 @@ public class OrderItem extends AbstractPersistentBean {
 	/** @hidden */
 	public static final String orderidPropertyName = "orderid";
 	/** @hidden */
-	public static final String orderitemseqnumPropertyName = "orderitemseqnum";
+	public static final String productidPropertyName = "productid";
 	/** @hidden */
 	public static final String quantityPropertyName = "quantity";
 	/** @hidden */
@@ -56,9 +58,9 @@ public class OrderItem extends AbstractPersistentBean {
 	 **/
 	private OrderHeader orderid = null;
 	/**
-	 * Order Item Sequence Number
+	 * Product Id
 	 **/
-	private String orderitemseqnum;
+	private Product productid = null;
 	/**
 	 * Quantity
 	 **/
@@ -156,21 +158,23 @@ public class OrderItem extends AbstractPersistentBean {
 	}
 
 	/**
-	 * {@link #orderitemseqnum} accessor.
+	 * {@link #productid} accessor.
 	 * @return	The value.
 	 **/
-	public String getOrderitemseqnum() {
-		return orderitemseqnum;
+	public Product getProductid() {
+		return productid;
 	}
 
 	/**
-	 * {@link #orderitemseqnum} mutator.
-	 * @param orderitemseqnum	The new value.
+	 * {@link #productid} mutator.
+	 * @param productid	The new value.
 	 **/
 	@XmlElement
-	public void setOrderitemseqnum(String orderitemseqnum) {
-		preset(orderitemseqnumPropertyName, orderitemseqnum);
-		this.orderitemseqnum = orderitemseqnum;
+	public void setProductid(Product productid) {
+		if (this.productid != productid) {
+			preset(productidPropertyName, productid);
+			this.productid = productid;
+		}
 	}
 
 	/**

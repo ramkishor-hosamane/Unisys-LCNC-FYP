@@ -25,7 +25,7 @@
                             <div class="cf-radio-btns address-rb">
                                 <div class="cfr-item" *ngFor="let user_address of all_user_adresses; let i = index">
                                     <input type="radio" name="pm" id="one-{{i+1}}" (click)="selectAddress(i)">
-                                    <label for="one-{{i+1}}">Use my regular address {{i+1}}</label>                                
+                                    <label for="one-{{i+1}}">Use default address {{i+1}}</label>                                
                                 </div>
                                 <div class="cfr-item">
                                     <input type="radio" name="pm" id="two" (click)="clearAddress()" checked=true>

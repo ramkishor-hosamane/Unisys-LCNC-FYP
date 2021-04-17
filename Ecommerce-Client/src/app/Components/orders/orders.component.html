@@ -1,0 +1,62 @@
+<div class="page-top-info">
+    <div class="container">
+        <h4>My Orders</h4>
+        <div class="site-pagination">
+            <a href="#">Home</a> /
+            <a href="#">Orders</a>
+        </div>
+    </div>
+</div>
+
+
+
+<section class="order-section spad">
+    <div class="container">
+        <div class="card-body">
+
+            <table class="table table-striped table-hover" style="width: 100%;">
+                <thead class="" style="background-color:#13b987">
+                    <tr>
+                        <th class="scope">SLNO</th>
+                        <th class="scope">Order Id</th>
+                        <th class="scope">Price</th>
+                        <th class="scope">Payment Method</th>
+                        <th class="scope">Order Date</th>
+                        <th class="scope">Order Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let order of orders; let i = index" (click)="routeToOrder(order)">
+                        <td>{{i+1}}</td>
+
+                        <td>{{order.orderid}}</td>
+                        <td>{{order.grandtotal}}</td>
+                        <td>{{order.paymentmethod}}</td>
+                        <td>{{order.orderstatus}}</td>
+                        <td>{{order.orderdate}}</td>
+
+
+
+                        <!-- <td>
+                        <button type="button" class="btn btn-info btn-md"
+                             (click)="updateProductFields(product)">Update</button>
+                        <button class="btn btn-danger btn-md" (click)="onDeleteProduct(product)"
+                            style="margin-left: 10px;">Delete</button>
+
+                            
+                    </td> -->
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+
+
+<div style="height: 10vh;"></div>

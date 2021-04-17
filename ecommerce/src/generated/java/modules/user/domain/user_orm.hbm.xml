@@ -48,8 +48,6 @@
 		<many-to-one name="addressid" entity-name="userAddress" column="addressid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_UserAddress_addressid"/>
 		<property name="sequenceno" length="2" />
 		<property name="addresstype" length="20" />
-		<property name="createdstamp" type="DateTime" />
-		<property name="updatedstamp" type="DateTime" />
 		<filter name="userUserAddressNoneFilter" condition="1=0"/>
 		<filter name="userUserAddressCustomerFilter" condition="bizCustomer=:customerParam"/>
 		<filter name="userUserAddressDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>

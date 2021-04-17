@@ -7,6 +7,7 @@ import { Utils } from './../../utils';
 import { SharedService } from '../shared.service';
 import { CartService } from './cart.service';
 import { ApiService } from './api.service';
+import { Product } from 'src/app/Models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -126,7 +127,7 @@ export class CheckoutService {
     )
   }
   getUserAddressFromAllAddresses() {
-    this.getAllUserAddressApi().subscribe(
+    this.api.getData(this.user_address_url).subscribe(
       data => {
         for (var obj of data) {
           if (obj['userloginid']['emailid'] == this.current_user['emailid']) {
@@ -173,12 +174,10 @@ export class CheckoutService {
     }
     else{
       this.createOrder(user_addr)
-    }
-    this.initializeCheckoutProcess()
-  
+    }  
   }
 
-  insertOrderItemOnebyOne(order_header:any,user_addr:any,i:number){
+  async insertOrderItemOnebyOne(order_header:any,user_addr:any,i:number){
     if(i<0)
     {
       this.cart_api.deleteAllCartItemService()
@@ -190,7 +189,11 @@ export class CheckoutService {
     this.total_order_items+=1
     var id = (i+1)              
 
-    this.insertOrderItemApi(cart_item,order_header,user_addr,id).subscribe(
+    let product_res:any = await this.http.get(environment.server_api_url+"product/Product/"+(cart_item["productid"]["bizId"]),{ headers: environment.httpHeaders }).toPromise(); 
+    console.log(product_res)
+    console.log(product_res.data)
+    
+    this.insertOrderItemApi(cart_item,product_res,order_header,user_addr,id).subscribe(
       order_item=>{
         console.log("Done inserting item")
         i-=1;
@@ -223,19 +226,17 @@ export class CheckoutService {
   /* -------------------------------------------------------------------------------------- */
   /* -------------------------------All Api Call Functions------------------------------- */
   /* ------------------------------------------------------------------------------------ */
-  getAllUserAddressApi(): Observable<any> {
-    return this.http.get(this.user_address_url, { headers: environment.httpHeaders })
 
-  }
 
   /* Order */
   insertOrderHeaderApi(user_addr: any) {
 
     let user = Utils.makeJsonObject(this.current_user)
     let addr = Utils.makeJsonObject(user_addr["addressid"])
+    var date = Utils.getCurrentDateTime()
     user["bizLock"]=this.bizLocks['user']
     user["bizVersion"]=this.bizVersions['user']
-
+    console.log("ORder data is",Utils.getCurrentDateTime())
     let data ={
       "bizModule": "order",
       "bizDocument": "OrderHeader",
@@ -245,8 +246,10 @@ export class CheckoutService {
       "grandtotal": this.cart_total,
       "addressid": addr,
       "paymentmethod": "Cash",
-      "createdstamp": "",
-      "updatedstamp": "",
+      "orderstatus":"created",
+      "orderdate":date,
+      "createdstamp":date,
+      "updatedstamp":date,
       "bizCustomer": "unisys",
       "bizDataGroupId": null,
       "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba",
@@ -257,10 +260,18 @@ export class CheckoutService {
     return this.http.put<any>(this.insert_url, data, { headers: environment.httpHeaders });
 
   }
-  insertOrderItemApi(order_item: any, order_header: any, user_addr: any,id:number) {
 
+  
+  insertOrderItemApi(order_item: any,product_res:any, order_header: any, user_addr: any,id:number) {
+    
     let user = Utils.makeJsonObject(this.current_user)
     let addr = Utils.makeJsonObject(user_addr["addressid"])
+    var date = Utils.getCurrentDateTime()
+
+    // console.log(product_res.data)
+    // console.log(product_res)
+    
+    // console.log(JSON.stringify(product_res.data))
     user["bizLock"]=this.bizLocks['user']
     user["bizVersion"]=this.bizVersions['user']
     // console.log("Before inserting order item jsut checking")
@@ -280,9 +291,11 @@ export class CheckoutService {
         "subtotal": order_header['subtotal'],
         "grandtotal": order_header['grandtotal'],
         "addressid": addr,
+        "orderstatus":order_header["orderstatus"],
         "paymentmethod": "Cash",
-        "createdstamp": "",
-        "updatedstamp": "",
+        "orderdate":date,
+        "createdstamp": date,
+        "updatedstamp": date,
         "bizId": order_header['bizId'],
         "bizCustomer": "unisys",
         "bizDataGroupId": null,
@@ -290,11 +303,12 @@ export class CheckoutService {
         "bizVersion": this.bizVersions["order"],
         "bizLock": this.bizLocks["order"]
       },
-      "orderitemseqnum": "1",
+
+      "productid":product_res,
       "quantity": order_item["quantity"],
       "unitprice": order_item["price"],
-      "createdstamp": "",
-      "updatedstamp": "",
+      "createdstamp": Utils.getCurrentDateTime(),
+      "updatedstamp": Utils.getCurrentDateTime(),
       "bizCustomer": "unisys",
       "bizDataGroupId": null,
       "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
@@ -303,9 +317,6 @@ export class CheckoutService {
     return this.http.put<any>(this.insert_url, data, { headers: environment.httpHeaders });
 
   }
-
-
-
   getAllOrderHeadersApi(): Observable<any> {
     return this.http.get(this.order_header_url, { headers: environment.httpHeaders })
   }
@@ -331,8 +342,8 @@ export class CheckoutService {
       "state": user["state"],
       "zipcode": user["zipcode"],
       "country": user["country"],
-      "createdstamp": "",
-      "updatedstamp": "",
+      "createdstamp": Utils.getCurrentDateTime(),
+      "updatedstamp": Utils.getCurrentDateTime(),
       "bizCustomer": "unisys",
       "bizDataGroupId": null,
       "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba",
@@ -352,8 +363,6 @@ export class CheckoutService {
       "addressid": addr,
       "sequenceno": "1",
       "addresstype": user_addr["addresstype"],
-      "createdstamp": "",
-      "updatedstamp": "",
       "bizCustomer": "unisys",
       "bizDataGroupId": null,
       "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"

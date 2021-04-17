@@ -213,21 +213,43 @@ export class CartService {
         console.log('Updating Cartitem Success!',data)
         this.shared.updateBiz(data['cartid']["bizLock"],data['cartid']["bizVersion"],'cart')
 
-      this.updateUserCartApi().subscribe(
-        data =>{
-          console.log('Updating Cart Success!',data)
-          this.shared.updateBiz(data["bizLock"],data["bizVersion"],'cart')
-
-        } ,
-        error => console.error('Updating Cart !error',error)
-      )
+      this.updateUserCart();
     },
       error => console.error('Updating Cartitem !error',error)
     )
   }
  
   insertCartItemService(product:any){
-      this.insertUserCartItemApi(product).subscribe(
+    this.user_cart["bizLock"] = this.bizLocks['cart']
+    this.user_cart["bizVersion"] = this.bizVersions['cart']
+    let prod = Utils.makeJsonObject(product['productid'])
+    let data = {
+      "bizModule": "cart",
+      "bizDocument": "ShoppingCartItem",
+      "cartitemid": product["cartitemid"],
+      "cartid": {
+        "bizModule": "cart",
+        "bizDocument": "ShoppingCart",
+        "cartid": this.user_cart["cartid"],
+        "userlogin": Utils.makeJsonObject(this.user_cart["userlogin"]),//
+        "subtotal": this.user_cart["subtotal"],
+        "grandtotal": this.user_cart["grandtotal"],
+        "bizId": this.user_cart["bizId"],
+        "bizCustomer": "unisys",
+        "bizDataGroupId": null,
+        "bizUserId":this.user_cart["bizUserId"],
+        "bizVersion":this.bizVersions['cart'],
+        "bizLock": this.bizLocks['cart']
+      },
+      "productid": prod,
+      "quantity": 1,
+      "price":product['price'],
+      "bizCustomer": "unisys",
+      "bizDataGroupId": null,
+      "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
+    }
+
+      this.api.insertData(this.insert_url, data).subscribe(
         data => {
           console.log('Success! cartitem is now',data)
 
@@ -235,35 +257,37 @@ export class CartService {
 
           this.cart[this.cart.indexOf(product)]["bizId"] = data["bizId"];
 
-          this.updateUserCartApi().subscribe(
-            data => {console.log('Updating Cart after inserting Success!',data)
-            
-            this.shared.updateBiz(data["bizLock"],data["bizVersion"],'cart')
-           
-          },
-            error => console.error('Updating Cart after inserting !error',error)
-          )
+          this.updateUserCart();
         },
         error => console.error('Updating Cartitem !error',error)
       )
 
   }
+
   deleteCartItemService(i:number){
-        this.deleteUserCartItemApi(this.cart[i]).subscribe(
+    var cart_item = this.cart[i];
+    this.user_cart["bizLock"]= this.bizLocks['user'];
+    this.user_cart["bizVersion"]= this.bizVersions['user'];
+
+    let prod = Utils.makeJsonObject(cart_item['productid'])
+    let data = {
+      "bizModule": "cart",
+      "bizDocument": "ShoppingCartItem",
+      "bizId":cart_item["bizId"],
+      "bizCustomer": "unisys",
+      "bizDataGroupId": null,
+      "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
+    }
+
+
+
+        this.api.deleteData(this.delete_url,data).subscribe(
           dat => {
-            console.log('Updating Cartitem Sucess yippe',dat)
-            this.updateUserCartApi().subscribe(
-              data => {
-                console.log('Updating Cart Success!',data)
-              
-              this.shared.updateBiz(data["bizLock"],data["bizVersion"],'cart')
-             
-            },
-              error => console.error('Updating Cart error',error)
-            )
+            console.log('Deleting Cartitem Sucess yippe',dat)
+            this.updateUserCart();
           
           },
-          error => console.error('Updating Cartitem !!!error',error)
+          error => console.error('Deleting Cartitem !!!error',error)
 
         )
   }
@@ -276,15 +300,14 @@ export class CartService {
   deleteAllCartItemService(){
     while(this.cart.length>0)
     {
-      this.cart_total -= this.cart[0]["price"]
+      //this.cart_total -= this.cart[0]["price"]
+
       this.removeCartItem(0)
     }
+    this.cart_total = 0
+    this.updateUserCart();
     
-  
   }
-  /* -------------------------------------------------------------------------------------- */
-  /* -------------------------------All Api Call Functions------------------------------- */
-  /* ------------------------------------------------------------------------------------ */
 
   createUserCartApi(cart: any,cart_no:number,user:any) {
     let data = 
@@ -304,15 +327,15 @@ export class CartService {
     return this.http.put<any>(this.insert_url, data, { headers: environment.httpHeaders });
   }
 
-  updateUserCartApi() {
+  updateUserCart() {
     this.current_user["bizVersion"]= this.bizVersions['user'],
     this.current_user["bizLock"]= this.bizLocks['user'];
     let user = Utils.makeJsonObject(this.current_user)
 
-    console.log("---------------")
-    console.log(user)
-    console.log(this.current_user)
-    console.log("---------------")
+    // console.log("---------------")
+    // console.log(user)
+    // console.log(this.current_user)
+    // console.log("---------------")
 
     let data = 
       {
@@ -328,9 +351,19 @@ export class CartService {
         "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
       }
     
-
-    return this.http.post<any>(this.update_url, data, { headers: environment.httpHeaders });
+    this.api.updateData(this.update_url, data,).subscribe(
+      data => {
+        console.log('Updating Cart Success!',data)
+      
+      this.shared.updateBiz(data["bizLock"],data["bizVersion"],'cart')
+     
+    },
+      error => console.error('Updating Cart error',error)
+    )
   }
+
+
+
   updateUserCartItemApi(cart_item: any) {
      let prod = Utils.makeJsonObject(cart_item['productid'])
      let data = {
@@ -359,82 +392,11 @@ export class CartService {
        "bizDataGroupId": null,
        "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
      }
-         //Make http rest api call    
+     //Make http rest api call    
      // console.log("Updating in ",this.insert_url)
      return this.http.post<any>(this.update_url, data, { headers: environment.httpHeaders });
-  
-  
-  
-  
     }
   
-    
-  
-    insertUserCartItemApi(cart_item: any) {
-      this.user_cart["bizLock"] = this.bizLocks['cart']
-      this.user_cart["bizVersion"] = this.bizVersions['cart']
-      let prod = Utils.makeJsonObject(cart_item['productid'])
-      let data = {
-        "bizModule": "cart",
-        "bizDocument": "ShoppingCartItem",
-        "cartitemid": cart_item["cartitemid"],
-        "cartid": {
-          "bizModule": "cart",
-          "bizDocument": "ShoppingCart",
-          "cartid": this.user_cart["cartid"],
-          "userlogin": Utils.makeJsonObject(this.user_cart["userlogin"]),//
-          "subtotal": this.user_cart["subtotal"],
-          "grandtotal": this.user_cart["grandtotal"],
-          "bizId": this.user_cart["bizId"],
-          "bizCustomer": "unisys",
-          "bizDataGroupId": null,
-          "bizUserId":this.user_cart["bizUserId"],
-          "bizVersion":this.bizVersions['cart'],
-          "bizLock": this.bizLocks['cart']
-        },
-        "productid": prod,
-        "quantity": 1,
-        "price":cart_item['price'],
-        "bizCustomer": "unisys",
-        "bizDataGroupId": null,
-        "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
-      }
-  
-      return this.http.put<any>(this.insert_url, data, { headers: environment.httpHeaders });
-    }
-  
-    deleteUserCartItemApi(cart_item: any) {
-      //  console.log("Inside")
-      //  console.log()
-      // console.log(cart_item['productid'])
-      this.user_cart["bizLock"]= this.bizLocks['user'];
-      this.user_cart["bizVersion"]= this.bizVersions['user'];
-  
-      // console.log(this.user_cart)
-  
-      //return new Observable()
-      let prod = Utils.makeJsonObject(cart_item['productid'])
-      //prod["bizLock"]="20210407150543853setup";
-      let data = {
-        "bizModule": "cart",
-        "bizDocument": "ShoppingCartItem",
-        "bizId":cart_item["bizId"],
-  
-        "bizCustomer": "unisys",
-        "bizDataGroupId": null,
-        "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
-      }
-          //Make http rest api call    
-      // console.log("Putting in ",this.insert_url)
-      return this.http.request<any>('delete',this.delete_url,{headers: environment.httpHeaders,body:data});
-    }
-
-
-
-
-
-
-
 
 }
 

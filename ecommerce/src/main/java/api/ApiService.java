@@ -1,4 +1,5 @@
 package api;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,9 @@ import org.skyve.util.Util;
 
 import com.google.gson.Gson;
 
+import modules.order.domain.OrderHeader;
+import modules.order.domain.OrderItem;
+import modules.product.domain.Product;
 import modules.product.domain.ProductCategoryMember;
 
 @Path("/")
@@ -56,41 +60,33 @@ public class ApiService {
 	private HttpServletRequest request;
 	@Context
 	private HttpServletResponse response;
-	
 
-
-	
 	@GET
 	@Path("/greet")
 	@Produces(MediaType.TEXT_PLAIN)
-    public String printMessage(@QueryParam("person") String person) {
-        String result = "Hello "+ person;
-        return result;
-	}	
-	
-	
+	public String printMessage(@QueryParam("person") String person) {
+		String result = "Hello " + person;
+		return result;
+	}
+
 	@GET
 	@Path("/hello")
 	@Produces(MediaType.APPLICATION_JSON)
-    public String getJsonMessage() {
-        String result = "[{\"msg\":\"Restful example: Hello all\"}]";
-        //return Response.status(200).entity(result).build();
-        return result;
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String getJsonMessage(String json) {
+		System.out.println(json);
+		String result = "[{\"msg\":\"Restful example: Hello all\"}]";
+		// return Response.status(200).entity(result).build();
+		return json;
 	}
-	
-
-
 
 	@GET
-	@Path("/json/getProduct/{pid}")
+	@Path("/json/getData/{module}/{document}/{Id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String retrieveProduct(
-								@PathParam("pid") String pid,
-								@QueryParam("start") int start,
-								@QueryParam("end") int end
-								) {
+	public String retrieveDataById(@PathParam("module") String module, @PathParam("document") String document,
+			@PathParam("Id") String Id, @QueryParam("start") int start, @QueryParam("end") int end) {
 		String result = null;
-		
+
 		Persistence p = null;
 		try {
 			response.setContentType(MediaType.APPLICATION_JSON);
@@ -101,117 +97,125 @@ public class ApiService {
 
 			Customer c = u.getCustomer();
 
-			Module m = c.getModule("inventory");
+			Module m = c.getModule(module);
 
-			Document d = m.getDocument(c, "Product");
-			
-			if (! u.canReadDocument(d)) {
+			Document d = m.getDocument(c, document);
+
+			if (!u.canReadDocument(d)) {
 				throw new SecurityException("read this data", u.getName());
 			}
-			
 
-	    	DocumentQuery q = p.newDocumentQuery(d);
+			DocumentQuery q = p.newDocumentQuery(d);
 			System.out.println("DocumentQuery passed");
 
-	    	q.setFirstResult(start);
-	    	q.setMaxResults(end - start - 1);
-	    	
+			q.setFirstResult(start);
+			q.setMaxResults(end - start - 1);
 
-	    		System.out.println("Came here");
-	    		
-	    		//Filter the product by name
-				// select * from Product where name=pname;
-//	    		DocumentFilter name_filter = q.newDocumentFilter();
-//	    		name_filter.addEquals(Product.namePropertyName, pname);
-//	    
-//	    		q.getFilter().addAnd(name_filter);
-//	    		
+			System.out.println("Came here");
 
-	    		List<ProductCategoryMember> mybeans  = q.beanResults();
-//		    	for (Product bean : mybeans) {
-//		    		if(bean.getName().equals(pname))
-//		    		{
-//			    		System.out.println("populating");
-//			    		actual_result.add(bean);
-//		    			Util.populateFully(bean);
-//
-//			    		break;
-//		    		}
-//		    	}
-		    	
-		    
-		    result = JSON.marshall(CORE.getUser().getCustomer(), mybeans);
-			
-		}
-		catch (Throwable t) {
-			System.out.println("Error"+t);
+			switch (document) {
+			case "Product":
+				q.getFilter().addEquals(Product.productidPropertyName, Id);
+				List<Product> product_beans = q.beanResults();
+				result = JSON.marshall(CORE.getUser().getCustomer(), product_beans);
+				break;
+
+			case "OrderHeader":
+				q.getFilter().addEquals(OrderHeader.orderidPropertyName, Id);
+				List<OrderHeader> order_beans = q.beanResults();
+//			    	for (OrderHeader bean : order_beans) {
+//			    			Util.populateFully(bean);
+//			    	}
+
+				result = JSON.marshall(CORE.getUser().getCustomer(), order_beans);
+				break;
+
+			default:
+				break;
+			}
+			// Filter the product by name
+			// select * from Product where productid=pid;
+
+		} catch (Throwable t) {
+			System.out.println("Error" + t);
 			t.printStackTrace();
 			AbstractRestFilter.error(p, response, t.getLocalizedMessage());
 		}
-		
+
 		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/* ----------------------------------Default Api Endpoints-------------------------------------------------------*/
-	
-	
-	
+	@GET
+	@Path("/json/getOrderItemsByOrderHeader/{OrderId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String retrieveOrderItemByOrderHeader(@PathParam("OrderId") String OrderId, @QueryParam("start") int start,
+			@QueryParam("end") int end) {
+		String result = null;
+
+		Persistence p = null;
+		try {
+			response.setContentType(MediaType.APPLICATION_JSON);
+
+			p = CORE.getPersistence();
+
+			User u = p.getUser();
+
+			Customer c = u.getCustomer();
+
+			Module m = c.getModule("order");
+
+			Document d = m.getDocument(c, "OrderItem");
+
+			if (!u.canReadDocument(d)) {
+				throw new SecurityException("read this data", u.getName());
+			}
+
+			DocumentQuery q = p.newDocumentQuery(d);
+			System.out.println("DocumentQuery passed");
+
+			
+			Document d2 = m.getDocument(c, "OrderHeader");
+			DocumentQuery q2 = p.newDocumentQuery(d2);
+			q2.getFilter().addLike("orderid", OrderId);
+			List<OrderHeader> oh = q2.beanResults();
+			
+			System.out.println(oh.get(0));
+			
+			
+			
+			q.setFirstResult(start);
+			q.setMaxResults(end - start - 1);
+
+			System.out.println("Came here");
+			DocumentFilter f = q.newDocumentFilter();
+			
+			//q.getFilter().addEquals(, OrderId);
+			q.getFilter().addIn("orderid",oh.get(0));
+			//q.getFilter().addLike("orderid",oh.get(0));
+			List<OrderItem> order_beans = q.beanResults();
+			result = JSON.marshall(CORE.getUser().getCustomer(), order_beans);
+
+		} catch (Throwable t) {
+			System.out.println("Error" + t);
+			t.printStackTrace();
+			AbstractRestFilter.error(p, response, t.getLocalizedMessage());
+		}
+
+		return result;
+	}
+
+	/*
+	 * ----------------------------------Default Api
+	 * Endpoints-------------------------------------------------------
+	 */
+
 	@GET
 	@Path("/json/{module}/{document}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String retrieveJSON(@PathParam("module") String module, 
-								@PathParam("document") String document,
-								@QueryParam("start") int start,
-								@QueryParam("end") int end) {
+	public String retrieveJSON(@PathParam("module") String module, @PathParam("document") String document,
+			@QueryParam("start") int start, @QueryParam("end") int end) {
 		String result = null;
-		
+
 		Persistence p = null;
 		try {
 			response.setContentType(MediaType.APPLICATION_JSON);
@@ -230,58 +234,37 @@ public class ApiService {
 
 			Document d = m.getDocument(c, document);
 			System.out.println("Document passed");
-			
-			if (! u.canReadDocument(d)) {
+
+			if (!u.canReadDocument(d)) {
 				throw new SecurityException("read this data", u.getName());
 			}
-			
-	    	DocumentQuery q = p.newDocumentQuery(d);
+
+			DocumentQuery q = p.newDocumentQuery(d);
 			System.out.println("DocumentQuery passed");
 
-	    	q.setFirstResult(start);
-	    	q.setMaxResults(end - start - 1);
-	    	List<Bean> beans = q.projectedResults();
-	    	for (Bean bean : beans) {
-	    		Util.populateFully(bean);
-	    	}
+			q.setFirstResult(start);
+			q.setMaxResults(end - start - 1);
+			List<Bean> beans = q.projectedResults();
+			for (Bean bean : beans) {
+				Util.populateFully(bean);
+			}
 			result = JSON.marshall(CORE.getUser().getCustomer(), beans);
-		}
-		catch (Throwable t) {
-			System.out.println("Error"+t);
+		} catch (Throwable t) {
+			System.out.println("Error" + t);
 			t.printStackTrace();
 			AbstractRestFilter.error(p, response, t.getLocalizedMessage());
 		}
-		
+
 		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@GET
 	@Path("/xml/{module}/{document}/{id}")
 	@Produces(MediaType.APPLICATION_XML)
-	public Bean retrieveXML(@PathParam("module") String module, 
-										@PathParam("document") String document,
-										@PathParam("id") String id) {
+	public Bean retrieveXML(@PathParam("module") String module, @PathParam("document") String document,
+			@PathParam("id") String id) {
 		Bean result = null;
-		
+
 		Persistence p = null;
 		try {
 			response.setContentType(MediaType.APPLICATION_XML);
@@ -290,37 +273,32 @@ public class ApiService {
 			Customer c = u.getCustomer();
 			Module m = c.getModule(module);
 			Document d = m.getDocument(c, document);
-			
-			if (! u.canReadDocument(d)) {
+
+			if (!u.canReadDocument(d)) {
 				throw new SecurityException("read this data", u.getName());
 			}
-	
-	    	result = p.retrieve(d, id);
-	    	if (result == null) {
-	    		throw new NoResultsException();
-	    	}
-	    	Util.populateFully(result);
-		}
-		catch (Throwable t) {
+
+			result = p.retrieve(d, id);
+			if (result == null) {
+				throw new NoResultsException();
+			}
+			Util.populateFully(result);
+		} catch (Throwable t) {
 			t.printStackTrace();
 			AbstractRestFilter.error(p, response, t.getLocalizedMessage());
 		}
-		
+
 		return result;
 	}
-	
 
-	
-	
 	@GET
 	@Path("/json/{module}/{document}/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String retrieveJSON(@PathParam("module") String module, 
-								@PathParam("document") String document,
-								@PathParam("id") String id) {
+	public String retrieveJSON(@PathParam("module") String module, @PathParam("document") String document,
+			@PathParam("id") String id) {
 		String result = null;
 		Bean bean = null;
-		
+
 		Persistence p = null;
 		try {
 			response.setContentType(MediaType.APPLICATION_JSON);
@@ -329,28 +307,24 @@ public class ApiService {
 			Customer c = u.getCustomer();
 			Module m = c.getModule(module);
 			Document d = m.getDocument(c, document);
-			
-			if (! u.canReadDocument(d)) {
+
+			if (!u.canReadDocument(d)) {
 				throw new SecurityException("read this data", u.getName());
 			}
-	
-	    	bean = p.retrieve(d, id);
-	    	if (bean == null) {
-	    		throw new NoResultsException();
-	    	}
-	    	Util.populateFully(bean);
-	    	result = JSON.marshall(CORE.getUser().getCustomer(), bean);
-		}
-		catch (Throwable t) {
+
+			bean = p.retrieve(d, id);
+			if (bean == null) {
+				throw new NoResultsException();
+			}
+			Util.populateFully(bean);
+			result = JSON.marshall(CORE.getUser().getCustomer(), bean);
+		} catch (Throwable t) {
 			t.printStackTrace();
 			AbstractRestFilter.error(p, response, t.getLocalizedMessage());
 		}
-		
+
 		return result;
 	}
-
-	
-	
 
 	@GET
 	@Path("/json/insert/{bean}")
@@ -366,25 +340,24 @@ public class ApiService {
 	public String insertJSONPost(String json) {
 		return insertJSON(json);
 	}
-	
+
 	private String insertJSON(String json) {
 		String result = null;
-		
+
 		Persistence p = null;
 		try {
 			response.setContentType(MediaType.APPLICATION_JSON);
 			p = CORE.getPersistence();
 			User u = p.getUser();
-			
+
 			PersistentBean bean = (PersistentBean) JSON.unmarshall(u, json);
 			bean = p.save(bean);
 			result = JSON.marshall(u.getCustomer(), bean);
-		}
-		catch (Throwable t) {
+		} catch (Throwable t) {
 			t.printStackTrace();
 			AbstractRestFilter.error(p, response, t.getLocalizedMessage());
 		}
-		
+
 		return result;
 	}
 
@@ -402,27 +375,27 @@ public class ApiService {
 	public String updateJSONPost(String json) {
 		return updateJSON(json);
 	}
-	
+
 	private String updateJSON(String json) {
 		String result = null;
-		
+
 		Persistence p = null;
 		try {
 			response.setContentType(MediaType.APPLICATION_JSON);
 			p = CORE.getPersistence();
 			User u = p.getUser();
-			
+
 			PersistentBean bean = (PersistentBean) JSON.unmarshall(u, json);
-			PersistentBean beanToUpdate = p.retrieveAndLock(bean.getBizModule(), bean.getBizDocument(), bean.getBizId());
+			PersistentBean beanToUpdate = p.retrieveAndLock(bean.getBizModule(), bean.getBizDocument(),
+					bean.getBizId());
 			Binder.copy(bean, beanToUpdate);
 			beanToUpdate = p.save(beanToUpdate);
 			result = JSON.marshall(u.getCustomer(), beanToUpdate);
-		}
-		catch (Throwable t) {
+		} catch (Throwable t) {
 			t.printStackTrace();
 			AbstractRestFilter.error(p, response, t.getLocalizedMessage());
 		}
-		
+
 		return result;
 	}
 
@@ -432,7 +405,7 @@ public class ApiService {
 	public String deleteJSONGet(@PathParam("bean") String json) {
 		return deleteJSON(json);
 	}
-	
+
 	@DELETE
 	@Path("/json/delete")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -443,48 +416,55 @@ public class ApiService {
 
 	private String deleteJSON(String json) {
 		String result = null;
-		
+
 		Persistence p = null;
 		try {
 			response.setContentType(MediaType.APPLICATION_JSON);
 			p = CORE.getPersistence();
 			User u = p.getUser();
-			
+
 			PersistentBean bean = (PersistentBean) JSON.unmarshall(u, json);
-			PersistentBean beanToDelete = p.retrieveAndLock(bean.getBizModule(), bean.getBizDocument(), bean.getBizId());
+			PersistentBean beanToDelete = p.retrieveAndLock(bean.getBizModule(), bean.getBizDocument(),
+					bean.getBizId());
 			p.delete(beanToDelete);
 			result = "{}";
-		}
-		catch (Throwable t) {
+		} catch (Throwable t) {
 			t.printStackTrace();
 			AbstractRestFilter.error(p, response, t.getLocalizedMessage());
 		}
-		
+
 		return result;
 	}
-	
-/* Doesn't work Failed executing GET /xml/admin/Contact: org.jboss.resteasy.core.NoMessageBodyWriterFoundFailure: Could not find MessageBodyWriter for response object of type: java.util.ArrayList of media type: application/xml
-	@GET
-	@Path("/xml/{module}/{document}")
-	@Produces(MediaType.APPLICATION_XML)
-	public List<Bean> retrieveXML(@PathParam("module") String module, 
-								@PathParam("document") String document,
-								@QueryParam("start") int start,
-								@QueryParam("end") int end) throws Throwable {
-		response.setContentType(MediaType.APPLICATION_XML);
-		return retrieve(module, document, start, end);
-	}
-*/
+
+	/*
+	 * Doesn't work Failed executing GET /xml/admin/Contact:
+	 * org.jboss.resteasy.core.NoMessageBodyWriterFoundFailure: Could not find
+	 * MessageBodyWriter for response object of type: java.util.ArrayList of media
+	 * type: application/xml
+	 * 
+	 * @GET
+	 * 
+	 * @Path("/xml/{module}/{document}")
+	 * 
+	 * @Produces(MediaType.APPLICATION_XML) public List<Bean>
+	 * retrieveXML(@PathParam("module") String module,
+	 * 
+	 * @PathParam("document") String document,
+	 * 
+	 * @QueryParam("start") int start,
+	 * 
+	 * @QueryParam("end") int end) throws Throwable {
+	 * response.setContentType(MediaType.APPLICATION_XML); return retrieve(module,
+	 * document, start, end); }
+	 */
 
 	@GET
 	@Path("/json/query/{module}/{documentOrQuery}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String query(@PathParam("module") String module,
-							@PathParam("documentOrQuery") String documentOrQuery,
-							@QueryParam("start") int start,
-							@QueryParam("end") int end) {
+	public String query(@PathParam("module") String module, @PathParam("documentOrQuery") String documentOrQuery,
+			@QueryParam("start") int start, @QueryParam("end") int end) {
 		String result = null;
-		
+
 		Persistence p = null;
 		try {
 			response.setContentType(MediaType.APPLICATION_JSON);
@@ -492,7 +472,7 @@ public class ApiService {
 			User u = p.getUser();
 			Customer c = u.getCustomer();
 			Module m = c.getModule(module);
-	
+
 			MetaDataQueryDefinition q = null;
 			q = m.getMetaDataQuery(documentOrQuery);
 			// not a query, could be a document
@@ -502,57 +482,54 @@ public class ApiService {
 			if (q == null) {
 				throw new IllegalArgumentException(documentOrQuery + " is not a valid query or document.");
 			}
-	 
+
 			DocumentQueryListModel<Bean> qm = new DocumentQueryListModel<>();
-	        qm.setQuery(q);
-	        qm.setStartRow(start);
-	        qm.setEndRow(end);
-	
-	        Document d = qm.getDrivingDocument();
-			if (! u.canReadDocument(d)) {
+			qm.setQuery(q);
+			qm.setStartRow(start);
+			qm.setEndRow(end);
+
+			Document d = qm.getDrivingDocument();
+			if (!u.canReadDocument(d)) {
 				throw new SecurityException("read this data", u.getName());
 			}
-	        
-	        List<Bean> beans = qm.fetch().getRows();
-	        result = JSON.marshall(c, beans, qm.getProjections());
-		}
-		catch (Throwable t) {
+
+			List<Bean> beans = qm.fetch().getRows();
+			result = JSON.marshall(c, beans, qm.getProjections());
+		} catch (Throwable t) {
 			t.printStackTrace();
 			AbstractRestFilter.error(p, response, t.getLocalizedMessage());
 		}
-		
+
 		return result;
 	}
-	
+
 	@GET
 	@Path("/content/{contentId}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	public byte[] queryContent(@PathParam("contentId") String contentId) {
 		byte[] result = null;
-		
+
 		try {
 			try (ContentManager cm = EXT.newContentManager()) {
 				AttachmentContent content = cm.get(contentId);
-				
+
 				if (content == null) {
 					UtilImpl.LOGGER.info(request.getRequestURI() + " not found");
 					response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 					return result;
 				}
-				
+
 				User u = CORE.getUser();
-				if (! u.canAccessContent(content.getBizId(),
-											content.getBizModule(),
-											content.getBizDocument(),
-											content.getBizCustomer(),
-											content.getBizDataGroupId(),
-											content.getBizUserId(),
-											content.getAttributeName())) {
-					throw new SecurityException(content.getBizModule() + '.' + content.getBizDocument() + '.' + content.getAttributeName(), u.getName());
+				if (!u.canAccessContent(content.getBizId(), content.getBizModule(), content.getBizDocument(),
+						content.getBizCustomer(), content.getBizDataGroupId(), content.getBizUserId(),
+						content.getAttributeName())) {
+					throw new SecurityException(
+							content.getBizModule() + '.' + content.getBizDocument() + '.' + content.getAttributeName(),
+							u.getName());
 				}
 
 				result = content.getContentBytes();
-				
+
 				// Set headers
 				MimeType mimeType = content.getMimeType();
 				response.setContentType(mimeType.toString());
@@ -561,18 +538,17 @@ public class ApiService {
 				if (fileName == null) {
 					fileName = "content." + mimeType.getStandardFileSuffix();
 				}
-				response.setHeader("Content-Disposition", 
-									String.format("attachment; filename=\"%s\"", fileName));
-				// The following allows partial requests which are useful for large media or downloading files with pause and resume functions.
+				response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", fileName));
+				// The following allows partial requests which are useful for large media or
+				// downloading files with pause and resume functions.
 				response.setHeader("Accept-Ranges", "bytes");
 				UtilImpl.LOGGER.info(request.getRequestURI() + " served as binary");
-			}				
-		}
-		catch (Throwable t) {
+			}
+		} catch (Throwable t) {
 			t.printStackTrace();
 			AbstractRestFilter.error(null, response, t.getLocalizedMessage());
 		}
-			
+
 		return result;
 	}
 
@@ -580,52 +556,35 @@ public class ApiService {
 	@Path("/content/insert/{customer}/{module}/{document}/{id}/{attributeName}/{mimeType}")
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String insertContent(@PathParam("customer") String customer,
-								@PathParam("module") String module,
-								@PathParam("document") String document,
-								@PathParam("id") String id,
-								@PathParam("attributeName") String attributeName,
-								@PathParam("mimeType") String mimeType,
-								String encodedContent) {
+	public String insertContent(@PathParam("customer") String customer, @PathParam("module") String module,
+			@PathParam("document") String document, @PathParam("id") String id,
+			@PathParam("attributeName") String attributeName, @PathParam("mimeType") String mimeType,
+			String encodedContent) {
 		try {
-			assert(customer != null);
-			assert(module != null);
-			assert(document != null);
-			assert(id != null);
-			assert(attributeName != null);
-			assert(mimeType != null);
-			assert(encodedContent != null);
+			assert (customer != null);
+			assert (module != null);
+			assert (document != null);
+			assert (id != null);
+			assert (attributeName != null);
+			assert (mimeType != null);
+			assert (encodedContent != null);
 
 			response.setContentType(MediaType.APPLICATION_JSON);
 			final User u = CORE.getUser();
-			if (!u.canAccessContent(id,
-					module,
-					document,
-					customer,
-					u.getDataGroupId(),
-					id,
-					attributeName)) {
+			if (!u.canAccessContent(id, module, document, customer, u.getDataGroupId(), id, attributeName)) {
 				throw new SecurityException(module + '.' + document + '.' + attributeName, u.getName());
 			}
 
 			final PersistentBean bean = CORE.getPersistence().retrieveAndLock(module, document, id);
 			if (bean == null) {
-			    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			    return null;
+				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				return null;
 			}
 
 			try (final ContentManager cm = EXT.newContentManager()) {
 				final Base64 base64Codec = new Base64();
-				final AttachmentContent content = new AttachmentContent(
-						customer,
-						module,
-						document,
-						u.getDataGroupId(),
-						u.getId(),
-						id,
-						attributeName,
-						MimeType.valueOf(mimeType),
-						base64Codec.decode(encodedContent));
+				final AttachmentContent content = new AttachmentContent(customer, module, document, u.getDataGroupId(),
+						u.getId(), id, attributeName, MimeType.valueOf(mimeType), base64Codec.decode(encodedContent));
 
 				cm.put(content);
 				BindUtil.set(bean, attributeName, content.getContentId());
@@ -640,14 +599,5 @@ public class ApiService {
 
 		return null;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

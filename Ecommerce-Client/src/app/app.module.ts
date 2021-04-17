@@ -19,6 +19,8 @@ import { CheckoutComponent } from './Components/checkout/checkout.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { OrdersComponent } from './Components/orders/orders.component';
+import { OrderComponent } from './Components/orders/order/order.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
     NotFoundComponent,
     AlertComponent,
     CheckoutComponent,
-    ContactComponent
+    ContactComponent,
+    OrdersComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,

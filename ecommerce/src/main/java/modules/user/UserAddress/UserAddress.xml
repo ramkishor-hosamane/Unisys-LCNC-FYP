@@ -33,13 +33,13 @@
 			<length>20</length>
 		</text>
 
-		<dateTime name="createdstamp">
-			<displayName>Created timestamp </displayName>
-		</dateTime>
+<!-- 		<dateTime name="createdstamp"> -->
+<!-- 			<displayName>Created timestamp </displayName> -->
+<!-- 		</dateTime> -->
 
-		<dateTime name="updatedstamp">
-			<displayName>Updated timestamp </displayName>
-		</dateTime>
+<!-- 		<dateTime name="updatedstamp"> -->
+<!-- 			<displayName>Updated timestamp </displayName> -->
+<!-- 		</dateTime> -->
 
 	</attributes>
 </document>

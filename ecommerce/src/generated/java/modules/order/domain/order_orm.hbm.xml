@@ -47,7 +47,7 @@
 		<property name="bizUserId" length="36" not-null="true" />
 		<property name="orderitemid" length="10" />
 		<many-to-one name="orderid" entity-name="orderOrderHeader" column="orderid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_OrderItem_orderid"/>
-		<property name="orderitemseqnum" length="2" />
+		<many-to-one name="productid" entity-name="productProduct" column="productid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_OrderItem_productid"/>
 		<property name="quantity" />
 		<property name="unitprice" />
 		<property name="createdstamp" type="DateTime" />

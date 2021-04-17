@@ -34,4 +34,5 @@ export class ProductService {
     return this.http.get(this.product_url + id,{headers:this.httpHeaders})
   }
   
+  
 }

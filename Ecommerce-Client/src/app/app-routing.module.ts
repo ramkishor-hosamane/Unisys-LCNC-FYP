@@ -9,6 +9,8 @@ import { ProductComponent } from './Components/shop/product/product.component';
 import { NotFoundComponent } from './Components/shared/not-found/not-found.component';
 import { CheckoutComponent } from './Components/checkout/checkout.component';
 import { ContactComponent } from './Components/contact/contact.component';
+import { OrdersComponent } from './Components/orders/orders.component';
+import { OrderComponent } from './Components/orders/order/order.component';
 
 
 const routes: Routes = [
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path :'signup' , component:SignupComponent},
   { path :'login' , component:LoginComponent},
   { path :'logout' , component:HomeComponent},
+  { path :'orders' , component:OrdersComponent},
+  { path :'orders/:orderid' , component:OrderComponent},
 
   { path :'cart' , component:CartComponent},
   { path :'checkout' , component:CheckoutComponent},

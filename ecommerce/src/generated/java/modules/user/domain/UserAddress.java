@@ -2,15 +2,11 @@ package modules.user.domain;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
-import org.skyve.domain.types.DateTime;
 import org.skyve.impl.domain.AbstractPersistentBean;
-import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 
 /**
  * UserAddress
@@ -41,10 +37,6 @@ public class UserAddress extends AbstractPersistentBean {
 	public static final String sequencenoPropertyName = "sequenceno";
 	/** @hidden */
 	public static final String addresstypePropertyName = "addresstype";
-	/** @hidden */
-	public static final String createdstampPropertyName = "createdstamp";
-	/** @hidden */
-	public static final String updatedstampPropertyName = "updatedstamp";
 
 	/**
 	 * User Login Id
@@ -62,14 +54,6 @@ public class UserAddress extends AbstractPersistentBean {
 	 * Address Type
 	 **/
 	private String addresstype;
-	/**
-	 * Created timestamp
-	 **/
-	private DateTime createdstamp;
-	/**
-	 * Updated timestamp
-	 **/
-	private DateTime updatedstamp;
 
 	@Override
 	@XmlTransient
@@ -186,45 +170,5 @@ public class UserAddress extends AbstractPersistentBean {
 	public void setAddresstype(String addresstype) {
 		preset(addresstypePropertyName, addresstype);
 		this.addresstype = addresstype;
-	}
-
-	/**
-	 * {@link #createdstamp} accessor.
-	 * @return	The value.
-	 **/
-	public DateTime getCreatedstamp() {
-		return createdstamp;
-	}
-
-	/**
-	 * {@link #createdstamp} mutator.
-	 * @param createdstamp	The new value.
-	 **/
-	@XmlSchemaType(name = "dateTime")
-	@XmlJavaTypeAdapter(DateTimeMapper.class)
-	@XmlElement
-	public void setCreatedstamp(DateTime createdstamp) {
-		preset(createdstampPropertyName, createdstamp);
-		this.createdstamp = createdstamp;
-	}
-
-	/**
-	 * {@link #updatedstamp} accessor.
-	 * @return	The value.
-	 **/
-	public DateTime getUpdatedstamp() {
-		return updatedstamp;
-	}
-
-	/**
-	 * {@link #updatedstamp} mutator.
-	 * @param updatedstamp	The new value.
-	 **/
-	@XmlSchemaType(name = "dateTime")
-	@XmlJavaTypeAdapter(DateTimeMapper.class)
-	@XmlElement
-	public void setUpdatedstamp(DateTime updatedstamp) {
-		preset(updatedstampPropertyName, updatedstamp);
-		this.updatedstamp = updatedstamp;
 	}
 }
