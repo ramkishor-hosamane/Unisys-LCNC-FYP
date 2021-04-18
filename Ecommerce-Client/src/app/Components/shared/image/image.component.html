@@ -1,0 +1,6 @@
+
+
+<img *ngIf="width==''; else elseWishBlock" src="http://localhost:8080/ecommerce/content?_n={{url}}&_doc=product.Product&_b=smallimg&pfdrid_c=true"  alt="nothing">
+<ng-template #elseWishBlock>
+    <img src="http://localhost:8080/ecommerce/content?_n={{url}}&_doc=product.Product&_b=smallimg&pfdrid_c=true" [width]="width" [height]="height" alt="nothing">
+</ng-template>

@@ -157,7 +157,17 @@
                                     <a (click)="updateCart(product)"  class="add-card"><i class="flaticon-bag"></i><span>ADD TO
                                             CART</span></a>
                                     <!-- wishlist button -->
-                                    <!-- <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a> -->
+                                    <a *ngIf="!isInWishlist(product); else elseWishBlock" (click)="updateWishlist(product)" class="wishlist-btn"><i class="flaticon-heart"></i>
+                                        <span>ADD TO
+                                            WISHLIST</span>
+                                    </a>
+
+                                    <ng-template #elseWishBlock>
+
+                                        <a (click)="updateWishlist(product)" class="wishlist-btn wishlist-btn-selected" style="background-color:  #fa2275;"><i class="flaticon-heart"></i>
+                                            <span>REMOVE ITEM</span>
+                                        </a>
+                                    </ng-template>
                                 </div>
                             </div>
                             <div class="pi-text">

@@ -40,7 +40,6 @@
         </div>
       </div>
 
-
     </div>
 
     <div class="table-container">
@@ -52,19 +51,19 @@
           <tbody>
             <tr>
               <td class="sub-head" align="center">Order Id</td>
-              <td align="center">Otto</td>
+              <td align="center">{{orderHeader.orderid}}</td>
             </tr>
             <tr>
               <td class="sub-head" align="center">Order Status</td>
-              <td align="center">Otto</td>
+              <td align="center">{{orderHeader.orderstatus}}</td>
             </tr>
             <tr>
               <td class="sub-head" align="center">Amount to be paid</td>
-              <td align="center">Otto</td>
+              <td align="center">{{orderHeader.grandtotal}}</td>
             </tr>
             <tr>
               <td class="sub-head" align="center">Order Date</td>
-              <td align="center">Otto</td>
+              <td align="center">{{orderHeader.orderdate}}</td>
             </tr>
             
           </tbody>
@@ -94,17 +93,16 @@
         </thead>
         <tbody>
   
-            <!-- <tr *ngFor="let order of orders; let i = index">
+            <tr *ngFor="let orderitem of orderItems; let i = index">
                 <td>{{i+1}}</td>
   
-                <td>{{order.orderid}}</td>
-                <td>{{order.grandtotal}}</td>
-                <td>{{order.paymentmethod}}</td>
-                <td>{{order.orderstatus}}</td>
-                <td>{{order.orderdate}}</td>                  
-            </td>
+                <td ><image [url]= "orderitem.productid.smallimg" width="100" height="100"></image></td>
+                <td>{{orderitem.productid.productname}}</td>
+                <td>{{orderitem.productid.productprice}}</td>
+                <td>{{orderitem.quantity}}</td>
+                <td>{{orderitem.unitprice | currency:'INR'}}</td>                  
   
-            </tr> -->
+            </tr>
   
   
         </tbody>

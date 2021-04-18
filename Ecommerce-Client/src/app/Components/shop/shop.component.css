@@ -20,3 +20,53 @@
 .add-card:active{
     background-color: #fff;
 }
+
+
+
+.product-item .pi-links a.wishlist-btn {
+    padding-top: 8px;
+    float: left;margin-left:10px;
+
+}
+
+.product-item .pi-links a.wishlist-btn span {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    position: absolute;
+    left: 19px;
+    top: 20px;
+    margin-left:20px;
+    opacity: 0
+}
+
+.product-item .pi-links a.wishlist-btn:hover {
+    width: 168px;
+    padding: 8px 18px 0;
+    text-align: left;
+    background-color: #fa2275;
+    cursor: pointer;
+
+
+}
+
+
+.product-item .pi-links a.wishlist-btn:active {
+    background-color: #fff;
+
+}
+
+.product-item .pi-links a.wishlist-btn:hover span {
+    opacity: 1;
+    top: 10px;
+    -webkit-transition: all .4s ease .3s;
+    -o-transition: all .4s ease .3s;
+    transition: all .4s ease .3s
+}
+
+
+.wishlist-btn-selected
+{
+    background-color: #fa2275;
+
+}

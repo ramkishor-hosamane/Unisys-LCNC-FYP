@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/Services/api/cart.service';
 import { ProductService } from 'src/app/Services/api/product.service';
+import { WishlistService } from 'src/app/Services/api/wishlist.service';
 
 @Component({
   selector: 'app-shop',
@@ -14,7 +15,7 @@ export class ShopComponent implements OnInit {
   public page : number=1;
   products:Array<any> = []
   public isloading=false;
-  constructor(private route:ActivatedRoute,private product_api:ProductService,private router:Router,private cart_api:CartService) { 
+  constructor(private route:ActivatedRoute,private product_api:ProductService,private router:Router,private cart_api:CartService,private wishlist_api:WishlistService) { 
 
     route.params.subscribe(val => {
       this.categoryType = this.route.snapshot.paramMap.get('categoryType');
@@ -48,6 +49,16 @@ export class ShopComponent implements OnInit {
   {
     this.cart_api.addCartItem(product);
     console.log("added");
+  }
+
+  updateWishlist(product:any)
+  {
+    this.wishlist_api.updatewishlistItem(product);
+  }
+
+  isInWishlist(product:any){
+    var i = this.wishlist_api.isInwishlist(product)
+    return i>=0;
   }
 
 }

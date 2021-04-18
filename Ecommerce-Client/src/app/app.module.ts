@@ -21,6 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { OrdersComponent } from './Components/orders/orders.component';
 import { OrderComponent } from './Components/orders/order/order.component';
+import { ImageComponent } from './Components/shared/image/image.component';
+import { WishlistComponent } from './Components/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { OrderComponent } from './Components/orders/order/order.component';
     CheckoutComponent,
     ContactComponent,
     OrdersComponent,
-    OrderComponent
+    OrderComponent,
+    ImageComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,

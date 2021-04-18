@@ -11,6 +11,7 @@ import { CheckoutComponent } from './Components/checkout/checkout.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { OrdersComponent } from './Components/orders/orders.component';
 import { OrderComponent } from './Components/orders/order/order.component';
+import { WishlistComponent } from './Components/wishlist/wishlist.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,8 @@ const routes: Routes = [
   { path :'orders/:orderid' , component:OrderComponent},
 
   { path :'cart' , component:CartComponent},
+  { path :'wishlist' , component:WishlistComponent},
+
   { path :'checkout' , component:CheckoutComponent},
   { path :'contact' , component:ContactComponent},
 

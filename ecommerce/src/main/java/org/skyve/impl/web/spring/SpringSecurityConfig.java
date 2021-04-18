@@ -1,5 +1,7 @@
 package org.skyve.impl.web.spring;
 
+import java.util.Arrays;
+
 import org.skyve.impl.util.UtilImpl;
 import org.skyve.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 //import org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository;
 //import org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrations;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * This class supplies named spring beans to the OOTB security.xml
@@ -126,9 +131,29 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/h2/**", "/rest/**");
+		web.ignoring().antMatchers("/h2/**", "/rest/**","/api/**");
 	}
-/*
+
+	 
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.cors().and();
+//            //other config
+//    }
+ 
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() 
+    {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("https://example.com"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+	
+	
+	/*
 	@Bean
 	public RelyingPartyRegistrationRepository relyingPartyRegistrationRepository() {
 		RelyingPartyRegistration relyingPartyRegistration = RelyingPartyRegistrations

@@ -20,7 +20,7 @@
 		<property name="bizFlagComment" length="1024" />
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
-		<many-to-one name="userlogin" entity-name="userUserLogin" column="userlogin_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingListItem_userlogin"/>
+		<many-to-one name="userloginid" entity-name="userUserLogin" column="userloginid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingListItem_userloginid"/>
 		<many-to-one name="categoryid" entity-name="productCategory" column="categoryid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingListItem_categoryid"/>
 		<many-to-one name="productid" entity-name="productProduct" column="productid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingListItem_productid"/>
 		<filter name="wishlistShoppingListItemNoneFilter" condition="1=0"/>

@@ -11,7 +11,7 @@
 
 <section class="cart-section spad">
     <div class="container">
-        <div class="row">
+        <div *ngIf="cart.length>0 ; else elseBlock" class="row">
             <div class="col-lg-8">
                 <div class="cart-table">
                     <h3>Your Cart</h3>
@@ -29,7 +29,7 @@
                             <tbody>
                                 <tr *ngFor="let product of cart; let i = index">
                                     <td class="product-col">
-                                        <img src="http://localhost:8080/ecommerce/content?_n={{product.productid.smallimg}}&_doc=product.Product&_b=smallimg&pfdrid_c=true" alt="">
+                                        <image [url]="product.productid.smallimg"></image>
                                         <div class="pc-title">
                                             <h4>{{product.productid.productname}}</h4>
                                             <p>{{product.productid.productprice | currency:'INR'}}</p>
@@ -71,6 +71,14 @@
                 <a routerLink="/home" routerLinkActive="active" class="site-btn sb-dark">Continue shopping</a>
             </div>
         </div>
+
+
+        <ng-template #elseBlock>
+            <div class="cart-table">
+                <h3 style="text-align: center;">Cart is Empty</h3>
+            </div>
+            
+            </ng-template>
     </div>
 </section>
 

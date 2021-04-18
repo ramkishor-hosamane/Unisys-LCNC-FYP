@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -83,7 +84,8 @@
 					<artifactId>sass-maven-plugin</artifactId>
 					<version>3.5.5</version>
 				</plugin>
-				<!-- This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+				<!-- This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -277,14 +279,14 @@
 								<include>topbar.xhtml</include>
 							</includes>
 						</webResource>
-                        <webResource>
-                            <directory>src/main/webapp/WEB-INF/pages/templates/ultima</directory>
-                            <targetPath>WEB-INF/pages/templates/ultima</targetPath>
-                            <filtering>true</filtering>
-                            <includes>
-                                <include>template.xhtml</include>
-                            </includes>
-                        </webResource>
+						<webResource>
+							<directory>src/main/webapp/WEB-INF/pages/templates/ultima</directory>
+							<targetPath>WEB-INF/pages/templates/ultima</targetPath>
+							<filtering>true</filtering>
+							<includes>
+								<include>template.xhtml</include>
+							</includes>
+						</webResource>
 					</webResources>
 				</configuration>
 				<executions>
@@ -413,10 +415,14 @@
 					</docletArtifact>
 					<doclint>none</doclint>
 					<overview>${basedir}/src/generated/java/modules/overview.html</overview>
-					<additionalOptions><additionalOption>-hide org.skyve.*|java.*|org.skyve.impl.* -link http://docs.oracle.com/javase/1.5.0/docs/guide/javadoc/doclet/spec/ -link http://docs.oracle.com/javase/8/docs/api/</additionalOption></additionalOptions>
+					<additionalOptions>
+						<additionalOption>-hide org.skyve.*|java.*|org.skyve.impl.* -link
+							http://docs.oracle.com/javase/1.5.0/docs/guide/javadoc/doclet/spec/
+							-link http://docs.oracle.com/javase/8/docs/api/</additionalOption>
+					</additionalOptions>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
 
 		<resources>
@@ -481,7 +487,7 @@
 
 
 
-<!-- CORS Filter -->
+		<!-- CORS Filter -->
 
 
 		<dependency>
@@ -489,7 +495,21 @@
 			<artifactId>cors-filter</artifactId>
 			<version>2.5</version>
 		</dependency>
+		<dependency>
+			<groupId>com.thetransactioncompany</groupId>
+			<artifactId>java-property-utils</artifactId>
+			<version>1.16</version>
+		</dependency>
+		<!-- Thanks for using https://jar-download.com -->
 
+		<!-- Thanks for using https://jar-download.com -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.jboss.resteasy</groupId> -->
+		<!-- <artifactId>resteasy-jaxrs</artifactId> -->
+		<!-- <version>3.1.4.Final</version> -->
+		<!-- </dependency> -->
+		<!-- Thanks for using https://jar-download.com -->
 
 
 		<!-- Test dependencies -->

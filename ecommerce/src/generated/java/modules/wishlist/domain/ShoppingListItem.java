@@ -15,8 +15,8 @@ import org.skyve.impl.domain.AbstractPersistentBean;
  * ShoppingListItem
  * 
  * @navhas n productid 1 Product
+ * @navhas n userloginid 1 UserLogin
  * @navhas n categoryid 1 Category
- * @navhas n userlogin 1 UserLogin
  * @stereotype "persistent"
  */
 @XmlType
@@ -34,16 +34,16 @@ public class ShoppingListItem extends AbstractPersistentBean {
 	public static final String DOCUMENT_NAME = "ShoppingListItem";
 
 	/** @hidden */
-	public static final String userloginPropertyName = "userlogin";
+	public static final String userloginidPropertyName = "userloginid";
 	/** @hidden */
 	public static final String categoryidPropertyName = "categoryid";
 	/** @hidden */
 	public static final String productidPropertyName = "productid";
 
 	/**
-	 * User Login
+	 * User Login Id
 	 **/
-	private UserLogin userlogin = null;
+	private UserLogin userloginid = null;
 	/**
 	 * Category id
 	 **/
@@ -95,22 +95,22 @@ public class ShoppingListItem extends AbstractPersistentBean {
 	}
 
 	/**
-	 * {@link #userlogin} accessor.
+	 * {@link #userloginid} accessor.
 	 * @return	The value.
 	 **/
-	public UserLogin getUserlogin() {
-		return userlogin;
+	public UserLogin getUserloginid() {
+		return userloginid;
 	}
 
 	/**
-	 * {@link #userlogin} mutator.
-	 * @param userlogin	The new value.
+	 * {@link #userloginid} mutator.
+	 * @param userloginid	The new value.
 	 **/
 	@XmlElement
-	public void setUserlogin(UserLogin userlogin) {
-		if (this.userlogin != userlogin) {
-			preset(userloginPropertyName, userlogin);
-			this.userlogin = userlogin;
+	public void setUserloginid(UserLogin userloginid) {
+		if (this.userloginid != userloginid) {
+			preset(userloginidPropertyName, userloginid);
+			this.userloginid = userloginid;
 		}
 	}
 

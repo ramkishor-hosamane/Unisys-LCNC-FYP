@@ -1,0 +1,30 @@
+.product-th
+{
+    font-size: 17px;
+
+}
+
+.total-th{
+    font-size: 17px;
+
+}
+
+.size-th{
+    font-size: 17px;
+    padding-right: 0;
+}
+.quy-th{
+    font-size: 17px;
+    
+
+}
+.remove-btn
+{
+transition: 0.21s all;
+}
+
+.remove-btn:hover{
+    background-color: #fff;
+    color: black;
+}
+

@@ -10,9 +10,9 @@
 <bizKey expression="{categoryid}" />
 	<attributes>
 
-		<association type="aggregation" name="userlogin"
+		<association type="aggregation" name="userloginid"
 			required="true">
-			<displayName>User Login</displayName>
+			<displayName>User Login Id</displayName>
 			<documentName>UserLogin</documentName>
 		</association>
 				
