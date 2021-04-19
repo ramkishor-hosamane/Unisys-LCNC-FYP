@@ -12,9 +12,9 @@
 
 <section class="order-section spad">
     <div class="container">
-        <div class="card-body">
+        <div class="card-body cart-table">
 
-            <table class="table table-hover" style="width: 100%;">
+            <table *ngIf="orders.length>0 ; else elseBlock" class="table table-hover" style="width: 100%;">
                 <thead class="" style="background-color:#13b987">
                     <tr>
                         <th class="scope">SLNO</th>
@@ -54,6 +54,16 @@
                 </tbody>
             </table>
 
+            <ng-template #elseBlock>
+                <div class="cart-table">
+                    <h3 style="text-align: center;">No Orders Available</h3>
+                </div>
+                
+                </ng-template>
+
+
+
+                <div style="height: 10vh;"></div>                
         </div>
     </div>
 </section>

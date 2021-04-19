@@ -14,6 +14,7 @@ import { WishlistService } from 'src/app/Services/api/wishlist.service';
 export class NavbarComponent implements OnInit {
   cart:any;
   wishlist:any;
+  is_wishlist_enabled:any;
 
   current_user:any;
   constructor(private cart_api:CartService,private auth:AuthService,private session_st:SessionStorageService,private route:ActivatedRoute,private wishlist_api:WishlistService) { 
@@ -30,7 +31,11 @@ export class NavbarComponent implements OnInit {
           this.wishlist = data;
         }
       )
-
+      this.wishlist_api.is_wishlist_enabled_observer.subscribe(
+        data => {
+          this.is_wishlist_enabled = data;
+        }
+      )
       
       this.auth.current_user_observer.subscribe(
         data =>{

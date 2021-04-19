@@ -59,6 +59,7 @@
 		<document ref="UserProxy" defaultQueryName="qUserProxies" />
 		<document ref="UserRole" />
 		<document ref="UserToken" defaultQueryName="qUserTokens" />
+		<document ref="Settings"/>
 	</documents>
 	<roles>
 		<role name="Anonymous">
@@ -378,6 +379,16 @@
 				</document>
 			</privileges>
 		</role>
+		
+		
+		
+			<role name="Maintainer">
+			<description>Create, edit and delete permission within the Products module.</description>
+			<privileges>				
+				<document  name="Settings" permission="CRU_C">
+                </document>
+			</privileges>
+		</role>
 	</roles>
 	<menu>
 		<edit document="ChangePassword" name="Password">
@@ -476,6 +487,9 @@
 		</list>
 		<edit document="Jobs" name="Jobs">
 			<role name="JobMaintainer" />
+		</edit>
+		<edit document="Settings" name="Settings">
+			<role name="Maintainer"/>
 		</edit>
 	</menu>
 	<queries>

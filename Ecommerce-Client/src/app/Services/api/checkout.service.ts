@@ -20,6 +20,9 @@ export class CheckoutService {
 
   }
 
+  private ordering_status_source = new BehaviorSubject<String>("checkout");
+  ordering_status_observer = this.ordering_status_source.asObservable();
+  ordering_status: any;  
 
   cart: any;
   cart_total: any = 0;
@@ -33,6 +36,7 @@ export class CheckoutService {
   order_item_url = environment.server_api_url + 'order/OrderItem';
 
 
+
   user_cart: any;
   bizLocks: any;
   bizVersions: any;
@@ -40,6 +44,7 @@ export class CheckoutService {
   total_adresses: number = 0;
   total_order_headers: number = 0;
   total_order_items: number = 0;
+  order_id:any="";
 
 
 
@@ -60,6 +65,11 @@ export class CheckoutService {
       }
     )
 
+    this.ordering_status_observer.subscribe(
+      data=>{
+        this.ordering_status = data
+      }
+    )
 
     this.auth.current_user_observer.subscribe(
       data => {
@@ -98,6 +108,11 @@ export class CheckoutService {
 
     }
 
+
+  }
+
+  updateOrdering_status(order_status:any){
+    this.ordering_status_source.next(order_status);
 
   }
 
@@ -166,6 +181,7 @@ export class CheckoutService {
   /* -------------------------------All Api Services------------------------------- */
 
   placeOrderService(user_addr:any,is_new_address:boolean){
+    this.order_id = "";
     //Create Order_header
     if(is_new_address){
       //Saving new Addresss
@@ -181,6 +197,15 @@ export class CheckoutService {
     if(i<0)
     {
       this.cart_api.deleteAllCartItemService()
+      setTimeout(() => 
+            {
+              this.ordering_status ="success";
+              this.order_id = order_header["orderid"];
+              
+              this.updateOrdering_status(this.ordering_status);
+
+            },
+            3000);
       return;
 
     }

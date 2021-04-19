@@ -15,12 +15,19 @@ export class ShopComponent implements OnInit {
   public page : number=1;
   products:Array<any> = []
   public isloading=false;
+  is_wishlist_enabled:any;
+  
   constructor(private route:ActivatedRoute,private product_api:ProductService,private router:Router,private cart_api:CartService,private wishlist_api:WishlistService) { 
-
     route.params.subscribe(val => {
       this.categoryType = this.route.snapshot.paramMap.get('categoryType');
       console.log(this.categoryType)
       this.getProducts();
+
+      this.wishlist_api.is_wishlist_enabled_observer.subscribe(
+        data => {
+          this.is_wishlist_enabled = data;
+        }
+      )
     });
     }
 

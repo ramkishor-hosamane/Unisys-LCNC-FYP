@@ -4,14 +4,16 @@ import { BehaviorSubject } from 'rxjs';
 import { BillAddress } from 'src/app/Models/bill-address';
 import { CartService } from 'src/app/Services/api/cart.service';
 import { CheckoutService } from 'src/app/Services/api/checkout.service';
+import { Utils } from 'src/app/utils';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent implements OnInit {
 
+export class CheckoutComponent implements OnInit {
+  ordering_status:any
   constructor(private checkout_api:CheckoutService,private cart_api:CartService,private router:Router) {
     this.cart_api.cart_observer.subscribe(
       data =>{
@@ -25,7 +27,21 @@ export class CheckoutComponent implements OnInit {
         console.log("This is "+data)
       }
     )
+
+    this.checkout_api.ordering_status_observer.subscribe(
+      data=>{
+        this.ordering_status = data
+      }
+    )
+
+
+
       this.all_user_adresses = this.checkout_api.all_user_adresses;
+
+
+
+      //this.ordering_status = 'success';
+      
    }
 
   ngOnInit(): void {
@@ -33,6 +49,9 @@ export class CheckoutComponent implements OnInit {
   private cart_source = new BehaviorSubject<Array<any>>([]);
   cart_observer = this.cart_source.asObservable();
   cart: any;
+
+
+
 
   private cart_total_source = new BehaviorSubject(0);
   cart_total_observer = this.cart_total_source.asObservable();
@@ -48,12 +67,16 @@ export class CheckoutComponent implements OnInit {
     this.Init(this.all_user_adresses[i])
   }
 
-  onSubmitCheckoutForm(){
-    if(this.is_new_address){
+ onSubmitCheckoutForm(){
+   Utils.scrollUp();
+    this.ordering_status = "ordering";
+    this.checkout_api.updateOrdering_status(this.ordering_status);
+   if(this.is_new_address){
       this.all_user_adresses.push(this.CheckoutModel["addressid"])
     }
     this.checkout_api.placeOrderService(this.CheckoutModel,this.is_new_address);
-    this.is_ordered = true;
+    
+  
   }
 
   clearAddress(){
@@ -75,5 +98,11 @@ export class CheckoutComponent implements OnInit {
   routeHome()
   {
     this.router.navigate(['/home']);
+  }
+
+
+  routeOrderPage(){
+    this.router.navigate(['/orders/',this.checkout_api.order_id]);
+
   }
 }

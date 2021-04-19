@@ -11,11 +11,11 @@
 
 <section class="checkout-section spad">
     <div class="container">
-        <div *ngIf="!is_ordered else elseBlock" class="row">
+        <div *ngIf="ordering_status=='checkout' else elseBlock" class="row">
             <div class="col-lg-8 order-2 order-lg-1">
-                
-                <form #CheckoutForm="ngForm" name="CheckoutForm"
-                (ngSubmit)="onSubmitCheckoutForm()" novalidate="novalidate" class="checkout-form">
+
+                <form #CheckoutForm="ngForm" name="CheckoutForm" (ngSubmit)="onSubmitCheckoutForm()"
+                    novalidate="novalidate" class="checkout-form">
                     <div class="cf-title">Billing Address</div>
                     <div class="row">
                         <div class="col-md-7">
@@ -25,7 +25,7 @@
                             <div class="cf-radio-btns address-rb">
                                 <div class="cfr-item" *ngFor="let user_address of all_user_adresses; let i = index">
                                     <input type="radio" name="pm" id="one-{{i+1}}" (click)="selectAddress(i)">
-                                    <label for="one-{{i+1}}">Use default address {{i+1}}</label>                                
+                                    <label for="one-{{i+1}}">Use default address {{i+1}}</label>
                                 </div>
                                 <div class="cfr-item">
                                     <input type="radio" name="pm" id="two" (click)="clearAddress()" checked=true>
@@ -36,24 +36,31 @@
                     </div>
                     <div class="row address-inputs">
                         <div class="col-md-12">
-                            <input  [(ngModel)]="CheckoutModel.addressid.address1" #address1="ngModel" name="address1" type="text" placeholder="Address Line 1">
-                            
-                           
-                            <input [(ngModel)]="CheckoutModel.addressid.address2" #address2="ngModel" name="address2" type="text" placeholder="Address line 2">
-                            <input [(ngModel)]="CheckoutModel.addresstype" #addresstype="ngModel" name="addresstype" type="text" placeholder="Address Type">
+                            <input [(ngModel)]="CheckoutModel.addressid.address1" #address1="ngModel" name="address1"
+                                type="text" placeholder="Address Line 1">
+
+
+                            <input [(ngModel)]="CheckoutModel.addressid.address2" #address2="ngModel" name="address2"
+                                type="text" placeholder="Address line 2">
+                            <input [(ngModel)]="CheckoutModel.addresstype" #addresstype="ngModel" name="addresstype"
+                                type="text" placeholder="Address Type">
 
                         </div>
                         <div class="col-md-6">
-                            <input [(ngModel)]="CheckoutModel.addressid.zipcode" #zipcode="ngModel" name="zipcode" type="text" placeholder="Zip code">
+                            <input [(ngModel)]="CheckoutModel.addressid.zipcode" #zipcode="ngModel" name="zipcode"
+                                type="text" placeholder="Zip code">
                         </div>
                         <div class="col-md-6">
-                            <input [(ngModel)]="CheckoutModel.addressid.city" #city="ngModel" name="city" type="text" placeholder="City">
+                            <input [(ngModel)]="CheckoutModel.addressid.city" #city="ngModel" name="city" type="text"
+                                placeholder="City">
                         </div>
                         <div class="col-md-6">
-                            <input [(ngModel)]="CheckoutModel.addressid.state" #state="ngModel" name="state" type="text" placeholder="State">
+                            <input [(ngModel)]="CheckoutModel.addressid.state" #state="ngModel" name="state" type="text"
+                                placeholder="State">
                         </div>
                         <div class="col-md-6">
-                            <input [(ngModel)]="CheckoutModel.addressid.country" #country="ngModel" name="country" type="text" placeholder="Country">
+                            <input [(ngModel)]="CheckoutModel.addressid.country" #country="ngModel" name="country"
+                                type="text" placeholder="Country">
                         </div>
 
                     </div>
@@ -100,7 +107,9 @@
                     <h3>Your Cart</h3>
                     <ul class="product-list">
                         <li *ngFor="let product of cart; let i = index">
-                            <div class="pl-thumb"><img src="http://localhost:8080/ecommerce/content?_n={{product.productid.smallimg}}&_doc=product.Product&_b=smallimg&pfdrid_c=true" alt=""></div>
+                            <div class="pl-thumb"><img
+                                    src="http://localhost:8080/ecommerce/content?_n={{product.productid.smallimg}}&_doc=product.Product&_b=smallimg&pfdrid_c=true"
+                                    alt=""></div>
                             <h6>{{product.productid.productname}}</h6>
                             <p>{{product.productid.productprice | currency:'INR'}}</p>
                         </li>
@@ -114,22 +123,34 @@
                 </div>
             </div>
         </div>
-        <ng-template #elseBlock>
-            <div class="container">
+        <ng-template #elseBlock >
+            <div *ngIf="ordering_status=='ordering'" class="container">
+
+                <div class="row mx-30 d-flex justify-content-center">
+
+                    <h3 class="d-flex justify-content-center">Placing your order Wait</h3>
+                        <div style="margin-top: 20px;"></div>
+                    <div class="spinner-border " style="width: 4rem; height: 4rem;" role="status"></div>
+                    <!-- <button class="site-btn checkout-order-btn" (click)="routeHome()">Go Back to Home</button> -->
+
+                </div>
+
+            </div>
+
+
+            <div *ngIf="ordering_status=='success'" class="container">
 
                 <div class="row mx-30 d-flex justify-content-center">
 
                     <h3 class="d-flex justify-content-center">Your Order is placed</h3>
-                    
-                    <button class="site-btn checkout-order-btn" (click)="routeHome()">Go Back to Home</button>
+                    <div style="margin-top: 10px;"></div>
 
-        </div>
+                    <button class="site-btn checkout-order-btn" (click)="routeOrderPage()">View Order Details</button>
+
+                </div>
 
             </div>
 
-    
-            
-            
 
 
 
@@ -138,7 +159,7 @@
 
 
 
-
+        <div style="height: 10vh;"></div>
         </ng-template>
 
 

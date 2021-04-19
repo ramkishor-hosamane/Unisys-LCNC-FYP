@@ -157,17 +157,22 @@
                                     <a (click)="updateCart(product)"  class="add-card"><i class="flaticon-bag"></i><span>ADD TO
                                             CART</span></a>
                                     <!-- wishlist button -->
-                                    <a *ngIf="!isInWishlist(product); else elseWishBlock" (click)="updateWishlist(product)" class="wishlist-btn"><i class="flaticon-heart"></i>
-                                        <span>ADD TO
-                                            WISHLIST</span>
-                                    </a>
+                                    <span *ngIf="is_wishlist_enabled" class="wishlist-sec">
 
-                                    <ng-template #elseWishBlock>
-
-                                        <a (click)="updateWishlist(product)" class="wishlist-btn wishlist-btn-selected" style="background-color:  #fa2275;"><i class="flaticon-heart"></i>
-                                            <span>REMOVE ITEM</span>
+                                        <a *ngIf="!isInWishlist(product); else elseWishBlock" (click)="updateWishlist(product)" class="wishlist-btn"><i class="flaticon-heart"></i>
+                                            <span>ADD TO
+                                                WISHLIST</span>
                                         </a>
-                                    </ng-template>
+    
+                                        <ng-template #elseWishBlock>
+    
+                                            <a (click)="updateWishlist(product)" class="wishlist-btn wishlist-btn-selected" style="background-color:  #fa2275;"><i class="flaticon-heart"></i>
+                                                <span>REMOVE ITEM</span>
+                                            </a>
+                                        </ng-template>
+    
+
+                                    </span>
                                 </div>
                             </div>
                             <div class="pi-text">

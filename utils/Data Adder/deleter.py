@@ -9,8 +9,8 @@ true="true"
 module = "order"
 documents = ["OrderItem","OrderHeader"]
 
-module = "wishlist"
-documents = ["ShoppingListItem"]
+# module = "wishlist"
+# documents = ["ShoppingListItem"]
 
 DELETE_URL = "http://localhost:8080/ecommerce/rest/json/delete"
 

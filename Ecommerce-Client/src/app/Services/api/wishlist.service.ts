@@ -21,6 +21,9 @@ export class WishlistService {
   wishlist_observer = this.wishlist_source.asObservable();
   wishlist: any;
 
+  private is_wishlist_enabled_source = new BehaviorSubject<Boolean>(true);
+  is_wishlist_enabled_observer = this.is_wishlist_enabled_source.asObservable();
+  is_wishlist_enabled: any;  
 
   current_user: any;
 
@@ -39,6 +42,13 @@ export class WishlistService {
         this.wishlist = data;
       }
     )
+
+    this.is_wishlist_enabled_observer.subscribe(
+      data => {
+        this.is_wishlist_enabled = data;
+      }
+    )
+
 
   
 
@@ -59,7 +69,20 @@ export class WishlistService {
         this.bizVersions = data;
       }
     )
-    
+
+    this.api.getData(environment.server_api_url+"admin/Settings").subscribe(
+
+      data =>{
+        console.log(data);
+        this.is_wishlist_enabled = data[0]["wishlist"];
+        this.is_wishlist_enabled_source.next(this.is_wishlist_enabled);
+      },
+      error=>console.log("Error in getting settings",error)
+
+    )    
+
+
+
     if (this.auth.isLogined()) {
       console.log("Getting userwishlist")
       this.getUserwishlistItems();
