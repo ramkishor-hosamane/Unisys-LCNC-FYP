@@ -5,6 +5,9 @@
     <documents>
         <document ref="OrderHeader"/>
         <document ref="OrderItem"/>
+        <document ref="Packing"/>
+        <document ref="Picking"/>
+        <document ref="Shipping"/>
     </documents>
     <roles>
         <role name="Maintainer">
@@ -12,6 +15,9 @@
             <privileges>
                 <document name="OrderHeader" permission="CRUDC"/>
                 <document name="OrderItem" permission="CRUDC"/>
+                <document name="Picking" permission="CRUDC"/>
+                <document name="Packing" permission="CRUDC"/>
+                <document name="Shipping" permission="CRUDC"/>
             </privileges>
         </role>
     </roles>
@@ -20,6 +26,15 @@
             <role name="Maintainer"/>
         </edit>
         <list document="OrderItem" name="OrderItem">
+            <role name="Maintainer"/>
+        </list>
+        <list document="Picking" name="Picking">
+            <role name="Maintainer"/>
+        </list>
+        <list document="Packing" name="Packing">
+            <role name="Maintainer"/>
+        </list>
+        <list document="Shipping" name="Shipping">
             <role name="Maintainer"/>
         </list>
     </menu>

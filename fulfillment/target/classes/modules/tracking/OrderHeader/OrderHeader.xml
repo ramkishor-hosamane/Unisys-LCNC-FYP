@@ -3,12 +3,12 @@
 	<persistent name="TODO_OrderHeader"/>
     <singularAlias>OrderHeader</singularAlias>
     <pluralAlias>OrderHeaders</pluralAlias>
-    <bizKey expression="{description}"/>
+    <bizKey expression="{orderid}"/>
     <attributes>
-    	<text name="description" required="true">
-   		 <displayName>Description</displayName>
-   		 <length>200</length>
-   	 </text>
+<!--     	<text name="description" required="true"> -->
+<!--    		 <displayName>Description</displayName> -->
+<!--    		 <length>200</length> -->
+<!--    	 </text> -->
    	 
    	 <text name="orderid" required="true">
    		 <displayName>Order Id</displayName>

@@ -33,9 +33,6 @@ public class OrderHeader extends AbstractPersistentBean {
 	public static final String DOCUMENT_NAME = "OrderHeader";
 
 	/** @hidden */
-	public static final String descriptionPropertyName = "description";
-
-	/** @hidden */
 	public static final String orderidPropertyName = "orderid";
 
 	/** @hidden */
@@ -64,11 +61,6 @@ public class OrderHeader extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String updatedstampPropertyName = "updatedstamp";
-
-	/**
-	 * Description
-	 **/
-	private String description;
 
 	/**
 	 * Order Id
@@ -148,7 +140,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 		try {
-			return org.skyve.util.Binder.formatMessage("{description}", this);
+			return org.skyve.util.Binder.formatMessage("{orderid}", this);
 		}
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
@@ -159,24 +151,6 @@ public class OrderHeader extends AbstractPersistentBean {
 	public boolean equals(Object o) {
 		return ((o instanceof OrderHeader) && 
 					this.getBizId().equals(((OrderHeader) o).getBizId()));
-	}
-
-	/**
-	 * {@link #description} accessor.
-	 * @return	The value.
-	 **/
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * {@link #description} mutator.
-	 * @param description	The new value.
-	 **/
-	@XmlElement
-	public void setDescription(String description) {
-		preset(descriptionPropertyName, description);
-		this.description = description;
 	}
 
 	/**
