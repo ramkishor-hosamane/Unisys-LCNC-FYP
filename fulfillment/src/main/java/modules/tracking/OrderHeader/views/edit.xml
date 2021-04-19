@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="OrderHeader" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+<tabPane>
+		<tab title="tab_1">
+<!-- 			<dataGrid binding="runningJobs" title="jobs" showAdd="false" showEdit="false" showRemove="false"> -->
+<!-- 				<boundColumn binding="startTime" title="admin.jobs.edit.dataGrid.runningJobs.startTime.title" /> -->
+<!-- 				<boundColumn binding="displayName" title="admin.jobs.edit.dataGrid.runningJobs.displayName.title" /> -->
+<!-- 				<boundColumn binding="percentComplete" title="admin.jobs.edit.dataGrid.runningJobs.percentComplete.title" /> -->
+<!-- 				<boundColumn binding="log" title="admin.jobs.edit.dataGrid.runningJobs.log.title" /> -->
+<!-- 			</dataGrid> -->
+			<listGrid query="qOrderHeader" title="Orders" continueConversation="false" enableEdit="true" enableRemove="true"  showAdd="true" />
+		</tab>
+<!-- 		<tab title="tab_2"> -->
+<!-- 			<listGrid query="qAllSchedules" title="admin.jobs.edit.listGrid.qAllSchedules.title" continueConversation="false" enabled="jobScheduler" /> -->
+<!-- 		</tab> -->
+	</tabPane>
+    <actions>
+<!-- 		<defaults enabled="true" ></defaults> -->
+    </actions>
+    <newParameters/>
+</view>

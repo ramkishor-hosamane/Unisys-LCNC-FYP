@@ -23,8 +23,8 @@
 		<property name="description" length="200" />
 		<property name="orderid" length="10" />
 		<property name="userloginid" length="10" />
-		<property name="subtotal" type="Decimal2" precision="20" scale="2" />
-		<property name="grandtotal" type="Decimal2" precision="20" scale="2" />
+		<property name="subtotal" />
+		<property name="grandtotal" />
 		<property name="addressid" length="10" />
 		<property name="paymentmethod" length="20" />
 		<property name="orderstatus" length="20" />
@@ -37,7 +37,7 @@
 		<filter name="trackingOrderHeaderUserIdFilter" condition="bizUserId=:userIdParam"/>
 	</class>
 
-	<class name="modules.tracking.domain.OrderItem" table="TRA_OrderItem" entity-name="trackingOrderItem">
+	<class name="modules.tracking.domain.OrderItem" table="TODO_ToDo" entity-name="trackingOrderItem">
 		<id name="bizId" length="36" />
 		<version name="bizVersion" unsaved-value="null" />
 		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
@@ -46,6 +46,13 @@
 		<property name="bizFlagComment" length="1024" />
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
+		<property name="orderitemid" length="10" />
+		<many-to-one name="orderid" entity-name="trackingOrderHeader" column="orderid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_TODO_ToDo_orderid"/>
+		<property name="productid" length="10" />
+		<property name="quantity" />
+		<property name="unitprice" />
+		<property name="createdstamp" type="DateTime" />
+		<property name="updatedstamp" type="DateTime" />
 		<filter name="trackingOrderItemNoneFilter" condition="1=0"/>
 		<filter name="trackingOrderItemCustomerFilter" condition="bizCustomer=:customerParam"/>
 		<filter name="trackingOrderItemDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>

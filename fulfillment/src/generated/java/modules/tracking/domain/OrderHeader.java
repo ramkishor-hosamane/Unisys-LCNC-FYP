@@ -9,10 +9,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateTime;
-import org.skyve.domain.types.Decimal2;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
-import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 
 /**
  * OrderHeader
@@ -85,12 +83,12 @@ public class OrderHeader extends AbstractPersistentBean {
 	/**
 	 * Sub Total
 	 **/
-	private Decimal2 subtotal;
+	private Integer subtotal;
 
 	/**
 	 * Grand Total
 	 **/
-	private Decimal2 grandtotal;
+	private Integer grandtotal;
 
 	/**
 	 * Address Id
@@ -221,7 +219,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * {@link #subtotal} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal2 getSubtotal() {
+	public Integer getSubtotal() {
 		return subtotal;
 	}
 
@@ -230,8 +228,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * @param subtotal	The new value.
 	 **/
 	@XmlElement
-	@XmlJavaTypeAdapter(Decimal2Mapper.class)
-	public void setSubtotal(Decimal2 subtotal) {
+	public void setSubtotal(Integer subtotal) {
 		preset(subtotalPropertyName, subtotal);
 		this.subtotal = subtotal;
 	}
@@ -240,7 +237,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * {@link #grandtotal} accessor.
 	 * @return	The value.
 	 **/
-	public Decimal2 getGrandtotal() {
+	public Integer getGrandtotal() {
 		return grandtotal;
 	}
 
@@ -249,8 +246,7 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * @param grandtotal	The new value.
 	 **/
 	@XmlElement
-	@XmlJavaTypeAdapter(Decimal2Mapper.class)
-	public void setGrandtotal(Decimal2 grandtotal) {
+	public void setGrandtotal(Integer grandtotal) {
 		preset(grandtotalPropertyName, grandtotal);
 		this.grandtotal = grandtotal;
 	}

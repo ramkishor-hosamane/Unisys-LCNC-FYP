@@ -16,11 +16,41 @@
         </role>
     </roles>
     <menu>
-        <list document="OrderHeader" name="OrderHeader">
+        <edit document="OrderHeader" name="OrderHeader">
             <role name="Maintainer"/>
-        </list>
+        </edit>
         <list document="OrderItem" name="OrderItem">
             <role name="Maintainer"/>
         </list>
     </menu>
+    
+        <queries>
+        <query documentName="OrderHeader" name="qOrderHeader">
+            <description><![CDATA[All OrderHeaders]]></description>
+            <columns>
+                <column binding="description" sortOrder="ascending"/>
+                <column binding="orderid"/>
+                <column binding="userloginid"/>
+                <column binding="subtotal"/>
+                <column binding="grandtotal"/>
+                <column binding="addressid"/>
+                <column binding="paymentmethod"/>
+                <column binding="orderstatus"/>
+                <column binding="orderdate" hidden="true"/>
+                <column binding="createdstamp" hidden="true"/>
+                <column binding="updatedstamp" hidden="true"/>
+            </columns>
+        </query>
+        <query documentName="OrderItem" name="qsOrderItem">
+            <description><![CDATA[All ToDos]]></description>
+            <columns>
+                <column binding="orderitemid" sortOrder="ascending"/>
+                <column binding="productid"/>
+                <column binding="quantity"/>
+                <column binding="unitprice"/>
+                <column binding="createdstamp"/>
+                <column binding="updatedstamp"/>
+            </columns>
+        </query>
+    </queries>
 </module>
