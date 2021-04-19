@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.skyve.org/xml/module" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="tracking" prototype="true" name="tracking" xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
+    <homeRef>list</homeRef>
+    <homeDocument>OrderHeader</homeDocument>
+    <documents>
+        <document ref="OrderHeader"/>
+        <document ref="OrderItem"/>
+    </documents>
+    <roles>
+        <role name="Maintainer">
+            <description><![CDATA[Create, edit and delete permission within the tracking module.]]></description>
+            <privileges>
+                <document name="OrderHeader" permission="CRUDC"/>
+                <document name="OrderItem" permission="CRUDC"/>
+            </privileges>
+        </role>
+    </roles>
+    <menu>
+        <list document="OrderHeader" name="OrderHeader">
+            <role name="Maintainer"/>
+        </list>
+        <list document="OrderItem" name="OrderItem">
+            <role name="Maintainer"/>
+        </list>
+    </menu>
+</module>

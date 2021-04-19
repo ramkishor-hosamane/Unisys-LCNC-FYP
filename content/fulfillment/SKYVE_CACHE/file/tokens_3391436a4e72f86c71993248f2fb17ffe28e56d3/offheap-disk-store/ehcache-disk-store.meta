@@ -1,0 +1,4 @@
+#Key and value types
+#Sun Apr 18 16:34:44 IST 2021
+valueType=java.util.TreeSet
+keyType=java.lang.String
