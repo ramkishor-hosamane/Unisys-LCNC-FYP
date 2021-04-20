@@ -5,6 +5,11 @@
     <pluralAlias>OrderHeaders</pluralAlias>
     <bizKey expression="{orderid}"/>
     <attributes>
+    
+<!--     <id name="selectedTimesheetId" persistent="false" trackChanges="false"> -->
+<!-- 	<displayName>Selected Timesheet</displayName> -->
+<!-- </id> -->
+		    
 <!--     	<text name="description" required="true"> -->
 <!--    		 <displayName>Description</displayName> -->
 <!--    		 <length>200</length> -->
@@ -55,5 +60,21 @@
    		 <displayName>Updated timestamp </displayName>
    	 </dateTime>
 
+	<collection type="aggregation" name="orders">
+		<displayName>OrderItem</displayName>
+		<documentName>OrderItem</documentName>
+		<minCardinality>0</minCardinality>
+	</collection>
+
     </attributes>
+    
+   <conditions>
+    <condition name="created">
+	<description>Created</description>
+	<expression>
+		<![CDATA[isPersisted()]]>
+	</expression>
+</condition>
+</conditions>
+    
 </document>

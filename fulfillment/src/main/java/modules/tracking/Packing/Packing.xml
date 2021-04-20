@@ -3,7 +3,7 @@
     <persistent name="TRA_Packing"/>
     <singularAlias>Packing</singularAlias>
     <pluralAlias>Packings</pluralAlias>
-    <bizKey expression="Packing"/>
+    <bizKey expression="{orderid}"/>
     <attributes>
     
    <!-- Forignkey -->

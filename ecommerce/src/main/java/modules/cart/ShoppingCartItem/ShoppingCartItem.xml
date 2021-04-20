@@ -16,11 +16,12 @@
 			<documentName>ShoppingCart</documentName>
 		</association>
 		
-		<association type="aggregation" name="productid"
+		<text name="productid"
 			required="true">
 			<displayName>Product Id</displayName>
-			<documentName>Product</documentName>
-		</association>
+			<length>5</length>
+<!-- 			<documentName>Product</documentName> -->
+		</text>
 		<integer name="quantity" required="true">
 			<displayName>Quantity</displayName>
 		</integer>

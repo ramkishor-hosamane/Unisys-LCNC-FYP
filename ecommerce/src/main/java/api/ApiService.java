@@ -46,6 +46,7 @@ import org.skyve.util.JSON;
 import org.skyve.util.Util;
 
 import com.google.gson.Gson;
+import com.nimbusds.jose.shaded.json.JSONObject;
 
 import modules.order.domain.OrderHeader;
 import modules.order.domain.OrderItem;
@@ -206,6 +207,183 @@ public class ApiService {
 
 		return result;
 	}
+	
+	
+	
+	
+	
+	@GET
+	@Path("/json/getNewOrders")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String retrieveNewOrders(@QueryParam("start") int start,
+			@QueryParam("end") int end) {
+		String result = null;
+
+		Persistence p = null;
+		try {
+			response.setContentType(MediaType.APPLICATION_JSON);
+
+			p = CORE.getPersistence();
+
+			User u = p.getUser();
+
+			Customer c = u.getCustomer();
+
+			Module m = c.getModule("order");
+
+			Document d = m.getDocument(c, "OrderHeader");
+
+			if (!u.canReadDocument(d)) {
+				throw new SecurityException("read this data", u.getName());
+			}
+
+			DocumentQuery q = p.newDocumentQuery(d);
+			System.out.println("DocumentQuery passed");
+
+			q.setFirstResult(start);
+			q.setMaxResults(end - start - 1);
+
+			System.out.println("Came here");
+			DocumentFilter f = q.newDocumentFilter();
+			
+			q.getFilter().addIn(OrderHeader.orderstatusPropertyName,"created");
+			//q.getFilter().addLike("orderid",oh.get(0));
+			List<OrderHeader> order_beans = q.beanResults();
+			ArrayList res = new ArrayList();
+			JSONObject json;
+			for(OrderHeader b:order_beans) {
+				json = new JSONObject();
+//				json.put("bizId", b.getBizId());
+//				json.put("bizCustomer", "skyve");
+//				json.put("bizDataGroupId", b.getBizDataGroupId());
+//				json.put("bizDocument", b.getBizDocument());
+//				json.put("module", "tracking");
+				json.put("orderid", b.getOrderid());
+				json.put("addressid", b.getAddressid().getAddressid());
+				json.put("orderstatus", b.getOrderstatus());
+				json.put("paymentmethod", b.getPaymentmethod());
+				json.put("grandtotal", b.getGrandtotal());
+				json.put("subtotal", b.getSubtotal());
+				json.put("orderdate", b.getOrderdate());
+				json.put("userloginid", b.getUserloginid().getUserloginid());
+				json.put("createdstamp", b.getCreatedstamp());
+				json.put("updatedstamp", b.getUpdatedstamp());
+				
+				
+				res.add(json);
+
+			}
+			
+			result = JSON.marshall(CORE.getUser().getCustomer(), res);
+
+		} catch (Throwable t) {
+			System.out.println("Error" + t);
+			t.printStackTrace();
+			AbstractRestFilter.error(p, response, t.getLocalizedMessage());
+		}
+
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	@GET
+	@Path("/json/getOrderItemsByOrderHeaderForTracking/{OrderId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getOrderItemsByOrderHeaderForTracking(@PathParam("OrderId") String OrderId, @QueryParam("start") int start,
+			@QueryParam("end") int end) {
+		String result = null;
+
+		Persistence p = null;
+		try {
+			response.setContentType(MediaType.APPLICATION_JSON);
+
+			p = CORE.getPersistence();
+
+			User u = p.getUser();
+
+			Customer c = u.getCustomer();
+
+			Module m = c.getModule("order");
+
+			Document d = m.getDocument(c, "OrderItem");
+
+			if (!u.canReadDocument(d)) {
+				throw new SecurityException("read this data", u.getName());
+			}
+
+			DocumentQuery q = p.newDocumentQuery(d);
+			System.out.println("DocumentQuery passed");
+
+			
+			Document d2 = m.getDocument(c, "OrderHeader");
+			DocumentQuery q2 = p.newDocumentQuery(d2);
+			q2.getFilter().addLike("orderid", OrderId);
+			List<OrderHeader> oh = q2.beanResults();
+			
+			System.out.println(oh.get(0));
+			
+			
+			
+			q.setFirstResult(start);
+			q.setMaxResults(end - start - 1);
+
+			System.out.println("Came here");
+			DocumentFilter f = q.newDocumentFilter();
+			
+			//q.getFilter().addEquals(, OrderId);
+			q.getFilter().addIn("orderid",oh.get(0));
+			//q.getFilter().addLike("orderid",oh.get(0));
+			List<OrderItem> order_beans = q.beanResults();
+			
+			
+			ArrayList res = new ArrayList();
+			JSONObject json;
+			for(OrderItem b:order_beans) {
+				json = new JSONObject();
+//				json.put("bizId", b.getBizId());
+//				json.put("bizCustomer", "skyve");
+//				json.put("bizDataGroupId", b.getBizDataGroupId());
+//				json.put("bizDocument", b.getBizDocument());
+//				json.put("module", "tracking");
+				json.put("orderid", b.getOrderid().getOrderid());
+				json.put("orderitemid", b.getOrderitemid());
+				json.put("productid", b.getProductid().getProductid());
+				json.put("quantity", b.getQuantity());
+				json.put("unitprice", b.getUnitprice());
+				json.put("createdstamp", b.getCreatedstamp());
+				json.put("updatedstamp", b.getUpdatedstamp());
+				res.add(json);
+
+			}
+
+			result = JSON.marshall(CORE.getUser().getCustomer(), res);
+
+		} catch (Throwable t) {
+			System.out.println("Error" + t);
+			t.printStackTrace();
+			AbstractRestFilter.error(p, response, t.getLocalizedMessage());
+		}
+
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/*
 	 * ----------------------------------Default Api

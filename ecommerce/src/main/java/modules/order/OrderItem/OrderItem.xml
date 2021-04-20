@@ -16,13 +16,11 @@
 			<displayName>Order Id</displayName>
 			<documentName>OrderHeader</documentName>
 		</association>
-
-		<!-- Foreign key -->
-		<association type="aggregation" name="productid"
-			required="true">
-			<displayName>Product Id</displayName>
-			<documentName>Product</documentName>
-		</association>
+    	<association type="aggregation" name="productid" required="true">
+   		 <displayName>Product Id</displayName>
+   		<documentName>Product</documentName>
+   		 
+   	 </association>
 		<integer name="quantity" required="true">
 			<displayName>Quantity</displayName>
 		</integer>

@@ -4,7 +4,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import modules.product.domain.Product;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractPersistentBean;
@@ -12,7 +11,6 @@ import org.skyve.impl.domain.AbstractPersistentBean;
 /**
  * ShoppingCartItem
  * 
- * @navhas n productid 1 Product
  * @navhas n cartid 1 ShoppingCart
  * @stereotype "persistent"
  */
@@ -52,7 +50,7 @@ public class ShoppingCartItem extends AbstractPersistentBean {
 	/**
 	 * Product Id
 	 **/
-	private Product productid = null;
+	private String productid;
 	/**
 	 * Quantity
 	 **/
@@ -145,7 +143,7 @@ public class ShoppingCartItem extends AbstractPersistentBean {
 	 * {@link #productid} accessor.
 	 * @return	The value.
 	 **/
-	public Product getProductid() {
+	public String getProductid() {
 		return productid;
 	}
 
@@ -154,11 +152,9 @@ public class ShoppingCartItem extends AbstractPersistentBean {
 	 * @param productid	The new value.
 	 **/
 	@XmlElement
-	public void setProductid(Product productid) {
-		if (this.productid != productid) {
-			preset(productidPropertyName, productid);
-			this.productid = productid;
-		}
+	public void setProductid(String productid) {
+		preset(productidPropertyName, productid);
+		this.productid = productid;
 	}
 
 	/**

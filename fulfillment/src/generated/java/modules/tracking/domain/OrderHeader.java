@@ -1,5 +1,6 @@
 package modules.tracking.domain;
 
+import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
@@ -10,11 +11,13 @@ import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateTime;
 import org.skyve.impl.domain.AbstractPersistentBean;
+import org.skyve.impl.domain.ChangeTrackingArrayList;
 import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 
 /**
  * OrderHeader
  * 
+ * @navhas n orders 0..n OrderItem
  * @stereotype "persistent"
  */
 @XmlType
@@ -61,6 +64,9 @@ public class OrderHeader extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String updatedstampPropertyName = "updatedstamp";
+
+	/** @hidden */
+	public static final String ordersPropertyName = "orders";
 
 	/**
 	 * Order Id
@@ -111,6 +117,11 @@ public class OrderHeader extends AbstractPersistentBean {
 	 * Updated timestamp
 	 **/
 	private DateTime updatedstamp;
+
+	/**
+	 * OrderItem
+	 **/
+	private List<OrderItem> orders = new ChangeTrackingArrayList<>("orders", this);
 
 	@Override
 	@XmlTransient
@@ -337,5 +348,86 @@ public class OrderHeader extends AbstractPersistentBean {
 	public void setUpdatedstamp(DateTime updatedstamp) {
 		preset(updatedstampPropertyName, updatedstamp);
 		this.updatedstamp = updatedstamp;
+	}
+
+	/**
+	 * {@link #orders} accessor.
+	 * @return	The value.
+	 **/
+	@XmlElement
+	public List<OrderItem> getOrders() {
+		return orders;
+	}
+
+	/**
+	 * {@link #orders} accessor.
+	 * @param bizId	The bizId of the element in the list.
+	 * @return	The value of the element in the list.
+	 **/
+	public OrderItem getOrdersElementById(String bizId) {
+		return getElementById(orders, bizId);
+	}
+
+	/**
+	 * {@link #orders} mutator.
+	 * @param bizId	The bizId of the element in the list.
+	 * @param element	The new value of the element in the list.
+	 **/
+	public void setOrdersElementById(String bizId, OrderItem element) {
+		setElementById(orders, element);
+	}
+
+	/**
+	 * {@link #orders} add.
+	 * @param element	The element to add.
+	 **/
+	public boolean addOrdersElement(OrderItem element) {
+		return orders.add(element);
+	}
+
+	/**
+	 * {@link #orders} add.
+	 * @param index	The index in the list to add the element to.
+	 * @param element	The element to add.
+	 **/
+	public void addOrdersElement(int index, OrderItem element) {
+		orders.add(index, element);
+	}
+
+	/**
+	 * {@link #orders} remove.
+	 * @param element	The element to remove.
+	 **/
+	public boolean removeOrdersElement(OrderItem element) {
+		return orders.remove(element);
+	}
+
+	/**
+	 * {@link #orders} remove.
+	 * @param index	The index in the list to remove the element from.
+	 **/
+	public OrderItem removeOrdersElement(int index) {
+		return orders.remove(index);
+	}
+
+	/**
+	 * Created
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	@Override
+	public boolean isCreated() {
+		return (isPersisted());
+	}
+
+	/**
+	 * {@link #isCreated} negation.
+	 *
+	 * @return The negated condition
+	 */
+	@Override
+	public boolean isNotCreated() {
+		return (! isCreated());
 	}
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://www.skyve.org/xml/module" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="tracking" prototype="true" name="tracking" xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
-    <homeRef>list</homeRef>
+    <homeRef>edit</homeRef>
     <homeDocument>OrderHeader</homeDocument>
     <documents>
         <document ref="OrderHeader"/>
@@ -13,7 +13,11 @@
         <role name="Maintainer">
             <description><![CDATA[Create, edit and delete permission within the tracking module.]]></description>
             <privileges>
-                <document name="OrderHeader" permission="CRUDC"/>
+                <document name="OrderHeader" permission="CRUDC">
+					<action name="GetOrders"/>				
+					<action name="SubmitOrder"/>				
+
+                </document>
                 <document name="OrderItem" permission="CRUDC"/>
                 <document name="Picking" permission="CRUDC"/>
                 <document name="Packing" permission="CRUDC"/>
@@ -23,12 +27,19 @@
     </roles>
     <menu>
         <edit document="OrderHeader" name="OrderHeader">
+        
             <role name="Maintainer"/>
         </edit>
-        <list document="OrderItem" name="OrderItem">
+        <list document="OrderHeader" name="OrderHeaderList">
+                
             <role name="Maintainer"/>
         </list>
-        <list document="Picking" name="Picking">
+<!--         <list document="OrderItem" name="OrderItem"> -->
+<!--             <role name="Maintainer"/> -->
+<!--         </list> -->
+
+		
+        <list  document="Picking" name="Picking">
             <role name="Maintainer"/>
         </list>
         <list document="Packing" name="Packing">
@@ -43,8 +54,63 @@
         <query documentName="OrderHeader" name="qOrderHeader">
             <description><![CDATA[All OrderHeaders]]></description>
             <columns>
-                <column binding="description" sortOrder="ascending"/>
-                <column binding="orderid"/>
+                <column binding="orderid" sortOrder="ascending"/>
+                <column binding="userloginid"/>
+                <column binding="subtotal"/>
+                <column binding="grandtotal"/>
+                <column binding="addressid"/>
+                <column binding="paymentmethod"/>
+                <column binding="orderstatus">
+                <filterOperator>notEqual</filterOperator>
+                 <filterExpression>completed</filterExpression>
+                </column>
+                <column binding="orderdate" hidden="true"/>
+                <column binding="createdstamp" hidden="true"/>
+                <column binding="updatedstamp" hidden="true"/>
+            </columns>
+        </query>
+        
+        
+        
+                <query documentName="OrderHeader" name="qOrderHeaderComplete">
+            <description><![CDATA[All OrderHeaders]]></description>
+            
+        	<from>
+				<![CDATA[
+					{tracking.OrderHeader} as bean]]>
+			</from>
+
+            <columns>
+                <column binding="orderid" sortOrder="ascending"/>
+                <column binding="userloginid"/>
+                <column binding="subtotal"/>
+                <column binding="grandtotal"/>
+                <column binding="addressid"/>
+                <column binding="paymentmethod"/>
+                <column binding="orderstatus">
+                <filterOperator>equal</filterOperator>
+                 <filterExpression>completed</filterExpression>
+                
+                </column>
+                <column binding="orderdate" hidden="true"/>
+                <column binding="createdstamp" hidden="true"/>
+                <column binding="updatedstamp" hidden="true"/>
+            </columns>
+        </query>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+                <query documentName="OrderHeader" name="qOrderHeaderIncomplete">
+            <description><![CDATA[All OrderHeaders]]></description>
+            <columns>
+                <column binding="orderid" sortOrder="ascending"/>
                 <column binding="userloginid"/>
                 <column binding="subtotal"/>
                 <column binding="grandtotal"/>
@@ -56,7 +122,35 @@
                 <column binding="updatedstamp" hidden="true"/>
             </columns>
         </query>
-        <query documentName="OrderItem" name="qsOrderItem">
+        
+        
+                <query documentName="OrderHeader" name="qOrderItemByOrderId">
+            <description><![CDATA[All karmas]]></description>
+            
+             <columns>
+                <column binding="orderid" sortOrder="ascending"/>
+                <column binding="userloginid"/>
+           		<column binding="orders.orderitemid" />
+              
+                <column binding="orderstatus"/>
+                <column binding="orderdate" hidden="true"/>
+            </columns>
+<!--             <columns> -->
+<!--             	<column binding="orderitemid" sortOrder="ascending"/> -->
+<!--                 <column binding="productid"/> -->
+<!--                 <column binding="quantity"/> -->
+<!--                 <column binding="unitprice"/> -->
+<!--                 <column binding="createdstamp"/> -->
+<!--                 <column binding="updatedstamp"/> -->
+<!--             </columns> -->
+        </query>
+        
+        
+        
+        
+        
+        
+        <query documentName="OrderItem" name="qOrderItem">
             <description><![CDATA[All ToDos]]></description>
             <columns>
                 <column binding="orderitemid" sortOrder="ascending"/>
@@ -67,5 +161,11 @@
                 <column binding="updatedstamp"/>
             </columns>
         </query>
+        
+        
+        
+        
+        
+        
     </queries>
 </module>

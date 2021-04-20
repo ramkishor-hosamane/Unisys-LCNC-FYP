@@ -205,7 +205,7 @@ export class CheckoutService {
               this.updateOrdering_status(this.ordering_status);
 
             },
-            3000);
+            2000);
       return;
 
     }

@@ -3,23 +3,27 @@
 	<persistent name="TODO_ToDo"/>
     <singularAlias>ToDo</singularAlias>
     <pluralAlias>ToDos</pluralAlias>
-    <bizKey expression="{orderid}"/>
+    <bizKey expression="{orderitemid}"/>
     <attributes>
+    
+		
+    
+    
+    
     	<text name="orderitemid" required="true">
    		 <displayName>Order Item Id</displayName>
    		 <length>10</length>
    	 </text>
    	 <!-- Foreign key -->
-   	 <association type="aggregation" name="orderid"
-   		 required="true">
-   		 <displayName>Order Id</displayName>
-   		 <documentName>OrderHeader</documentName>
-   	 </association>
+<!--    	 <association type="aggregation" name="orderid" -->
+<!--    		 required="true"> -->
+<!--    		 <displayName>Order Id</displayName> -->
+<!--    		 <documentName>OrderHeader</documentName> -->
+<!--    	 </association> -->
 
     	<text name="productid" required="true">
    		 <displayName>Product Id</displayName>
-   					 <length>10</length>
-   		 
+   		<length>5</length>
    	 </text>
    	 <integer name="quantity" required="true">
    		 <displayName>Quantity</displayName>

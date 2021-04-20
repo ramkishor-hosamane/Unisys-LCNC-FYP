@@ -15,7 +15,6 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 /**
  * ToDo
  * 
- * @navhas n orderid 1 OrderHeader
  * @stereotype "persistent"
  */
 @XmlType
@@ -37,9 +36,6 @@ public class OrderItem extends AbstractPersistentBean {
 	public static final String orderitemidPropertyName = "orderitemid";
 
 	/** @hidden */
-	public static final String orderidPropertyName = "orderid";
-
-	/** @hidden */
 	public static final String productidPropertyName = "productid";
 
 	/** @hidden */
@@ -58,11 +54,6 @@ public class OrderItem extends AbstractPersistentBean {
 	 * Order Item Id
 	 **/
 	private String orderitemid;
-
-	/**
-	 * Order Id
-	 **/
-	private OrderHeader orderid = null;
 
 	/**
 	 * Product Id
@@ -117,7 +108,7 @@ public class OrderItem extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 		try {
-			return org.skyve.util.Binder.formatMessage("{orderid}", this);
+			return org.skyve.util.Binder.formatMessage("{orderitemid}", this);
 		}
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
@@ -146,26 +137,6 @@ public class OrderItem extends AbstractPersistentBean {
 	public void setOrderitemid(String orderitemid) {
 		preset(orderitemidPropertyName, orderitemid);
 		this.orderitemid = orderitemid;
-	}
-
-	/**
-	 * {@link #orderid} accessor.
-	 * @return	The value.
-	 **/
-	public OrderHeader getOrderid() {
-		return orderid;
-	}
-
-	/**
-	 * {@link #orderid} mutator.
-	 * @param orderid	The new value.
-	 **/
-	@XmlElement
-	public void setOrderid(OrderHeader orderid) {
-		if (this.orderid != orderid) {
-			preset(orderidPropertyName, orderid);
-			this.orderid = orderid;
-		}
 	}
 
 	/**

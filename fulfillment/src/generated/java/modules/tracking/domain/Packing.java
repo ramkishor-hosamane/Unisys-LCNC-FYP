@@ -73,7 +73,7 @@ public class Packing extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 		try {
-			return org.skyve.util.Binder.formatMessage("Packing", this);
+			return org.skyve.util.Binder.formatMessage("{orderid}", this);
 		}
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
