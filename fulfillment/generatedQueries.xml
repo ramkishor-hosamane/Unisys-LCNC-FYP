@@ -2,5 +2,50 @@
 <module xmlns="http://www.skyve.org/xml/module" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
     <documents/>
     <roles/>
-
+    <queries>
+        <query documentName="OrderHeader" name="OrderHeader">
+            <description><![CDATA[All OrderHeaders]]></description>
+            <columns>
+                <column binding="orderid" sortOrder="ascending"/>
+                <column binding="userloginid"/>
+                <column binding="subtotal"/>
+                <column binding="grandtotal"/>
+                <column binding="addressid"/>
+                <column binding="paymentmethod"/>
+                <column binding="orderstatus"/>
+                <column binding="orderdate"/>
+                <column binding="createdstamp" hidden="true"/>
+                <column binding="updatedstamp" hidden="true"/>
+            </columns>
+        </query>
+        <query documentName="OrderItem" name="OrderItem">
+            <description><![CDATA[All ToDos]]></description>
+            <columns>
+                <column binding="orderitemid" sortOrder="ascending"/>
+                <column binding="productid"/>
+                <column binding="quantity"/>
+                <column binding="unitprice"/>
+                <column binding="createdstamp"/>
+                <column binding="updatedstamp"/>
+            </columns>
+        </query>
+        <query documentName="Packing" name="Packing">
+            <description><![CDATA[All Packings]]></description>
+            <columns>
+                <column binding="checked" sortOrder="ascending"/>
+            </columns>
+        </query>
+        <query documentName="Picking" name="Picking">
+            <description><![CDATA[All Pickings]]></description>
+            <columns>
+                <column binding="checked" sortOrder="ascending"/>
+            </columns>
+        </query>
+        <query documentName="Shipping" name="Shipping">
+            <description><![CDATA[All Shippings]]></description>
+            <columns>
+                <column binding="checked" sortOrder="ascending"/>
+            </columns>
+        </query>
+    </queries>
 </module>

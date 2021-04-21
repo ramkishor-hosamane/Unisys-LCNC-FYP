@@ -123,4 +123,25 @@ public class Picking extends AbstractPersistentBean {
 		preset(checkedPropertyName, checked);
 		this.checked = checked;
 	}
+
+	/**
+	 * Created
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	@Override
+	public boolean isCreated() {
+		return (isPersisted());
+	}
+
+	/**
+	 * {@link #isCreated} negation.
+	 *
+	 * @return The negated condition
+	 */
+	@Override
+	public boolean isNotCreated() {
+		return (! isCreated());
+	}
 }

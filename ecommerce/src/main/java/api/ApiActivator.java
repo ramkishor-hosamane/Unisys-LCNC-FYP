@@ -45,6 +45,7 @@ public class ApiActivator extends Application {
 	public Set<Class<?>> getClasses() {
 		final Set<Class<?>> classes = new HashSet<>();
 		classes.add(ApiService.class);
+		classes.add(OrdersApi.class);
 		classes.add(WishlistApi.class);
 
 		return classes;

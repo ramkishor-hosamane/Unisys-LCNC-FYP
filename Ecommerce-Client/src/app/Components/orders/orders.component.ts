@@ -15,6 +15,7 @@ export class OrdersComponent implements OnInit {
     this.api.getData(environment.server_api_url+"order/OrderHeader").subscribe(
       data=>{
         this.orders = data
+        console.log("Got orders")
       },error=>console.log("error",error)
 
     )
@@ -25,7 +26,7 @@ export class OrdersComponent implements OnInit {
 
 
   }
-  orders :any;
+  orders :any=[];
 
 
   routeToOrder(orderid:any){

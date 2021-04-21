@@ -15,4 +15,13 @@
     <displayName>Approved</displayName>
     </boolean>
     </attributes>
+    
+       <conditions>
+    <condition name="created">
+	<description>Created</description>
+	<expression>
+		<![CDATA[isPersisted()]]>
+	</expression>
+</condition>
+</conditions>
 </document>

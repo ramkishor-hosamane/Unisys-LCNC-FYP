@@ -44,60 +44,65 @@ public class GetOrders implements ServerSideAction<OrderHeader> {
 	@Override
 	public ServerSideActionResult<OrderHeader> execute(OrderHeader bean, WebContext webContext) throws UnirestException {
 
-//		Unirest.setTimeouts(0, 0);
-//	    HttpResponse<String> response = Unirest.get("http://localhost:8080/ecommerce/api/json/getNewOrders")
-//	      .header("Content-Type", "application/json")
-//	      .header("Authorization", "Basic c2V0dXA6c2V0dXA=")
-//	      .asString();
-//	    
-//	    //System.out.println(response.getBody());
-//		Persistence p = null;
-//		try {
-//	        Gson gson = new Gson();
-//		    p = CORE.getPersistence();
-//		    User u = p.getUser();
-//		    
-//
-//			Customer c = u.getCustomer();
-//
-//			Module m = c.getModule("tracking");
-//
-//			Document d = m.getDocument(c, "OrderHeader");
-//		    System.out.println("Entering");
-//			//System.out.println(JSON.unmarshall(u, response.getBody()));
-//
-//		    String string_json = response.getBody();
-//	        Type familyType = new TypeToken<ArrayList<OrderHelper>>() {}.getType();
-//	        ArrayList<OrderHelper> mybeans = gson.fromJson(string_json, familyType);
-//	        int count = 0;
-//		    for(OrderHelper o:mybeans) {
-//				DocumentQuery q = p.newDocumentQuery(d);
-//				q.getFilter().addLike(OrderHeader.orderidPropertyName, o.getOrderid());
-//		    	if(q.beanResults().size()==0)
-//		    	{
-//			    	OrderHeader oh =  SaveOrderHeaderBean(o, c, u, d, p);
-//			    	oh = GetOrderItems(o,oh);
-//			    	oh = p.save(d,oh);
-//			    	count++;
-//		    	}
-//		    }
-//		    
-//		    if(count>0) {
-//			    webContext.growl(MessageSeverity.info, "Got "+count+" Orders");
-//
-//		    }
-//		    System.out.println("Exiting");
-//
-//			
-//		} catch (Exception e) {
-//				System.out.println("Exception"+e);
-//		
-//		}
-//		
-//	    System.out.println("Finally");
-	    webContext.growl(MessageSeverity.info, "Got "+1+" Orders");
+		Unirest.setTimeouts(0, 0);
+	    HttpResponse<String> response = Unirest.get("http://localhost:8080/ecommerce/api/json/getNewOrders")
+	      .header("Content-Type", "application/json")
+	      .header("Authorization", "Basic c2V0dXA6c2V0dXA=")
+	      .asString();
+	    
+	    //System.out.println(response.getBody());
+		Persistence p = null;
+		try {
+	        Gson gson = new Gson();
+		    p = CORE.getPersistence();
+		    User u = p.getUser();
+		    
+
+			Customer c = u.getCustomer();
+
+			Module m = c.getModule("tracking");
+
+			Document d = m.getDocument(c, "OrderHeader");
+		    System.out.println("Entering");
+			//System.out.println(JSON.unmarshall(u, response.getBody()));
+
+		    String string_json = response.getBody();
+	        Type familyType = new TypeToken<ArrayList<OrderHelper>>() {}.getType();
+	        ArrayList<OrderHelper> mybeans = gson.fromJson(string_json, familyType);
+	        int count = 0;
+		    for(OrderHelper o:mybeans) {
+				DocumentQuery q = p.newDocumentQuery(d);
+				q.getFilter().addLike(OrderHeader.orderidPropertyName, o.getOrderid());
+		    	if(q.beanResults().size()==0)
+		    	{
+			    	OrderHeader oh =  SaveOrderHeaderBean(o, c, u, d, p);
+			    	oh = GetOrderItems(o,oh);
+			    	oh = p.save(d,oh);
+			    	count++;
+		    	}
+		    }
+		    
+		    if(count>0) {
+			    webContext.growl(MessageSeverity.info, "Got "+count+" Orders");
+
+		    }
+		    else
+		    {
+		    	webContext.message(MessageSeverity.info, "No new Orders");
+		    }
+		    System.out.println("Exiting");
+
+			
+		} catch (Exception e) {
+				System.out.println("Exception"+e);
+		
+		}
 	    System.out.println("Finally");
-		return new ServerSideActionResult<>(bean);
+		
+//		bean.addOrdersElement(new OrderItem());
+//		webContext.growl(MessageSeverity.info, "Got "+1+" Orders");
+//	    System.out.println("Finally");
+		return new ServerSideActionResult<OrderHeader>(bean);
 	
 	}
 	

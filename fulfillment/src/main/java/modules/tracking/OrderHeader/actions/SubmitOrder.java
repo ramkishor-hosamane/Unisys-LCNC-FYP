@@ -1,6 +1,8 @@
 package modules.tracking.OrderHeader.actions;
 
 import java.lang.Override;
+
+import modules.tracking.OrderHeader.OrderHeaderBizlet;
 import modules.tracking.domain.OrderHeader;
 import modules.tracking.domain.Picking;
 
@@ -35,8 +37,12 @@ public class SubmitOrder implements ServerSideAction<OrderHeader> {
 			pick.setBizCustomer(c.getName());
 			pick.setBizUserId(u.getName());
 			pick = p.save(d,pick);
+			
+			
+			
+			OrderHeaderBizlet.updateOrderStatus(bean,"ordered");
 		
-			webContext.message(MessageSeverity.info,"Order passed to packing successfully");
+			webContext.message(MessageSeverity.info,"Order passed to picking successfully");
 		
 		
 		

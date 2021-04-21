@@ -11,16 +11,21 @@ import { environment } from 'src/environments/environment';
 })
 export class OrderComponent implements OnInit {
   orderId:any="";
+
+
   orderHeader:any={};
   orderItems:any=[];
-   constructor(private route:ActivatedRoute,private api:ApiService,private http:HttpClient) {
+  
+  steps = {'shipping':'active','delivery':'disabled'}
+  
+  constructor(private route:ActivatedRoute,private api:ApiService,private http:HttpClient) {
 
     route.params.subscribe(val => {
       this.orderId = this.route.snapshot.paramMap.get('orderid');
       console.log("This is the id ",this.orderId)
       this.getOrderData();
-
     });
+
     }
 
     getOrderData(){
@@ -31,6 +36,9 @@ export class OrderComponent implements OnInit {
             this.api.getData(environment.get_orderitem_by_orderid_url+this.orderId).subscribe(
               data=>{
                   this.orderItems = data
+                  console.log("Came here")
+                  this.assignSteps()
+
               },
               error=>console.log("Error in geting data",error)
             )
@@ -41,6 +49,16 @@ export class OrderComponent implements OnInit {
 
     }
 
+    assignSteps(){
+
+      switch(this.orderHeader['orderstatus'])
+      {
+        case "shipped": this.steps["shipping"]="completed"
+                        this.steps["delivery"]="active"
+                        console.log(this.steps)
+                        break;
+      }
+    }
  ngOnInit() {
 
     // this.orderId = this.route.snapshot.paramMap.get('orderid');
