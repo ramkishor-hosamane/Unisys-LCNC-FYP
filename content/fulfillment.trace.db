@@ -1,29 +1,7 @@
-2021-04-21 14:18:32 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:179)
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:155)
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:144)
-	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1526)
-	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.checkClosedForWrite(JdbcConnection.java:1512)
-	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.rollback(JdbcConnection.java:516)
-	at org.jboss.ironjacamar.jdbcadapters@1.4.25.Final//org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.destroy(BaseWrapperManagedConnection.java:485)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.listener.AbstractConnectionListener.destroy(AbstractConnectionListener.java:637)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.pool.mcp.SemaphoreConcurrentLinkedDequeManagedConnectionPool.shutdown(SemaphoreConcurrentLinkedDequeManagedConnectionPool.java:1069)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.pool.AbstractPool.shutdown(AbstractPool.java:945)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.AbstractConnectionManager.shutdown(AbstractConnectionManager.java:321)
-	at org.jboss.as.connector@22.0.0.Final//org.jboss.as.connector.subsystems.datasources.AbstractDataSourceService.stopService(AbstractDataSourceService.java:232)
-	at org.jboss.as.connector@22.0.0.Final//org.jboss.as.connector.subsystems.datasources.AbstractDataSourceService$1.run(AbstractDataSourceService.java:186)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.ContextClassLoaderSavingRunnable.run(ContextClassLoaderSavingRunnable.java:35)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor.safeRun(EnhancedQueueExecutor.java:1990)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.doRunTask(EnhancedQueueExecutor.java:1486)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1348)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.JBossThread.run(JBossThread.java:513)
-2021-04-21 14:19:24 jdbc[3]: exception
+2021-04-22 15:42:58 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Table "_GEODB" not found; SQL statement:
 SELECT checksum FROM _GEODB [42102-197]
-2021-04-21 14:19:24 jdbc[3]: exception
+2021-04-22 15:42:58 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: User data type "GEOMETRY" already exists; SQL statement:
 CREATE DOMAIN GEOMETRY AS BLOB [90119-197]
 	at com.h2database.h2@1.4.197//org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
@@ -71,8 +49,8 @@ CREATE DOMAIN GEOMETRY AS BLOB [90119-197]
 	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1377)
 	at java.base/java.lang.Thread.run(Thread.java:834)
 	at org.jboss.threads@2.4.0.Final//org.jboss.threads.JBossThread.run(JBossThread.java:513)
-2021-04-21 14:19:24 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: General error: "java.lang.ClassCastException: class geodb.aggregate.Extent cannot be cast to class org.h2.api.AggregateFunction (geodb.aggregate.Extent is in unnamed module of loader 'deployment.fulfillment.war' @73b0201c; org.h2.api.AggregateFunction is in unnamed module of loader 'com.h2database.h2@1.4.197' @2311d5c0)"; SQL statement:
+2021-04-22 15:42:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: General error: "java.lang.ClassCastException: class geodb.aggregate.Extent cannot be cast to class org.h2.api.AggregateFunction (geodb.aggregate.Extent is in unnamed module of loader 'deployment.fulfillment.war' @33782030; org.h2.api.AggregateFunction is in unnamed module of loader 'com.h2database.h2@1.4.197' @6af0feab)"; SQL statement:
 CREATE AGGREGATE ST_Extent FOR "geodb.aggregate.Extent" [50000-197]
 	at com.h2database.h2@1.4.197//org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
 	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:168)
@@ -121,11 +99,11 @@ CREATE AGGREGATE ST_Extent FOR "geodb.aggregate.Extent" [50000-197]
 	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1377)
 	at java.base/java.lang.Thread.run(Thread.java:834)
 	at org.jboss.threads@2.4.0.Final//org.jboss.threads.JBossThread.run(JBossThread.java:513)
-Caused by: java.lang.ClassCastException: class geodb.aggregate.Extent cannot be cast to class org.h2.api.AggregateFunction (geodb.aggregate.Extent is in unnamed module of loader 'deployment.fulfillment.war' @73b0201c; org.h2.api.AggregateFunction is in unnamed module of loader 'com.h2database.h2@1.4.197' @2311d5c0)
+Caused by: java.lang.ClassCastException: class geodb.aggregate.Extent cannot be cast to class org.h2.api.AggregateFunction (geodb.aggregate.Extent is in unnamed module of loader 'deployment.fulfillment.war' @33782030; org.h2.api.AggregateFunction is in unnamed module of loader 'com.h2database.h2@1.4.197' @6af0feab)
 	at com.h2database.h2@1.4.197//org.h2.engine.UserAggregate.getInstance(UserAggregate.java:47)
 	... 43 more
-2021-04-21 14:19:24 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: General error: "java.lang.ClassCastException: class geodb.aggregate.Union cannot be cast to class org.h2.api.AggregateFunction (geodb.aggregate.Union is in unnamed module of loader 'deployment.fulfillment.war' @73b0201c; org.h2.api.AggregateFunction is in unnamed module of loader 'com.h2database.h2@1.4.197' @2311d5c0)"; SQL statement:
+2021-04-22 15:42:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: General error: "java.lang.ClassCastException: class geodb.aggregate.Union cannot be cast to class org.h2.api.AggregateFunction (geodb.aggregate.Union is in unnamed module of loader 'deployment.fulfillment.war' @33782030; org.h2.api.AggregateFunction is in unnamed module of loader 'com.h2database.h2@1.4.197' @6af0feab)"; SQL statement:
 CREATE AGGREGATE ST_Union_Aggregate FOR "geodb.aggregate.Union" [50000-197]
 	at com.h2database.h2@1.4.197//org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
 	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:168)
@@ -174,10 +152,10 @@ CREATE AGGREGATE ST_Union_Aggregate FOR "geodb.aggregate.Union" [50000-197]
 	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1377)
 	at java.base/java.lang.Thread.run(Thread.java:834)
 	at org.jboss.threads@2.4.0.Final//org.jboss.threads.JBossThread.run(JBossThread.java:513)
-Caused by: java.lang.ClassCastException: class geodb.aggregate.Union cannot be cast to class org.h2.api.AggregateFunction (geodb.aggregate.Union is in unnamed module of loader 'deployment.fulfillment.war' @73b0201c; org.h2.api.AggregateFunction is in unnamed module of loader 'com.h2database.h2@1.4.197' @2311d5c0)
+Caused by: java.lang.ClassCastException: class geodb.aggregate.Union cannot be cast to class org.h2.api.AggregateFunction (geodb.aggregate.Union is in unnamed module of loader 'deployment.fulfillment.war' @33782030; org.h2.api.AggregateFunction is in unnamed module of loader 'com.h2database.h2@1.4.197' @6af0feab)
 	at com.h2database.h2@1.4.197//org.h2.engine.UserAggregate.getInstance(UserAggregate.java:47)
 	... 43 more
-2021-04-22 13:00:22 jdbc[3]: exception
+2021-04-22 17:21:28 jdbc[4]: exception
 org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
 	at com.h2database.h2@1.4.197//org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
 	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:179)
@@ -199,73 +177,7 @@ org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic c
 	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1377)
 	at java.base/java.lang.Thread.run(Thread.java:834)
 	at org.jboss.threads@2.4.0.Final//org.jboss.threads.JBossThread.run(JBossThread.java:513)
-2021-04-22 13:04:22 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:179)
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:155)
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:144)
-	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1526)
-	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.checkClosedForWrite(JdbcConnection.java:1512)
-	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.rollback(JdbcConnection.java:516)
-	at org.jboss.ironjacamar.jdbcadapters@1.4.25.Final//org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.destroy(BaseWrapperManagedConnection.java:485)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.listener.AbstractConnectionListener.destroy(AbstractConnectionListener.java:637)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.pool.mcp.SemaphoreConcurrentLinkedDequeManagedConnectionPool.shutdown(SemaphoreConcurrentLinkedDequeManagedConnectionPool.java:1069)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.pool.AbstractPool.shutdown(AbstractPool.java:945)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.AbstractConnectionManager.shutdown(AbstractConnectionManager.java:321)
-	at org.jboss.as.connector@22.0.0.Final//org.jboss.as.connector.subsystems.datasources.AbstractDataSourceService.stopService(AbstractDataSourceService.java:232)
-	at org.jboss.as.connector@22.0.0.Final//org.jboss.as.connector.subsystems.datasources.AbstractDataSourceService$1.run(AbstractDataSourceService.java:186)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.ContextClassLoaderSavingRunnable.run(ContextClassLoaderSavingRunnable.java:35)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor.safeRun(EnhancedQueueExecutor.java:1990)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.doRunTask(EnhancedQueueExecutor.java:1486)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1377)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.JBossThread.run(JBossThread.java:513)
-2021-04-22 13:12:17 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:179)
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:155)
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:144)
-	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1526)
-	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.checkClosedForWrite(JdbcConnection.java:1512)
-	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.rollback(JdbcConnection.java:516)
-	at org.jboss.ironjacamar.jdbcadapters@1.4.25.Final//org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.destroy(BaseWrapperManagedConnection.java:485)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.listener.AbstractConnectionListener.destroy(AbstractConnectionListener.java:637)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.pool.mcp.SemaphoreConcurrentLinkedDequeManagedConnectionPool.shutdown(SemaphoreConcurrentLinkedDequeManagedConnectionPool.java:1069)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.pool.AbstractPool.shutdown(AbstractPool.java:945)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.AbstractConnectionManager.shutdown(AbstractConnectionManager.java:321)
-	at org.jboss.as.connector@22.0.0.Final//org.jboss.as.connector.subsystems.datasources.AbstractDataSourceService.stopService(AbstractDataSourceService.java:232)
-	at org.jboss.as.connector@22.0.0.Final//org.jboss.as.connector.subsystems.datasources.AbstractDataSourceService$1.run(AbstractDataSourceService.java:186)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.ContextClassLoaderSavingRunnable.run(ContextClassLoaderSavingRunnable.java:35)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor.safeRun(EnhancedQueueExecutor.java:1990)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.doRunTask(EnhancedQueueExecutor.java:1486)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1377)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.JBossThread.run(JBossThread.java:513)
-2021-04-22 13:37:07 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:179)
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:155)
-	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:144)
-	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1526)
-	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.checkClosedForWrite(JdbcConnection.java:1512)
-	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.rollback(JdbcConnection.java:516)
-	at org.jboss.ironjacamar.jdbcadapters@1.4.25.Final//org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.destroy(BaseWrapperManagedConnection.java:485)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.listener.AbstractConnectionListener.destroy(AbstractConnectionListener.java:637)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.pool.mcp.SemaphoreConcurrentLinkedDequeManagedConnectionPool.shutdown(SemaphoreConcurrentLinkedDequeManagedConnectionPool.java:1069)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.pool.AbstractPool.shutdown(AbstractPool.java:945)
-	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.AbstractConnectionManager.shutdown(AbstractConnectionManager.java:321)
-	at org.jboss.as.connector@22.0.0.Final//org.jboss.as.connector.subsystems.datasources.AbstractDataSourceService.stopService(AbstractDataSourceService.java:232)
-	at org.jboss.as.connector@22.0.0.Final//org.jboss.as.connector.subsystems.datasources.AbstractDataSourceService$1.run(AbstractDataSourceService.java:186)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.ContextClassLoaderSavingRunnable.run(ContextClassLoaderSavingRunnable.java:35)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor.safeRun(EnhancedQueueExecutor.java:1990)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.doRunTask(EnhancedQueueExecutor.java:1486)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1377)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-	at org.jboss.threads@2.4.0.Final//org.jboss.threads.JBossThread.run(JBossThread.java:513)
-2021-04-22 13:41:32 jdbc[3]: exception
+2021-04-22 21:20:22 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
 	at com.h2database.h2@1.4.197//org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
 	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:179)
@@ -287,7 +199,29 @@ org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic c
 	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1348)
 	at java.base/java.lang.Thread.run(Thread.java:834)
 	at org.jboss.threads@2.4.0.Final//org.jboss.threads.JBossThread.run(JBossThread.java:513)
-2021-04-22 13:44:32 jdbc[3]: exception
+2021-04-22 21:34:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
+	at com.h2database.h2@1.4.197//org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:179)
+	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:155)
+	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:144)
+	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1526)
+	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.checkClosedForWrite(JdbcConnection.java:1512)
+	at com.h2database.h2@1.4.197//org.h2.jdbc.JdbcConnection.rollback(JdbcConnection.java:516)
+	at org.jboss.ironjacamar.jdbcadapters@1.4.25.Final//org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.destroy(BaseWrapperManagedConnection.java:485)
+	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.listener.AbstractConnectionListener.destroy(AbstractConnectionListener.java:637)
+	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.pool.mcp.SemaphoreConcurrentLinkedDequeManagedConnectionPool.shutdown(SemaphoreConcurrentLinkedDequeManagedConnectionPool.java:1069)
+	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.pool.AbstractPool.shutdown(AbstractPool.java:945)
+	at org.jboss.ironjacamar.impl@1.4.25.Final//org.jboss.jca.core.connectionmanager.AbstractConnectionManager.shutdown(AbstractConnectionManager.java:321)
+	at org.jboss.as.connector@22.0.0.Final//org.jboss.as.connector.subsystems.datasources.AbstractDataSourceService.stopService(AbstractDataSourceService.java:232)
+	at org.jboss.as.connector@22.0.0.Final//org.jboss.as.connector.subsystems.datasources.AbstractDataSourceService$1.run(AbstractDataSourceService.java:186)
+	at org.jboss.threads@2.4.0.Final//org.jboss.threads.ContextClassLoaderSavingRunnable.run(ContextClassLoaderSavingRunnable.java:35)
+	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor.safeRun(EnhancedQueueExecutor.java:1990)
+	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.doRunTask(EnhancedQueueExecutor.java:1486)
+	at org.jboss.threads@2.4.0.Final//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1348)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+	at org.jboss.threads@2.4.0.Final//org.jboss.threads.JBossThread.run(JBossThread.java:513)
+2021-04-22 21:37:43 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-197]
 	at com.h2database.h2@1.4.197//org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
 	at com.h2database.h2@1.4.197//org.h2.message.DbException.get(DbException.java:179)

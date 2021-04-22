@@ -134,17 +134,29 @@ public class RDBMSAuditInterceptor extends Interceptor {
 		}
 	}
 	
-	private static void sendAudit(Audit bean) throws UnirestException {
+	private static void sendAudit(Audit bean){
 		
-	    Unirest.setTimeouts(0, 0);
-	    HttpResponse<String> response = Unirest.post("http://127.0.0.1:5000/newaudit")
-	      .header("Content-Type", "application/json")
-	      .body("{\n   \"auditModuleName\":"+bean.getAuditModuleName()+",\n    \"auditDocumentName\":"+bean.getUserName()+",\n    \"operation\":"+ bean.getOperation() +",\n    \"timestamp\":"+ bean.getTimestamp()+",\n    \"userName\":"+bean.getUserName() +"\n}")
-	      .asString();
+		try {
+
+			bean.setBizDataGroupId("ecommerce");
+			String result = JSON.marshall(CORE.getUser().getCustomer(), bean);
+			//String res
+		    Unirest.setTimeouts(0, 0);
+		    HttpResponse<String> response = Unirest.post("http://127.0.0.1:5000/newaudit")
+		      .header("Content-Type", "application/json")
+		      .body(result)
+		      .asString();
+			
+			
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		
 	    
-		
-		
-		
+	    //	      .body("{\n   \"auditModuleName\":"+bean.getAuditModuleName()+",\n    \"auditDocumentName\":"+bean.getUserName()+",\n    \"operation\":"+ bean.getOperation() +",\n    \"timestamp\":"+ bean.getTimestamp()+",\n    \"userName\":"+bean.getUserName() +"\n}")
+
 	}
 	
 	
@@ -187,7 +199,7 @@ public class RDBMSAuditInterceptor extends Interceptor {
 			
 			System.out.println("Sending");
 			sendAudit(a);
-			RDBMSAuditInterceptor.sendAudit(a);
+			//RDBMSAuditInterceptor.sendAudit(a);
 			System.out.println("Sending done");
 
 			p.upsertBeanTuple(a);
