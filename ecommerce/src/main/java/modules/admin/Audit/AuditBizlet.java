@@ -32,6 +32,8 @@ public class AuditBizlet extends Bizlet<Audit> {
 			SourceVersionChanged.sourceVersionChanged(bean);
 		}
 		
+		System.out.println("In preexcute "+bean.getBizDocument());
+		
 		return bean;
 	}
 
@@ -46,6 +48,8 @@ public class AuditBizlet extends Bizlet<Audit> {
 					(bean.getSourceVersion() != null)) {
 			return getVersions(bean.getSourceVersion(), true);
 		}
+		System.out.println("In getDynamicDomainValues "+bean.getBizDocument());
+
 		
 		return null;
 	}
@@ -53,7 +57,8 @@ public class AuditBizlet extends Bizlet<Audit> {
 	public static List<DomainValue> getVersions(Audit audit, boolean forComparison)
 	throws Exception {
 		List<DomainValue> result = null;
-		
+		System.out.println("In getVersions "+audit.getBizDocument());
+
 		if (forComparison && (! Operation.update.equals(audit.getOperation()))) {
 			result = new ArrayList<>();
 		}

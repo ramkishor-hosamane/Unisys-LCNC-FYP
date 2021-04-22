@@ -1,5 +1,8 @@
 package modules.admin;
+import com.mashape.unirest.http.*;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +20,7 @@ import org.skyve.metadata.module.Module;
 import org.skyve.metadata.user.User;
 import org.skyve.persistence.Persistence;
 import org.skyve.persistence.SQL;
+import org.skyve.util.JSON;
 
 import modules.admin.domain.Audit;
 import modules.admin.domain.Audit.Operation;
@@ -45,6 +49,8 @@ public class RDBMSAuditInterceptor extends Interceptor {
 
 	@Override
 	public void afterSave(Document document, final PersistentBean result) throws Exception {
+		System.out.println("Inside afterSave boom "+result.getBizDocument());
+
 		Operation operation = getThreadLocalOperation(result.getBizId());
 		if (operation != null) {
 			audit(result, operation, false);
@@ -128,15 +134,32 @@ public class RDBMSAuditInterceptor extends Interceptor {
 		}
 	}
 	
+	private static void sendAudit(Audit bean) throws UnirestException {
+		
+	    Unirest.setTimeouts(0, 0);
+	    HttpResponse<String> response = Unirest.post("http://127.0.0.1:5000/newaudit")
+	      .header("Content-Type", "application/json")
+	      .body("{\n   \"auditModuleName\":"+bean.getAuditModuleName()+",\n    \"auditDocumentName\":"+bean.getUserName()+",\n    \"operation\":"+ bean.getOperation() +",\n    \"timestamp\":"+ bean.getTimestamp()+",\n    \"userName\":"+bean.getUserName() +"\n}")
+	      .asString();
+	    
+		
+		
+		
+	}
+	
+	
 	private static void audit(PersistentBean bean, Operation operation, boolean originalInsert) throws Exception {
 		Persistence p = CORE.getPersistence();
 		User u = p.getUser();
 		Customer c = u.getCustomer();
+		System.out.println("Inside audit boom "+bean.getBizDocument());
 		
 		// check to see if an audit is required
 		Module am = c.getModule(bean.getBizModule());
 		Document ad = am.getDocument(c, bean.getBizDocument());
 		if (ad.isAudited()) {
+			
+			System.out.println("ad.isaudit");
 			Audit a = Audit.newInstance();
 
 			AuditJSONGenerator generator = new AuditJSONGenerator(c);
@@ -161,6 +184,12 @@ public class RDBMSAuditInterceptor extends Interceptor {
 				a.setUserName(u.getName());
 				a.setOperation(operation);
 			}
+			
+			System.out.println("Sending");
+			sendAudit(a);
+			RDBMSAuditInterceptor.sendAudit(a);
+			System.out.println("Sending done");
+
 			p.upsertBeanTuple(a);
 		}
 	}

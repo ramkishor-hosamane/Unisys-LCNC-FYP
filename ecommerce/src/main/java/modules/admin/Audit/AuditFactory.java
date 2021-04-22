@@ -34,7 +34,8 @@ public class AuditFactory {
 	
 		Audit audit = Util.constructRandomInstance(CORE.getPersistence().getUser(), module, document, 0);
 		audit.setOperation(Operation.insert);
-	
+		System.out.println("In Factory "+audit.getBizDocument());
+
 		return audit;
 	}
 
