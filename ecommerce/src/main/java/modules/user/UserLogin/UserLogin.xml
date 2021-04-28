@@ -11,12 +11,12 @@
 	<attributes>
 		<text name="userloginid" required="true"> <displayName>User Login ID</displayName> 
 			<length>20</length> </text>
-		<text name="emailid" required="true">
+		<text name="emailid">
 			<displayName>Email ID</displayName>
 			<length>40</length>
 		</text>
 
-		<text name="mobileno" required="true">
+		<text name="mobileno" >
 			<displayName>Mobile Number</displayName>
 			<length>10</length>
 		</text>
@@ -31,7 +31,7 @@
 			<length>20</length>
 		</text>
 
-		<text name="password" required="true">
+		<text name="password" >
 			<displayName>Password</displayName>
 			<length>20</length>
 		</text>

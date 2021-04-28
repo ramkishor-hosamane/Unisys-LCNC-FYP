@@ -378,6 +378,9 @@ export class CheckoutService {
   }
   insertUserAddressApi(user_addr: any, addr: any) {
     let user = Utils.makeJsonObject(this.current_user)
+
+
+    
     user["bizLock"]=this.bizLocks['user']
     user["bizVersion"]=this.bizVersions['user']
 

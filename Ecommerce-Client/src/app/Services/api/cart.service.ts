@@ -6,16 +6,19 @@ import { AuthService } from './auth.service';
 import {Utils} from './../../utils';
 import { SharedService } from '../shared.service';
 import { ApiService } from './api.service';
+import { SessionStorageService } from 'ngx-webstorage';
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  constructor(private auth: AuthService, private http: HttpClient,private shared:SharedService,private api:ApiService) {
+  constructor(private auth: AuthService,private session_st:SessionStorageService, private http: HttpClient,private shared:SharedService,private api:ApiService) {
+    
+    this.initializeCartService()
 
-    this.initializeCartService();
 
   }
+ 
 
   private cart_source = new BehaviorSubject<Array<any>>([]);
   cart_observer = this.cart_source.asObservable();
@@ -32,7 +35,7 @@ export class CartService {
   public update_url = environment.server_api_url + 'update';
   public delete_url = environment.server_api_url + 'delete';
   public cart_biz_url = environment.server_query_url+'cart/GetCartBiz';
-  user_cart: any;
+  user_cart: any={};
   bizLocks:any;
   bizVersions:any;
   initializeCartService()
@@ -67,7 +70,8 @@ export class CartService {
       }
     )
     
-    if (this.auth.isLogined()) {
+    console.log()
+    if (this.session_st.retrieve("token")!=null) {
       console.log("Getting usercart")
       this.getUserCartFromAllCarts();
       
@@ -81,7 +85,7 @@ export class CartService {
       data => {
 
         for (var obj of data) {
-
+          console.log("Obj inside ",obj)
           if (obj['userlogin']['emailid'] == this.current_user['emailid']) {
             this.api.getDataById(this.cart_url,obj['bizId']).subscribe(
               data=>{
@@ -222,6 +226,7 @@ export class CartService {
   insertCartItemService(product:any){
     this.user_cart["bizLock"] = this.bizLocks['cart']
     this.user_cart["bizVersion"] = this.bizVersions['cart']
+    console.log("Product id is",product['productid'])
     let prod = Utils.makeJsonObject(product['productid'])
     let data = {
       "bizModule": "cart",

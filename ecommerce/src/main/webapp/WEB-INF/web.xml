@@ -393,8 +393,9 @@
 	<filter>
 		<display-name>ApiFilter</display-name>
 		<filter-name>ApiFilter</filter-name>
-		<filter-class>org.skyve.impl.web.filter.rest.BasicAuthFilter</filter-class>
+		<filter-class>api.Oauth2Filter</filter-class>
 	</filter>
+	
 	<filter-mapping>
 		<filter-name>ApiFilter</filter-name>
 		<url-pattern>/api/*</url-pattern>

@@ -41,7 +41,7 @@
 		<property name="bizUserId" length="36" not-null="true" />
 		<property name="cartitemid" length="10" />
 		<many-to-one name="cartid" entity-name="cartShoppingCart" column="cartid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingCartItem_cartid"/>
-		<property name="productid" length="5" />
+		<many-to-one name="productid" entity-name="productProduct" column="productid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ShoppingCartItem_productid"/>
 		<property name="quantity" />
 		<property name="price" />
 		<filter name="cartShoppingCartItemNoneFilter" condition="1=0"/>

@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit {
     this.auth.registerNewUser(this.userModel).subscribe(
       data => {
         console.log('Success!',data)
-        this.auth.loginUser().subscribe(
+        this.auth.getAllUsers().subscribe(
           all_users=>{
               this.cart_api.createUserCartApi(data,all_users.length,data).subscribe(
                 dat=>console.log("Success"),

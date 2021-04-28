@@ -47,6 +47,7 @@ public class ApiActivator extends Application {
 		classes.add(ApiService.class);
 		classes.add(OrdersApi.class);
 		classes.add(WishlistApi.class);
+		classes.add(AuthService.class);
 
 		return classes;
 	}

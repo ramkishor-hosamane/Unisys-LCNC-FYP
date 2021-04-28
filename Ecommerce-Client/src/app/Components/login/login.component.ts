@@ -34,51 +34,62 @@ export class LoginComponent implements OnInit {
 
 
     var resp;
-    this.auth.loginUser().subscribe(
+    this.auth.loginUser(this.userModel).subscribe(
       data => {
         //Getting all users
-        this.Users = data;
-        var is_logined = false;
-        //validating user
-        for (var obj of this.Users) {
-          // console.log("Checking "+this.userModel.emailid +" and "+obj['emailid'])
-          // console.log("Checking "+this.userModel.password +" and "+obj['password'])
-          if (obj['emailid'] == this.userModel.emailid && obj['password'] == this.userModel.password) {
-            this.is_logined = true
+        this.auth.storeNewToken(data);
+        this.api.getDataById(environment.server_api_url+"user/UserLogin",data["userid"]).subscribe(
+          user_obj=>{
+            console.log("Got user object"+user_obj);
+            this.current_user = user_obj;
+            this.auth.updateUserSession(this.current_user)
+            console.log(this.auth.isLogined())
 
-            this.api.getDataById(environment.server_api_url + "user/UserLogin", obj["bizId"]).subscribe(
-              user_obj => {
-                console.log("Getting user obj success")
-
-                console.log("Login succssful");
-                //alert("Successfully logined");
-                this.session_st.store("username", user_obj)
-                this.auth.updateUserSession(user_obj)
-                this.cart_api.initializeCartService();
-                this.router.navigate(['/home']).then()
-
-              },
-              error => {
-                console.log("Error in getting user object",error);
-              }
-            );
-
+            this.cart_api.initializeCartService();
+            this.router.navigate(['/home']).then()
           }
+        );
+        //var is_logined = false;
+        //validating user
+       /*  */
+        // for (var obj of this.Users) {
+        //   // console.log("Checking "+this.userModel.emailid +" and "+obj['emailid'])
+        //   // console.log("Checking "+this.userModel.password +" and "+obj['password'])
+        //   if (obj['emailid'] == this.userModel.emailid && obj['password'] == this.userModel.password) {
+        //     this.is_logined = true
+
+        //     this.api.getDataById(environment.server_api_url + "user/UserLogin", obj["bizId"]).subscribe(
+        //       user_obj => {
+        //         console.log("Getting user obj success")
+
+        //         console.log("Login succssful");
+        //         //alert("Successfully logined");
+        //         this.session_st.store("username", user_obj)
+        //         this.auth.updateUserSession(user_obj)
+        //         this.cart_api.initializeCartService();
+        //         this.router.navigate(['/home']).then()
+
+        //       },
+        //       error => {
+        //         console.log("Error in getting user object",error);
+        //       }
+        //     );
+
+        //   }
 
 
 
 
 
-        }
+        // }
 
-        if (!this.is_logined) {
-          console.log("Wrong Email/Password");
-          alert("Wrong Email/Password");
-          this.userModel = new User()
-        }
+
 
       },
       error => {
+        console.log("Wrong Email/Password");
+        alert("Wrong Email/Password");
+        this.userModel = new User()
         console.log(error);
       }
     );
