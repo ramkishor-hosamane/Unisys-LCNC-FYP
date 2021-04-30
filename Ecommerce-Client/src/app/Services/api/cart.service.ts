@@ -73,7 +73,14 @@ export class CartService {
     console.log()
     if (this.session_st.retrieve("token")!=null) {
       console.log("Getting usercart")
-      this.getUserCartFromAllCarts();
+      this.api.getDataById(environment.server_api_url+"user/UserLogin",this.session_st.retrieve("userid")).subscribe(
+        user_obj=>{
+          //console.log("Got user object");
+          this.current_user = user_obj;
+          this.auth.updateUserSession(this.current_user)
+          this.getUserCartFromAllCarts();
+        }
+      )
       
 
     }
@@ -254,7 +261,7 @@ export class CartService {
       "bizUserId": "863c5a8c-7901-4e46-971d-99efebac54ba"
     }
 
-      this.api.insertData(this.insert_url, data).subscribe(
+      this.api.insertData(this.insert_url, data,).subscribe(
         data => {
           console.log('Success! cartitem is now',data)
 

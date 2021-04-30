@@ -1,6 +1,8 @@
+import { HttpHeaders } from "@angular/common/http";
+import { SessionStorageService } from "ngx-webstorage";
 
 export class Utils {
-  constructor(){}
+  constructor(private session_st:SessionStorageService){}
     public static log(msg:string){
         console.log(msg);
     }
@@ -63,4 +65,13 @@ export class Utils {
         scrollToTop();      }
 
 
+
+
+        public static getTokenHeader(token:string){
+          
+            var tokenStr = 'Bearer '+token ;
+            var OAuthhttpHeaders = new HttpHeaders().set('Authorization', tokenStr);
+            return OAuthhttpHeaders;
+
+        }
     }

@@ -36,19 +36,31 @@ export class LoginComponent implements OnInit {
     var resp;
     this.auth.loginUser(this.userModel).subscribe(
       data => {
-        //Getting all users
-        this.auth.storeNewToken(data);
-        this.api.getDataById(environment.server_api_url+"user/UserLogin",data["userid"]).subscribe(
-          user_obj=>{
-            console.log("Got user object"+user_obj);
-            this.current_user = user_obj;
-            this.auth.updateUserSession(this.current_user)
-            console.log(this.auth.isLogined())
+        if(data['msg']=='success')
+        {
 
-            this.cart_api.initializeCartService();
-            this.router.navigate(['/home']).then()
-          }
-        );
+          this.auth.storeNewToken(data);
+          this.api.getDataById(environment.server_api_url+"user/UserLogin",data["userid"]).subscribe(
+            user_obj=>{
+              console.log("Got user object"+user_obj);
+              this.current_user = user_obj;
+              this.auth.updateUserSession(this.current_user)
+              console.log(this.auth.isLogined())
+              this.auth.autoLogOut();
+              this.cart_api.initializeCartService();
+              this.router.navigate(['/home']).then()
+            }
+          );
+  
+        }
+        else
+        {
+          //Error
+          
+          alert(data['msg'])
+          this.userModel = new User()
+          
+        }
         //var is_logined = false;
         //validating user
        /*  */

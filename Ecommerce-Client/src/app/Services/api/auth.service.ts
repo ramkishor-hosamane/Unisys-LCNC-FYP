@@ -30,7 +30,7 @@ export class AuthService {
 
 
  constructor(private http:HttpClient,private session_st:SessionStorageService,private api:ApiService) { 
-    //if(this.isLogined()){
+  if(this.loggedIn()){
 
       this.api.getDataById(environment.server_api_url+"user/UserLogin",this.session_st.retrieve("userid")).subscribe(
         user_obj=>{
@@ -46,7 +46,9 @@ export class AuthService {
         }
       )
 
-    //}else{console.log("Not logined sorry")}
+
+      this.autoLogOut();
+    }else{console.log("Not logined sorry")}
 
   }
 
@@ -100,11 +102,13 @@ export class AuthService {
   }
   
   logOut(){
-    this.current_user=null;
+    
     this.session_st.clear("token")
     this.session_st.clear("userid")
     this.session_st.clear("token_expr")
-
+    console.log("Loggedout")
+    this.current_user=null;
+    
     this.updateUserSession(this.current_user);
     
   }
@@ -127,7 +131,7 @@ export class AuthService {
     // console.log("Observer loginis "+this.current_user['emailid'])
     // console.log("Session loginis "+this.session_st.retrieve("username")['emailid'])
 
-    return this.session_st.retrieve("token")!=null;
+    return true;
   }
   
 
@@ -147,8 +151,44 @@ export class AuthService {
 
   }
 
+  autoLogOut(){
+    var d = new Date()
+    var now = Date.parse(""+d)
+    
+    
+    var expr_date = this.session_st.retrieve("token_expr");
+    var day = expr_date.substring(8,10)
+    var month = expr_date.substring(4,7)
+    if(month=="Apr")
+      month="April"
+    var time = expr_date.substring(11,19)
+    var year ="2021"
+    expr_date = day+" "+month+" "+year+" "+time+" "+"GMT+0530"
+    
+    //console.log(""+d)
+    //console.log(expr_date)
+
+    var then = Date.parse(expr_date)
+    //var then = Date.parse('30 April 2021 10:41:00 GMT+0530')
+    //console.log(now)
+    //console.log(then)
+    var timegap = then -now;
+    if(timegap>0){
+      console.log("Session will expire in ",timegap)
+
+    }
+
+    setTimeout(()=>{
+    this.logOut();
+    }
+      
+    ,timegap);
+   
+  }
  
 
-
+  loggedIn(){
+    return !! this.session_st.retrieve("token")
+  }
 
 }

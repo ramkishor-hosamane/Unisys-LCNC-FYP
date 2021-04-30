@@ -23,6 +23,8 @@ import { OrdersComponent } from './Components/orders/orders.component';
 import { OrderComponent } from './Components/orders/order/order.component';
 import { ImageComponent } from './Components/shared/image/image.component';
 import { WishlistComponent } from './Components/wishlist/wishlist.component';
+import { AuthGuard } from './Services/auth.guard';
+import { AuthService } from './Services/api/auth.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,7 @@ import { WishlistComponent } from './Components/wishlist/wishlist.component';
     HttpClientModule,
     NgxWebstorageModule.forRoot()
   ],
-  providers: [],
+  providers: [AuthService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

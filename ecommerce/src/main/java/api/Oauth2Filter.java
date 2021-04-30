@@ -58,7 +58,7 @@ public class Oauth2Filter extends AbstractRestFilter {
 		
 		//If request is to authenticate and get Token OR 
 		if(httpRequest.getRequestURI().equals("/ecommerce/api/authenticate")) {
-			System.out.println("Say authenticated");
+			//System.out.println("Say authenticated");
 			
 	        AbstractPersistence persistence;
 	        persistence = AbstractPersistence.get();
@@ -67,9 +67,6 @@ public class Oauth2Filter extends AbstractRestFilter {
 
 			User user = CORE.getRepository().retrieveUser("setup");
 			persistence.setUser(user);
-        	
-			
-			
 			
 			chain.doFilter(httpRequest, httpResponse);
 		
@@ -85,7 +82,7 @@ public class Oauth2Filter extends AbstractRestFilter {
 	        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
 	            token = authorizationHeader.substring(7);
 	            emailid = jwtUtil.extractUsername(token);
-	            System.out.println("Got emaiid bro "+emailid);
+	            System.out.println("Got emaiid  "+emailid);
 	        }
 	        
 
@@ -103,7 +100,7 @@ public class Oauth2Filter extends AbstractRestFilter {
 	        	
 	        	
     			UserLogin userDetails =  getUser(emailid);
-	            System.out.println("Got Object also bro "+userDetails);
+	            System.out.println("Got Object also  "+userDetails);
 
 
 				
@@ -116,10 +113,6 @@ public class Oauth2Filter extends AbstractRestFilter {
 //	                usernamePasswordAuthenticationToken
 //	                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
 //	                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-	    			
-	        	
-	        	
-
 
 	    			chain.doFilter(httpRequest, httpResponse);
 
@@ -127,21 +120,13 @@ public class Oauth2Filter extends AbstractRestFilter {
 
 	            }
 	            else {
-	    	        System.out.println("Token expired bro");
+	    	        System.out.println("Invalid Token");
 	    	        error(null, httpResponse, HttpServletResponse.SC_UNAUTHORIZED, realm, "Token expired");  
 	            	
 	            }
 	        }
 	        
 	    }	
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			
 		

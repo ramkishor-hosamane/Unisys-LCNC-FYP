@@ -70,7 +70,7 @@ export class WishlistService {
       }
     )
 
-    this.api.getData(environment.server_api_url+"admin/Settings").subscribe(
+    this.api.getData(environment.server_api_url+"admin/Settings","basic").subscribe(
 
       data =>{
         console.log(data);

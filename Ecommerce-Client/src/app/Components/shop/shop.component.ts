@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from 'src/app/Services/api/api.service';
 import { CartService } from 'src/app/Services/api/cart.service';
 import { ProductService } from 'src/app/Services/api/product.service';
 import { WishlistService } from 'src/app/Services/api/wishlist.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-shop',
@@ -17,7 +19,7 @@ export class ShopComponent implements OnInit {
   public isloading=false;
   is_wishlist_enabled:any;
   
-  constructor(private route:ActivatedRoute,private product_api:ProductService,private router:Router,private cart_api:CartService,private wishlist_api:WishlistService) { 
+  constructor(private route:ActivatedRoute,private product_api:ProductService,private router:Router,private cart_api:CartService,private wishlist_api:WishlistService,private api:ApiService) { 
     route.params.subscribe(val => {
       this.categoryType = this.route.snapshot.paramMap.get('categoryType');
       console.log(this.categoryType)
@@ -37,7 +39,7 @@ export class ShopComponent implements OnInit {
 
  
   getProducts = () =>{
-    this.product_api.allProduct().subscribe(
+    this.api.getData(environment.server_api_url + 'product/ProductCategoryMember/').subscribe(
       data => {
         this.products = data;
         this.products  = this.products.filter( element => element['categoryid']['categoryname'] == this.categoryType)

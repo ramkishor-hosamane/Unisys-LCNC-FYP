@@ -73,7 +73,8 @@ public class AuthService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public String generateToken(String json) throws Exception {
 		System.out.println(json);
-	    
+		String result=null;		
+
 		JSONObject jsonobj = new JSONObject(json);
 		jwt=  new JwtUtil();
 		String emailid = jsonobj.getString("emailid");
@@ -85,12 +86,17 @@ public class AuthService {
 		System.out.println("User object is "+user);
 		
 		if(user==null) {
-			throw new Exception("Invalid emailid");
+			result = "{\"msg\":\"Invalid emailid\"}";
+			return result;
+			//throw new Exception("Invalid emailid");
 			
 		}
 		
 		if(!user.getPassword().equals(password)) {
-			throw new Exception("Invalid password");
+			result = "{\"msg\":\"Invalid password\"}";
+			return result;
+
+			//throw new Exception("Invalid password");
 		}
 		
 		
@@ -98,13 +104,12 @@ public class AuthService {
 		
 		//String result = "[{\"msg\":\"Restful example: Hello all\"}]";
 		// return Response.status(200).entity(result).build();
-		String result=null;		
 		
 		try {
 			String token =jwt.generateToken(emailid);
 			Date tokenexpr = jwt.extractExpiration(token);
 			System.out.println("Token is "+token);
-			result = "{\"userid\":\""+user.getBizId()+"\",\"token\":\""+token+"\",\"token expiration\":\""+tokenexpr+"\"}";
+			result = "{\"msg\":\"success\",\"userid\":\""+user.getBizId()+"\",\"token\":\""+token+"\",\"token expiration\":\""+tokenexpr+"\"}";
 			
 			
 		} catch (Exception e) {

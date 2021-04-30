@@ -12,11 +12,12 @@ import { ContactComponent } from './Components/contact/contact.component';
 import { OrdersComponent } from './Components/orders/orders.component';
 import { OrderComponent } from './Components/orders/order/order.component';
 import { WishlistComponent } from './Components/wishlist/wishlist.component';
+import { AuthGuard } from './Services/auth.guard';
 
 
 const routes: Routes = [
   { path :'' ,redirectTo:'/home',pathMatch:'full'},
-  { path :'shop/:categoryType' , component:ShopComponent},
+  { path :'shop/:categoryType' , component:ShopComponent,canActivate:[AuthGuard]},
   { path :'shop/:categoryType/:id' , component:ProductComponent},
   { path :'shop' , component:ShopComponent},
   { path :'home' , component:HomeComponent},
