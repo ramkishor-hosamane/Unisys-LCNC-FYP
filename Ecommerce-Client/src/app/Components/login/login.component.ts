@@ -5,6 +5,7 @@ import { User } from 'src/app/Models/user';
 import { ApiService } from 'src/app/Services/api/api.service';
 import { AuthService } from 'src/app/Services/api/auth.service';
 import { CartService } from 'src/app/Services/api/cart.service';
+import { SharedService } from 'src/app/Services/shared.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,10 +16,9 @@ import { environment } from 'src/environments/environment';
 export class LoginComponent implements OnInit {
   Users = []
   current_user: any;
-  is_logined = false;
   //User object 
   userModel = new User();
-  constructor(private api: ApiService, private auth: AuthService, private router: Router, private local_st: LocalStorageService, private session_st: SessionStorageService, private cart_api: CartService) {
+  constructor(private api: ApiService, private auth: AuthService, private router: Router, private local_st: LocalStorageService, private session_st: SessionStorageService, private cart_api: CartService,private shared:SharedService) {
     this.auth.current_user_observer.subscribe(
       data => {
         this.current_user = data;
@@ -30,9 +30,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmitLoginForm() {
-
-
-
     var resp;
     this.auth.loginUser(this.userModel).subscribe(
       data => {
@@ -43,9 +40,10 @@ export class LoginComponent implements OnInit {
           this.api.getDataById(environment.server_api_url+"user/UserLogin",data["userid"]).subscribe(
             user_obj=>{
               console.log("Got user object"+user_obj);
+              this.shared.showPopup("Sucessfully logined",'success')
               this.current_user = user_obj;
               this.auth.updateUserSession(this.current_user)
-              console.log(this.auth.isLogined())
+              //console.log(this.auth.isLogined())
               this.auth.autoLogOut();
               this.cart_api.initializeCartService();
               this.router.navigate(['/home']).then()
@@ -56,47 +54,12 @@ export class LoginComponent implements OnInit {
         else
         {
           //Error
-          
-          alert(data['msg'])
+          //alert(data['msg'])
+          this.shared.showPopup(data['msg'],'error')
+
           this.userModel = new User()
           
         }
-        //var is_logined = false;
-        //validating user
-       /*  */
-        // for (var obj of this.Users) {
-        //   // console.log("Checking "+this.userModel.emailid +" and "+obj['emailid'])
-        //   // console.log("Checking "+this.userModel.password +" and "+obj['password'])
-        //   if (obj['emailid'] == this.userModel.emailid && obj['password'] == this.userModel.password) {
-        //     this.is_logined = true
-
-        //     this.api.getDataById(environment.server_api_url + "user/UserLogin", obj["bizId"]).subscribe(
-        //       user_obj => {
-        //         console.log("Getting user obj success")
-
-        //         console.log("Login succssful");
-        //         //alert("Successfully logined");
-        //         this.session_st.store("username", user_obj)
-        //         this.auth.updateUserSession(user_obj)
-        //         this.cart_api.initializeCartService();
-        //         this.router.navigate(['/home']).then()
-
-        //       },
-        //       error => {
-        //         console.log("Error in getting user object",error);
-        //       }
-        //     );
-
-        //   }
-
-
-
-
-
-        // }
-
-
-
       },
       error => {
         console.log("Wrong Email/Password");
@@ -107,10 +70,6 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  // async reload(url: string): Promise<boolean> {
-  //   await this.router.navigateByUrl('.', { skipLocationChange: true });
-  //   return this.router.navigateByUrl(url);
-  // }
 
 
 }

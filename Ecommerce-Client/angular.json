@@ -96,7 +96,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "assets/popup/popup.js"
+            ]
           }
         },
         "lint": {

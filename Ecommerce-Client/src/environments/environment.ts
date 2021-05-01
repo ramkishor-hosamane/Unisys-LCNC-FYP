@@ -7,6 +7,8 @@ import { HttpHeaders } from "@angular/common/http";
 export const environment = {
   production: false,
   server_url:'http://localhost:8080/ecommerce/',
+  server_rest_url:'http://localhost:8080/ecommerce/rest/json/',
+
   server_api_url:'http://localhost:8080/ecommerce/api/json/',
   server_custom_api_url:'http://localhost:8080/ecommerce/api/',
   

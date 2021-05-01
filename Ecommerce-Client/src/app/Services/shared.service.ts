@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+declare function showMessage(msg:any,color:any):any;
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
 
+  public alert_colors:any ={'error':'#dc3545','success':'#28a745','info':'#6c757d'}
 
   private bizLock_source = new BehaviorSubject<Object>(
     {
@@ -71,6 +73,9 @@ export class SharedService {
   }
 
 
-
+  showPopup(msg:any,msg_type:any){
+    
+    showMessage(msg,this.alert_colors[msg_type]);
+  }
 
 }

@@ -5,3 +5,7 @@
 .user-panel .up-item {
     margin-right: 20px;
 }
+
+.active{
+    color:  #dc3545;
+}

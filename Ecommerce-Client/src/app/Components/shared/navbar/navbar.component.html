@@ -28,7 +28,6 @@
                       <a routerLink="/home" routerLinkActive="active">{{current_user.firstname}} {{current_user.lastname}}</a>
 
                       <ul class="sub-menu">
-                        <li><a href="#">Settings</a></li>
                         <li><a routerLink="/orders" routerLinkActive="active">My orders</a></li>
                         <li><a (click)="logout()" routerLink="/logout" routerLinkActive="active">Logout</a></li>
                       </ul>
@@ -65,34 +64,13 @@
       <div class="container">
 
         <ul class="main-menu">
-          <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+          <li><a routerLink="/home" routerLinkActive="active" class="active">Home</a></li>
           <!-- <li><a routerLink="/shop" routerLinkActive="active">Shop</a></li> -->
           <li><a routerLink="/shop/women" routerLinkActive="active">Women</a></li>
           <li><a routerLink="/shop/men" routerLinkActive="active">Men</a></li>
           <!-- <li><a routerLink="/cart" routerLinkActive="active">Cart</a></li> -->
           <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
 
-          <!--li><a href="#">Jewelry
-              <span class="new">New</span>
-            </a></li-->
-          <!--li><a href="#">Shoes</a>
-            <ul class="sub-menu">
-              <li><a href="#">Sneakers</a></li>
-              <li><a href="#">Sandals</a></li>
-              <li><a href="#">Formal Shoes</a></li>
-              <li><a href="#">Boots</a></li>
-              <li><a href="#">Flip Flops</a></li>
-            </ul>
-          </li-->
-          <!--li><a href="#">Pages</a>
-            <ul class="sub-menu">
-              <li><a routerLink="/home" routerLinkActive="active">Product Page</a></li>
-              <li><a routerLink="/shop" routerLinkActive="active">Category Page</a></li>
-              <li><a routerLink="/cart" routerLinkActive="active">Cart Page</a></li>
-              <li><a routerLink="/checkout" routerLinkActive="active">Checkout Page</a></li>
-              <li><a routerLink="/contact" routerLinkActive="active">Contact Page</a></li>
-            </ul>
-          </li-->
         </ul>
       </div>
     </nav>

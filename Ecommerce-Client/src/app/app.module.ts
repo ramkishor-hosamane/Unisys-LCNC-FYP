@@ -25,6 +25,7 @@ import { ImageComponent } from './Components/shared/image/image.component';
 import { WishlistComponent } from './Components/wishlist/wishlist.component';
 import { AuthGuard } from './Services/auth.guard';
 import { AuthService } from './Services/api/auth.service';
+import { PopupAlertComponent } from './Components/shared/popup-alert/popup-alert.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AuthService } from './Services/api/auth.service';
     OrdersComponent,
     OrderComponent,
     ImageComponent,
-    WishlistComponent
+    WishlistComponent,
+    PopupAlertComponent
   ],
   imports: [
     BrowserModule,

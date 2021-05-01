@@ -152,13 +152,11 @@ export class AuthService {
   }
 
   autoLogOut(){
-    var d = new Date()
-    var now = Date.parse(""+d)
-    
-    
+    var now = Date.parse(""+new Date())
     var expr_date = this.session_st.retrieve("token_expr");
     var day = expr_date.substring(8,10)
     var month = expr_date.substring(4,7)
+
     if(month=="Apr")
       month="April"
     var time = expr_date.substring(11,19)
