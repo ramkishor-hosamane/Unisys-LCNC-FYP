@@ -131,7 +131,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/h2/**", "/rest/**","/api/**");
+		web.ignoring().antMatchers("/h2/**", "/rest/**","/api/**","/monitoring/**");
 	}
 
 	 
