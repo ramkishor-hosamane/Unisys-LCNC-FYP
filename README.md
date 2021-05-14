@@ -22,9 +22,9 @@ Skyve requires following dependencies to install
 * JBoss Wildfly 20
 
 The Skyve applications in this project are ```ecommerce``` and ```fulfillment```.To Develop these applications in eclipse follow the steps given in link below
-##### Demo of importing sample skyve application and running 
-https://docs.google.com/document/d/1fZNL7GOBxZpmRimBjUy7_pX0YjeS5VZp7Gd35Q7oCsU/edit?usp=sharing
-
+##### Demo of creating and  importing sample skyve application and running it 
+Steps - https://docs.google.com/document/d/1fZNL7GOBxZpmRimBjUy7_pX0YjeS5VZp7Gd35Q7oCsU/edit?usp=sharing
+Video -
 [![Watch the video](https://drive.google.com/thumbnail?id=1WQ6hGfcs2DjtUU7qOo-FeF2YxlZ9gRZ_)](https://drive.google.com/file/d/1-SJ1kld7DrY7pUtR4Gfp2l2XVWMF3oiI/view?usp=sharing)
 
 #### Ecommerce Angular Application 
@@ -60,11 +60,19 @@ Reference: [https://docs.python-guide.org/starting/installation/](https://docs.p
 > There are two applications which need to be executed - ```Governance-App``` and ```Ecommerce-Client```
 > #### 1.Governance app
 > Before running the application Do the following steps 
-> * Goto ```uploads``` folder in ```Governance-App``` folder
-> * Update ```.json ``` and ```.ds-xml``` file according to your system
-> * Goto ```Governance-App``` folder
-> * Update ```paths.json ``` file according to your system paths
 
+* Goto ```uploads``` folder in ```Governance-App``` folder
+* Update ```.json ``` and ```.ds-xml``` file according to your system
+* Goto ```Governance-App``` folder
+* Update ```paths.json ``` file according to your system paths
+  ```json
+    {
+    "JAVA_HOME": "<path-to-Java>/",
+    "UPLOADS_FOLDER":"<path-to-Unisys-Governance-App/uploads>/",
+    "WILDFLY_HOME": "<path-to-wildfly-20.0.0.Final>/"
+    }
+  ```
+#### follow the steps to run the application 
 ```bash
 #Go to the project Repository in your workspace via command propmt or terminal 
 cd Governance-App
@@ -86,6 +94,8 @@ Try opening [http://localhost:5000](http://localhost:4200) in the browser.
 Now you are good to go.
 
 
+----
+### Following things are not updated yet
 #### 6. Demo Video link
 https://drive.google.com/fle/d/1wpw4_vFaHaC5ARJhGeFO7iU0qfos_P45/viewusp=shari
 
