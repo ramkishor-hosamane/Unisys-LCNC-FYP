@@ -25,16 +25,7 @@ The Skyve applications in this project are ```ecommerce``` and ```fulfillment```
 ##### Demo of importing sample skyve application and running 
 https://docs.google.com/document/d/1fZNL7GOBxZpmRimBjUy7_pX0YjeS5VZp7Gd35Q7oCsU/edit?usp=sharing
 
-
-[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://youtu.be/vt5fpE0bzSY)
-
-
-<!-- blank line -->
-<figure class="video_container">
-  <iframe src="https://drive.google.com/file/d/0B6m34D8cFdpMZndKTlBRU0tmczg/preview" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
-<!-- blank line -->
-https://drive.google.com/file/d/1-SJ1kld7DrY7pUtR4Gfp2l2XVWMF3oiI/view?usp=sharing
+[![Watch the video](https://drive.google.com/thumbnail?id=1WQ6hGfcs2DjtUU7qOo-FeF2YxlZ9gRZ_)](https://drive.google.com/file/d/1-SJ1kld7DrY7pUtR4Gfp2l2XVWMF3oiI/view?usp=sharing)
 
 #### Ecommerce Angular Application 
 It requires following dependencies to install
