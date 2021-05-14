@@ -95,7 +95,7 @@ cd Ecommerce-Client
 #Run the Ecommerce app by following command
 ng serve
 ```
-Try opening [http://localhost:5000](http://localhost:4200) in the browser.
+Try opening [http://localhost:4200](http://localhost:4200) in the browser.
 Now you are good to go.
 
 
