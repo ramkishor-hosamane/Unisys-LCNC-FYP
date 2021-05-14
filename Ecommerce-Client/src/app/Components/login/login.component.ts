@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
           this.api.getDataById(environment.server_api_url+"user/UserLogin",data["userid"]).subscribe(
             user_obj=>{
               console.log("Got user object"+user_obj);
-              this.shared.showPopup("Sucessfully logined",'success')
+              this.shared.showPopup("logined Sucessfully",'success')
               this.current_user = user_obj;
               this.auth.updateUserSession(this.current_user)
               //console.log(this.auth.isLogined())

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable ,Injector} from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/Models/user';
@@ -6,6 +6,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { SessionStorageService } from 'ngx-webstorage';
 import { Utils } from 'src/app/utils';
 import { ApiService } from './api.service';
+import { SharedService } from '../shared.service';
+import { CartService } from './cart.service';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
   
@@ -21,7 +24,6 @@ export class AuthService {
 
 
 
-
   private current_user_source = new BehaviorSubject<User>(this.session_st.retrieve("username"));
   current_user_observer = this.current_user_source.asObservable();  
   current_user:any;
@@ -29,7 +31,7 @@ export class AuthService {
 
 
 
- constructor(private http:HttpClient,private session_st:SessionStorageService,private api:ApiService) { 
+ constructor(private injector:Injector,private router:Router, private http:HttpClient,private session_st:SessionStorageService,private api:ApiService,private shared:SharedService) { 
   if(this.loggedIn()){
 
       this.api.getDataById(environment.server_api_url+"user/UserLogin",this.session_st.retrieve("userid")).subscribe(
@@ -49,6 +51,7 @@ export class AuthService {
 
       this.autoLogOut();
     }else{console.log("Not logined sorry")}
+
 
   }
 
@@ -108,9 +111,10 @@ export class AuthService {
     this.session_st.clear("token_expr")
     console.log("Loggedout")
     this.current_user=null;
-    
+    let cart_service =  this.injector.get(CartService);
+    cart_service.destroyCartService()
     this.updateUserSession(this.current_user);
-    
+    this.router.navigate(['/login']).then()
   }
 
   updateUserSession(user:User){
@@ -170,13 +174,22 @@ export class AuthService {
     //var then = Date.parse('30 April 2021 10:41:00 GMT+0530')
     //console.log(now)
     //console.log(then)
-    var timegap = then -now;
+    var timegap = then - now;
+    var alert_before = timegap-10000;
     if(timegap>0){
       console.log("Session will expire in ",timegap)
 
     }
+    setTimeout(()=>{
+      this.shared.showPopup("Session will expired in "+(alert_before/1000)+" seconds",'info')
+
+    }
+      
+    ,alert_before);
 
     setTimeout(()=>{
+      this.shared.showPopup("Session Expired",'info')
+
     this.logOut();
     }
       

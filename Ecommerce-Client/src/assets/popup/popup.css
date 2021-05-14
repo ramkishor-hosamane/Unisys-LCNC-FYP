@@ -16,7 +16,6 @@
   background-color: rgba(0, 0, 0, 0.8);
   padding: 18px 20px;
   margin: 0 0 15px;
-  display: flex;
   align-items: center;
   position: relative;
   border-radius: 12px;
@@ -53,7 +52,8 @@
 }
 @media (min-width: 768px) {
   .msgbox-area {
-    width: 450px;
+    min-width: 300px;
+
     height: 0;
     top: 15px;
     left: auto;
@@ -68,7 +68,7 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 .msgbox-area {
-  font-size: 16px;
+  font-size: 18px;
 }
 .msgbox-message-container {
   text-align: center;
@@ -110,3 +110,8 @@ body {
   transform: translateY(5px);
 }
 
+
+.msgbox-area .msgbox-box{
+  display: block;
+  text-align: center;
+}

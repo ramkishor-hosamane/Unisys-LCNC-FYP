@@ -7,7 +7,7 @@ declare function showMessage(msg:any,color:any):any;
 })
 export class SharedService {
 
-  public alert_colors:any ={'error':'#dc3545','success':'#28a745','info':'#6c757d'}
+  public alert_colors:any ={'error':'#dc3545','success':'#28a745','info':'#007bff'}
 
   private bizLock_source = new BehaviorSubject<Object>(
     {

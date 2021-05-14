@@ -13,6 +13,7 @@ import { OrdersComponent } from './Components/orders/orders.component';
 import { OrderComponent } from './Components/orders/order/order.component';
 import { WishlistComponent } from './Components/wishlist/wishlist.component';
 import { AuthGuard } from './Services/auth.guard';
+import { LogoutComponent } from './Components/logout/logout.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,7 @@ const routes: Routes = [
   { path :'home' , component:HomeComponent},
   { path :'signup' , component:SignupComponent},
   { path :'login' , component:LoginComponent},
-  { path :'logout' , component:HomeComponent},
+  { path :'logout' , component:LogoutComponent},
   { path :'orders' , component:OrdersComponent},
   { path :'orders/:orderid' , component:OrderComponent},
 

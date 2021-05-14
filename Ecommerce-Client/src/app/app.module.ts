@@ -26,6 +26,7 @@ import { WishlistComponent } from './Components/wishlist/wishlist.component';
 import { AuthGuard } from './Services/auth.guard';
 import { AuthService } from './Services/api/auth.service';
 import { PopupAlertComponent } from './Components/shared/popup-alert/popup-alert.component';
+import { LogoutComponent } from './Components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { PopupAlertComponent } from './Components/shared/popup-alert/popup-alert
     OrderComponent,
     ImageComponent,
     WishlistComponent,
-    PopupAlertComponent
+    PopupAlertComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
