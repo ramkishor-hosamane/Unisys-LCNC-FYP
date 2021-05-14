@@ -24,6 +24,11 @@ Skyve requires following dependencies to install
 The Skyve applications in this project are ```ecommerce``` and ```fulfillment```.To Develop these applications in eclipse follow the steps given in link below
 ##### Demo of importing sample skyve application and running 
 https://docs.google.com/document/d/1fZNL7GOBxZpmRimBjUy7_pX0YjeS5VZp7Gd35Q7oCsU/edit?usp=sharing
+
+
+[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://youtu.be/vt5fpE0bzSY)
+
+
 <!-- blank line -->
 <figure class="video_container">
   <iframe src="https://drive.google.com/file/d/0B6m34D8cFdpMZndKTlBRU0tmczg/preview" frameborder="0" allowfullscreen="true"> </iframe>
@@ -58,9 +63,35 @@ It requires following dependencies to install
 
 **Note:** Python3.8 comes with pip installed.If you dont have pip follow the steps from the below reference document based on your Operating System.
 Reference: [https://docs.python-guide.org/starting/installation/](https://docs.python-guide.org/starting/installation/)
-{: .note}
 
-Try opening [http://localhost:8000](http://localhost:8000) in the browser.
+
+### 3.Running the Project
+> There are two applications which need to be executed - ```Governance-App``` and ```Ecommerce-Client```
+> #### 1.Governance app
+> Before running the application Do the following steps 
+> * Goto ```uploads``` folder in ```Governance-App``` folder
+> * Update ```.json ``` and ```.ds-xml``` file according to your system
+> * Goto ```Governance-App``` folder
+> * Update ```paths.json ``` file according to your system paths
+
+```bash
+#Go to the project Repository in your workspace via command propmt or terminal 
+cd Governance-App
+#Run the governance app by following command
+python app.py
+```
+Try opening [http://localhost:5000](http://localhost:5000) in the browser.
+Now you are good to go.
+
+> #### 2.Ecommerce-Client
+
+```bash
+#Go to the project Repository in your workspace via command propmt or terminal 
+cd Ecommerce-Client
+#Run the Ecommerce app by following command
+ng serve
+```
+Try opening [http://localhost:5000](http://localhost:4200) in the browser.
 Now you are good to go.
 
 
