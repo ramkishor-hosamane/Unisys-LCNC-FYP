@@ -23,9 +23,14 @@ Skyve requires following dependencies to install
 
 The Skyve applications in this project are ```ecommerce``` and ```fulfillment```.To Develop these applications in eclipse follow the steps given in link below
 ##### Demo of creating and  importing sample skyve application and running it 
-Steps - https://docs.google.com/document/d/1fZNL7GOBxZpmRimBjUy7_pX0YjeS5VZp7Gd35Q7oCsU/edit?usp=sharing
-Video -
+
+
+**Steps -** https://docs.google.com/document/d/1fZNL7GOBxZpmRimBjUy7_pX0YjeS5VZp7Gd35Q7oCsU/edit?usp=sharing
+
 [![Watch the video](https://drive.google.com/thumbnail?id=1WQ6hGfcs2DjtUU7qOo-FeF2YxlZ9gRZ_)](https://drive.google.com/file/d/1-SJ1kld7DrY7pUtR4Gfp2l2XVWMF3oiI/view?usp=sharing)
+
+For this project ```content``` folder is already exists in the Repository . Paths in ```<project-name>.json``` and 
+```<project-name>-ds.xml``` needs to be updated accordingly.
 
 #### Ecommerce Angular Application 
 It requires following dependencies to install
