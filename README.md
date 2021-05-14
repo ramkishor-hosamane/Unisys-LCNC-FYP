@@ -77,6 +77,13 @@ Reference: [https://docs.python-guide.org/starting/installation/](https://docs.p
     "WILDFLY_HOME": "<path-to-wildfly-20.0.0.Final>/"
     }
   ```
+* Configure Git settings not to track ```.json``` and  ```.ds-xml ``` files 
+  ```bash
+  #Go inside Governance-App older and run the following commands
+  git update-index --skip-worktree paths.json 
+  git update-index --skip-worktree uploads/ecommerce.json uploads/ecommerce-ds.xml uploads/fulfillment-ds.xml uploads/fulfillment.json
+  ```
+
 #### follow the steps to run the application 
 ```bash
 #Go to the project Repository in your workspace via command propmt or terminal 
@@ -95,7 +102,7 @@ cd Ecommerce-Client
 #Run the Ecommerce app by following command
 ng serve
 ```
-Try opening [http://localhost:5000](http://localhost:4200) in the browser.
+Try opening [http://localhost:4200](http://localhost:4200) in the browser.
 Now you are good to go.
 
 
