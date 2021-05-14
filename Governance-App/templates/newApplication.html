@@ -1,0 +1,71 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Alert section -->
+
+
+
+
+
+    <div class="main_content_iner overly_inner ">
+        <div class="container-fluid p-0 ">
+            <!-- page title  -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="white_card card_height_100 mb_30">
+                        <div class="white_card_header">
+                            <div class="white_box_tittle">
+                                <h4>Register Application</h4>
+                            </div>
+                        </div>
+                        <form method="POST" action="{{ url_for('newapplication')}}" enctype = "multipart/form-data">
+                        <div class="white_card_body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label >Project Name</label>
+                                    <div class="common_input mb_20">
+                                        <input type="text" placeholder="Project Name" name = "project_name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="common_input mb_20">
+                                        <label >Database Dialect</label>
+                                        <input type="text" placeholder="Database Dialect" name = "database_dialect">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+
+                                    <label> Upload Application (War)</label>
+
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name = "file" id = "file"  aria-describedby="file">
+                                            <label class="custom-file-label" for="file" id="file_path">Select path</label>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+
+
+                                                               
+                                <div class="col-12">
+                                    <div class="create_report_btn mt_30">
+                                        <button type="submit" class="btn_1 w-100">Register Application</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}
+
