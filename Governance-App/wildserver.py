@@ -30,7 +30,8 @@ def start_server():
 
 
 
-def restart_server():
+def restart_server(deleted_project=None):
+
     wildpath = paths['WILDFLY_BIN']
     #os.chdir(paths['WILDFLY_BIN'])
     #print(os.getcwd())
@@ -38,6 +39,17 @@ def restart_server():
         os.system(f'{wildpath}jboss-cli.sh --connect command=:reload')
     else:
         os.system(f'{wildpath}jboss-cli.bat --connect command=:reload')
+    #Remove unwanted deleted project contents
+    if deleted_project:
+        del_dodeploy_path=paths['WILDFLY_DEPLOYMENTS']+deleted_project+".war.deployed"
+        del_undeploy_path=paths['WILDFLY_DEPLOYMENTS']+deleted_project+"-ds.xml.undeployed"
+        try:
+            os.remove(del_dodeploy_path)
+            os.remove(del_undeploy_path)    
+        
+        except Exception as e:
+            print("Exception in removing "+e)
+            pass
     print ("wildfly restarted successfully")
 
 
@@ -57,7 +69,11 @@ def TurnOn(project,can_restart=True):
     del_path=paths['WILDFLY_DEPLOYMENTS']+project_war
     del_json=d_path+project_json
     del_ds=d_path+project_ds
-    copy_tree(src_path, d_path+project_war)
+    print("Came here")
+    try:
+        copy_tree(src_path, d_path+project_war)
+    except Exception as e:
+        print("Exception occured while copying war")
     shutil.copy(src_json,d_path)
     shutil.copy(src_ds,d_path)
     shutil.copy(src_dodeploy_path,d_path)
@@ -73,7 +89,6 @@ def TurnOff(project):
     d_path=paths['WILDFLY_DEPLOYMENTS']
     # del_path="C:/Users/Dell/wildfly-20.0.0.Final/standalone/deployments/"+project_war
     del_path=paths['WILDFLY_DEPLOYMENTS']+project_war
-    del_dodeploy_path=paths['WILDFLY_DEPLOYMENTS']+project_war+".dodeploy"
 
     del_json=d_path+project_json
     del_ds=d_path+project_ds
@@ -81,12 +96,10 @@ def TurnOff(project):
     shutil.rmtree(del_path,ignore_errors=True)
     os.remove(del_ds)
     os.remove(del_json)
-    try:
-        os.remove(del_dodeploy_path)    
-    except:
-        pass
+
+
     #os.getcwd()
-    restart_server() 
+    restart_server(project) 
 
 
 def start_all_projects():

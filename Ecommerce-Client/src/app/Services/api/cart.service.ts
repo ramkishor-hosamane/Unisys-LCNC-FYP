@@ -266,7 +266,7 @@ export class CartService {
           console.log('Success! cartitem is now',data)
 
           this.shared.updateBiz(data['cartid']["bizLock"],data['cartid']["bizVersion"],'cart')
-
+          this.shared.showPopup("Item added to cart","success");
           this.cart[this.cart.indexOf(product)]["bizId"] = data["bizId"];
 
           this.updateUserCart();

@@ -207,6 +207,7 @@ updatewishlistItem(product: any) {
           console.log('Success! wishlistitem is now',data)
 
           // this.shared.updateBiz(data['wishlistid']["bizLock"],data['wishlistid']["bizVersion"],'wishlist')
+          this.shared.showPopup("Item added to wishlist","success");
 
           this.wishlist[this.wishlist.indexOf(product)]["bizId"] = data["bizId"];
         },
