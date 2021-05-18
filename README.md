@@ -107,17 +107,5 @@ Now you are good to go.
 
 
 ----
-### Following things are not updated yet
-#### 6. Demo Video link
-https://drive.google.com/fle/d/1wpw4_vFaHaC5ARJhGeFO7iU0qfos_P45/viewusp=shari
 
-#### 7. URLs and screenshots
-#### Home page: [http://localhost:8000/home](http://localhost:8000/home)
-![](https://i.imgur.com/yZV7741.jpg)
-#### About: [http://localhost:8000/about](http://localhost:8000/about)
-![](https://i.imgur.com/WdfFPEv.jpg)
-#### Scrapping: [http://localhost:8000/scrapping](http://localhost:8000/scrapping)
-![](https://i.imgur.com/FKYRB49.jpg)
-#### Analysis: [http://localhost:8000/analysis](http://localhost:8000/analysis)
-![](https://i.imgur.com/cx746KF.jpg)
 
