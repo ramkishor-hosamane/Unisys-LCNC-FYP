@@ -144,12 +144,12 @@ def updatepowerstatus():
     print("Actual project status ",status)
     if status =="false": 
         # os.mkdir(project_name)      
-        #TurnOn(project)
+        TurnOn(project_name)
         application_status[project_name]= "true"
 
         print("project turned on")
     elif status=="true":
-        #TurnOff(project)
+        TurnOff(project_name)
         print("project turned off")
         application_status[project_name]= "false"
     else:

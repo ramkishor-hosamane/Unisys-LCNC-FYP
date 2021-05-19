@@ -19,7 +19,7 @@ def start_server():
         #subprocess.Popen(["bash",f"{wildpath}/standalone.sh"])
         #subprocess.check_output(["bash",f"{wildpath}/standalone.sh"])
         print()
-        #os.system(f"{wildpath}standalone.sh")
+        os.system(f"{wildpath}standalone.sh")
         #webbrowser.open(url)
     else:    
         #webbrowser.register('chrome', None,webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
@@ -71,13 +71,15 @@ def TurnOn(project,can_restart=True):
     del_json=d_path+project_json
     del_ds=d_path+project_ds
     print("Came here")
+    shutil.copy(src_json,d_path)
+    shutil.copy(src_ds,d_path)
+    shutil.copy(src_dodeploy_path,d_path)    
     try:
         copy_tree(src_path, d_path+project_war)
     except Exception as e:
         print("Exception occured while copying war")
-    shutil.copy(src_json,d_path)
-    shutil.copy(src_ds,d_path)
-    shutil.copy(src_dodeploy_path,d_path)
+        print(e)
+
 
     print("Copied")
     if can_restart:

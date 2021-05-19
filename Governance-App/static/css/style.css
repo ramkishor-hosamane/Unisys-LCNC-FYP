@@ -15176,7 +15176,7 @@ table.lms_table_active3.dataTable thead .sorting_desc::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.897); /* Black background with opacity */
+  background-color: rgba(0, 0, 0, 0.94); /* Black background with opacity */
   z-index: 2000 !important; /* Specify a stack order in case you're using a different order for other elements */
   /* Add a pointer on hover */
 }

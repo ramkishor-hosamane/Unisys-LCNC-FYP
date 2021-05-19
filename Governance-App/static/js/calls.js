@@ -4,24 +4,29 @@
         console.log(toggle_box['control'])
         //toggle_box['control'].preventDefault()
         event.preventDefault()
+
         toogleLoader(true)
         console.log("Giving out")
         
         var check = toggle_box['control']
+        var project_status = $(check).prop("checked")
         var dat = {
             project:project,
-            switch_status:$(check).prop("checked")
+            switch_status:project_status
             }
-            setTimeout(function(){
-                toogleLoader(false)
+        if(project_status == true)
+        {
+            setTimeout(stopToggling,2000,check,index)
+            $("#load-text").text("Turning Off "+ project)
 
-                var checkbox = document.getElementById("switch"+index)
-                var status = $(check).prop("checked")
-                checkbox.checked = !checkbox.checked;
+        }
+        else
+        {
+            $("#load-text").text("Turning On "+ project)
 
-                //$(check).prop("checked",!$(check).prop("checked"))
-                console.log("Happend")
-            },2000)
+            setTimeout(stopToggling,15000,check,index)            
+        }
+
         $.ajax({
             type: 'POST',
             data:dat,
@@ -47,14 +52,23 @@ function toogleLoader(status){
     $("#overlay-activator").toggleClass("overlay")
     if(status){
         $("#spinner").css({'z-index':'20000'});
-
+        
     }
     else{
         $("#spinner").css({'z-index':'0'});
 
     }
 }
+function stopToggling(check,index){
+    toogleLoader(false)
 
+    var checkbox = document.getElementById("switch"+index)
+    var status = $(check).prop("checked")
+    checkbox.checked = !checkbox.checked;
+
+    //$(check).prop("checked",!$(check).prop("checked"))
+    console.log("Happend")
+}
 
 
     $(document).ready(function() {
