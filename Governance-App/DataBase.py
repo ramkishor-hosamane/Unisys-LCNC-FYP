@@ -21,7 +21,7 @@ class Project(db.Model):
     file = db.Column("base_directory", db.String(100))
     curr_date = db.Column("date", db.String(40), default=date.today().strftime("%d/%m/%Y"))
     audits = db.relationship('ProjectAudit', backref='proj', lazy=True)
-    
+    power_status = db.Column("power_status",db.Boolean,default=False)
     def __init__(self, pname, database_dialect, base_dir):
         #self.project_id = random.randint(0,1000)
         self.project_name = pname

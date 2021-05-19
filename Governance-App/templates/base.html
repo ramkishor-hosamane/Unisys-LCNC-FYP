@@ -58,19 +58,20 @@
     <link rel="stylesheet" href="/static/alertifyjs/css/alertify.min.css">
     <link rel="stylesheet" href="/static/css/alerts.css">
     <link rel="stylesheet" href="/static/css/gauge.css" />
+    <link rel="stylesheet" href="/static/css/toggleSwitch.css" />
 
    <style>
         h3 {text-align: center}
         p {text-align: center}
         .toggle.ios,
-    .toggle-on.ios,
+    /* .toggle-on.ios,
     .toggle-off.ios {
         border-radius: 20rem;
     }
 
     .toggle.ios .toggle-handle {
         border-radius: 20rem;
-    }
+    } */
 
     .board_wrapper
     {
@@ -114,12 +115,34 @@
         font-weight: bold;
         color: antiquewhite;
     }
+    .loader{
+        position: fixed;
+        z-index: 0;
+        top: 47%;
+        left: 49%;
+        
+    }
+    #spinner{
+        display: hidden;
+    }
     </style>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/static/js/alerts.js"></script>
 
 </head>
+
+<div id="overlay-activator" class="">
+
+</div>
+<div id="spinner" class="text-center loader">
+    <div class="spinner-border text-light" style="width: 6rem; height: 6rem;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <h1>Loading</h1>
+
+  </div>
+
 <body class="crm_body_bg">
     
     <div id="alert" class="alert alert-success fixed-top myalert" role="alert" >
@@ -223,7 +246,8 @@
     </div>
     <!--/ menu  -->
 
-    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="content" >
+        {% block content %}{% endblock %}</div>
 </section>
 <!-- main content part end -->
 

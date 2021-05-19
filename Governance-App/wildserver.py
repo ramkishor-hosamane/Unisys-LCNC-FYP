@@ -10,6 +10,7 @@ paths["WILDFLY_DEPLOYMENTS"] = paths["WILDFLY_HOME"] + "standalone/deployments/"
 #print(paths)
 def start_server():
     dir_src = paths['WILDFLY_DEPLOYMENTS']
+
     wildpath = paths['WILDFLY_BIN']
     print(wildpath)
     print ("Wildfly started successfully")
@@ -18,7 +19,7 @@ def start_server():
         #subprocess.Popen(["bash",f"{wildpath}/standalone.sh"])
         #subprocess.check_output(["bash",f"{wildpath}/standalone.sh"])
         print()
-        os.system(f"{wildpath}standalone.sh")
+        #os.system(f"{wildpath}standalone.sh")
         #webbrowser.open(url)
     else:    
         #webbrowser.register('chrome', None,webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))

@@ -41,6 +41,7 @@ CORS(app)
 path = os.getcwd()
 UPLOAD_FOLDER = os.path.join(path, 'uploads')
 
+
 # Make directory if uploads is not exists
 if not os.path.isdir(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
@@ -50,6 +51,8 @@ from DataBase import *
 
 
 current_app_name = None
+
+
 
 class AuditApi(Resource):
 
@@ -94,34 +97,6 @@ class AuditApi(Resource):
         return data
 api.add_resource(AuditApi, '/newaudit')
 
-
-
-
-
-@app.route("/updatepowerstatus",methods=['POST', 'GET'])
-def updatepowerstatus():
-    print("Came here")
-    #print(json.dumps(request.get_data()))
-    print(request.get_json())
-    print(str(request.get_data()))
-    status = request.form['switch_status']
-    project = request.form['project']
-    print(project,status)
-
-    
-    # status=True
-    if status == 'false': 
-        # os.mkdir(project_name)      
-        TurnOn(project)
-        
-    elif status== 'true':
-        TurnOff(project)
-        print("Deleted")
-    else:
-        print("Not found")
-    return json.dumps({'msg':'ok'})
-
-
 @socketio.on('connect')
 def ws_connect():
     print("Connected")
@@ -155,10 +130,43 @@ def home():
 
 
 
+
+
+@app.route("/updatepowerstatus",methods=['POST', 'GET'])
+def updatepowerstatus():
+    print("Came here")
+    status = request.form['switch_status']
+    project_name = request.form['project']
+    print(project_name,status)
+    application_status = session["application_status"]
+    status = application_status[project_name]
+    # status=True
+    print("Actual project status ",status)
+    if status =="false": 
+        # os.mkdir(project_name)      
+        #TurnOn(project)
+        application_status[project_name]= "true"
+
+        print("project turned on")
+    elif status=="true":
+        #TurnOff(project)
+        print("project turned off")
+        application_status[project_name]= "false"
+    else:
+        print("Not found")
+        return
+    session["application_status"] = application_status
+    print(session)
+
+    #return redirect("/viewapplications")
+    print(session["application_status"])
+    return json.dumps({'msg':'ok','current_status':not status})
+
+
+
+
 @app.route("/newapplication", methods=["GET", "POST"])
 def newapplication():
-    print(request.form)
-    print("Hello")
     if request.method == 'POST':
         project_name = request.form['project_name']
         print(project_name)
@@ -194,9 +202,13 @@ def newapplication():
 
 @app.route("/viewapplications", methods=["GET", "POST"])
 def viewapplications():
+
+    #Testing 
+    
+    application_status = session["application_status"]
+    print("Application status is ",session["application_status"])
     project_list = Project.query.all()
-    print(project_list)
-    return render_template("viewApplications.html", project_list=project_list)
+    return render_template("viewApplications.html", project_list=project_list,application_status=application_status)
     #values = userDetails.query.all()
 
 
@@ -224,13 +236,23 @@ def start_wildfly_server():
     #    socketio.emit("switch",data,broadcast=True)
     start_all_projects()
 
+@app.before_first_request
+def activate_session():
+    print("Initializwed session")
+    application_status = {}
+    for i,project in enumerate(Project.query.all()):
+        application_status[project.project_name]="false"    
+    session["application_status"] = application_status
+
 if __name__ == "__main__":
     db.create_all()
+    
 
     from wildserver import *
     #start_all_projects()
     wild_thread = Thread(target=start_server)
     wild_thread.start()
+
 
     #time.sleep(3)    
     socketio.run(app)

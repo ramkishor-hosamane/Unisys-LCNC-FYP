@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
-
-
 <!--/ menu  -->
 <div class="main_content_iner overly_inner ">
+    
     <div class="container-fluid p-0 ">
         <!-- page title  -->
         <div class="row">
@@ -29,8 +28,8 @@
                                         <div class="ui link cards" style="margin-left: 10%;">
     
                                             {% for project in project_list %}
-                                  
-                                            <div class="card" style="margin-bottom:20px;margin-left: 15px;margin-right:15px;">
+
+                                            <div class="card " style="margin-bottom:20px;margin-left: 15px;margin-right:15px;">
                                               <div class="image" style="padding: 5px 5px;">
                                                 <img src="static/img/agreement-terms.svg" style="width: 60%;height: 50%;margin-left: 20%;">
                                               </div>
@@ -46,21 +45,32 @@
                                                 </a>                                                </div>
                                               </div>
                                               <div class="extra content">
-                                                <span class="right floated" style="line-height: 30px;">
+                                                <span class="left floated" style="line-height: 30px;">
                                                   Created on {{project.curr_date}}
                                                 </span>
                                                 
                                                 
-
-                                                <form onclick="updatePowerStatus(this[0],'{{project.project_name}}')">
-                                                <input id="switch{{loop.index}}"  type="checkbox" data-toggle="toggle" name="check" value="1"
+                                                
+                                                <!-- <form >
+                                                <input id=""  type="checkbox" data-toggle="toggle" name="check" 
                                                                 data-on="&nbsp;On &nbsp;" data-off=" Off "
                                                                 data-onstyle="success" data-offstyle="danger"
-                                                                data-style="ios">
-                                                </form>
+                                                                data-style="ios" onclick=>
+                                                </form> -->
+                                                
+                                                <label class="toggleSwitch large" onclick="updatePowerStatus(this,'{{project.project_name}}','{{loop.index}}')">
+                                                    <input id="switch{{loop.index}}" type="checkbox"  />
+                                                    <span>
+                                                        <span>OFF</span>
+                                                        <span>ON</span>
+                                                    </span>
+                                                    <p></p>
+                                                </label>
                                               </div>
                                             </div>
-                                
+                                            <h1>
+                                            </h1>
+
                                             {%endfor%}
                                 
                                           
@@ -97,6 +107,20 @@
     </div>
 </div>
 </div>
+{% for project_name,status in application_status.items() %}
 
+
+<script>
+
+    console.log(document.getElementById("switch{{loop.index}}"))
+    var checkbox = document.getElementById("switch{{loop.index}}")
+    var status = '{{status}}'
+    if(status=="true")
+        checkbox.checked = true;
+    else
+        checkbox.checked = false;
+</script>
+
+{% endfor %}
 
 {% endblock %}
