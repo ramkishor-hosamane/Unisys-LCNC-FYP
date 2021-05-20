@@ -6,8 +6,9 @@ username = "setup"
 password = "setup"
 
 true="true"
-module = "order"
-documents = ["OrderItem","OrderHeader"]
+module = "cart"
+#documents = ["OrderItem","OrderHeader"]
+documents = ["ShoppingCartItem"]
 
 # module = "wishlist"
 # documents = ["ShoppingListItem"]

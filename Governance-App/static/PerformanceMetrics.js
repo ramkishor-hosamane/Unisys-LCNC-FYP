@@ -20,13 +20,13 @@ function syncperformance(projectname) {
             var stat = data['list'][13]
             var memory_information = stat['memoryInformations']
             console.log(stat)
-
-            var cpu_load_deg = Math.round(180 * (parseInt(stat['systemCpuLoad']))/100)
+            
+            var cpu_load_deg = Math.round(180 * (parseFloat(stat['systemCpuLoad']))/100)
             $("#cpu-load-needle").css("transform", "rotate("+cpu_load_deg+"deg)")
             
             //$("#cpu-load-needle").animate({transform: "rotate("+cpu_load_deg+"deg)"},1000)
             
-            $("#cpu-load-gauge").text(Math.round(stat['systemCpuLoad']))
+            $("#cpu-load-gauge").text(" "+Math.round(stat['systemCpuLoad'])+"%")
             
             var memory_usage = Math.round((memory_information['usedMemory']/ memory_information['maxMemory'])*100)
             console.log(memory_usage)
@@ -38,13 +38,25 @@ function syncperformance(projectname) {
 
             //$(".semi-donut").css("transform", "rotate("+memory_usage_deg+"deg)")
 
-            $("#memory-usage-gauge").text("Memory Use - "+memory_usage)
+            $("#memory-usage-gauge").text(" Memory Use - "+memory_usage+"%")
             
             
-            
+            $("#total_sessions").text(stat['sessionCount'])
             // $("#card-body-container:last-child").remove()
             $('#card-body-container').html('\
-                <tr>\
+            <tr>\
+            <td>Server</td>\
+            <td>'+ stat['serverInfo'] + '</td>\
+          </tr>\
+          <tr>\
+          <td>Process Id</td>\
+          <td>'+ stat['pid'] + '</td>\
+        </tr>\
+          <tr>\
+            <td>Start Date</td>\
+            <td>'+ stat['startDate'].substring(0,16) + '</td>\
+          </tr>\
+          <tr>\
             <td class="five wide column">Host</td>\
             <td>'+ stat['host'] + '</td>\
           </tr>\
@@ -62,7 +74,7 @@ function syncperformance(projectname) {
           </tr>\
           <tr>\
             <td>Process CpuTime </td>\
-            <td>'+ stat['processCpuTimeMillis'] + '</td>\
+            <td>'+ stat['processCpuTimeMillis'] + ' ms</td>\
           </tr>\
           <tr>\
             <td>System Load Average</td>\
@@ -70,27 +82,49 @@ function syncperformance(projectname) {
           </tr>\
           <tr>\
             <td>System Cpu Load</td>\
-            <td>'+ stat['systemCpuLoad'] + '</td>\
-          </tr>\
-          <tr>\
-            <td>Start Date</td>\
-            <td>'+ stat['startDate'] + '</td>\
+            <td>'+ parseFloat(stat['systemCpuLoad']).toPrecision(4) + '</td>\
           </tr>\
           <tr>\
             <td>Thread Count</td>\
             <td>'+ stat['threadCount'] + '</td>\
           </tr>\
-          <tr>\
-            <td>Used Buffered Memory</td>\
-            <td>'+ memory_information['usedBufferedMemory'] + '</td>\
-          </tr>\
-          <tr>\
-          </tr>\
-          '
-            );
+          ');
+
+
+          $('#memory-body-container').html('\
+        <tr>\
+          <td class="five wide column">Used Buffered Memory</td>\
+          <td>'+ getStatInMb(memory_information['usedBufferedMemory']) + '</td>\
+        </tr>\
+        <tr>\
+          <td>Used NonHeap Memory</td>\
+          <td>'+ getStatInMb(memory_information['usedNonHeapMemory']) + '</td>\
+        </tr>\
+        <tr>\
+          <td>Total Used Memory</td>\
+          <td>'+ getStatInMb(memory_information['usedMemory']) + '</td>\
+        </tr>\
+        <tr>\
+          <td>Maximum Memory</td>\
+          <td>'+ getStatInMb(memory_information['maxMemory']) + '</td>\
+        </tr>\
+        <tr>\
+          <td>Garbage Collection Time</td>\
+          <td>'+ memory_information['garbageCollectionTimeMillis'] + ' ms</td>\
+        </tr>\
+        ');
         }
+
+
+
     });
 }
+
+function getStatInMb(stat){
+  return parseFloat(parseInt(stat)/1024/1024).toPrecision(5) +" Mb"
+}
+
+
 var period_now = 'jour'
 
 function getChangedPeriodUrl(graph,period){

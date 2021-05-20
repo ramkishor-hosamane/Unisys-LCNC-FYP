@@ -88,6 +88,8 @@ class AuditApi(Resource):
 
         db.session.add(audit)
         db.session.commit()
+        
+        
         if(current_app_name==project_name):
             socketio.emit("audit",data,broadcast=True)
         else:
@@ -104,7 +106,7 @@ def ws_connect():
 
 @app.route("/")
 def index():
-    return redirect("/home")
+    return redirect("/login")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -116,7 +118,7 @@ def login():
         user = User(username, password)
         db.session.add(user)
         db.session.commit()'''
-        if request.form['username'] != 'setup' or request.form['password'] != 'setup':
+        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
             error = 'Invalid Credentials. Please try again.'
             # print(error)
         else:
@@ -239,9 +241,9 @@ def start_wildfly_server():
 @app.before_first_request
 def activate_session():
     print("Initializwed session")
-    application_status = {}
-    for i,project in enumerate(Project.query.all()):
-        application_status[project.project_name]="false"    
+    application_status = {'ecommerce':'false','fulfillment':'false'}
+    #for i,project in enumerate(Project.query.all()):
+    #    application_status[project.project_name]="false"    
     session["application_status"] = application_status
 
 if __name__ == "__main__":
@@ -254,7 +256,5 @@ if __name__ == "__main__":
     wild_thread.start()
 
 
-    #time.sleep(3)    
     socketio.run(app)
-    #print("Ka")
-    # app.run(debug=True)
+

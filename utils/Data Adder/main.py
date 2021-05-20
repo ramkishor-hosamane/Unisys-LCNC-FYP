@@ -2,7 +2,7 @@ import requests
 import json
 from base64 import b64encode
 
-URL = "http://localhost:8080/ecommerce/rest/json/insert"
+URL = "http://localhost:8080/ecommerce/api/json/insert"
 username = "setup"
 password = "setup"
 
@@ -13,10 +13,10 @@ def load_json_file(path,expexted_data):
         return data[expexted_data]
 tables = ['Address','UserLogin','UserAddress','Category','Product','ProductCategoryMember']
 #          'ShoppingCartItem','ShoppingCart','OrderHeader','OrderItem']
-tables = ['Category','Product','ProductCategoryMember']
+tables = ['Address','UserLogin','UserAddress','Category','Product','ProductCategoryMember']
 
-PRODUCT_URL = "http://localhost:8080/ecommerce/rest/json/product/Product" 
-CATEGORY_URL = "http://localhost:8080/ecommerce/rest/json/product/Category" 
+PRODUCT_URL = "http://localhost:8080/ecommerce/api/json/product/Product" 
+CATEGORY_URL = "http://localhost:8080/ecommerce/api/json/product/Category" 
 
 
 

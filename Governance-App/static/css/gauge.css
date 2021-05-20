@@ -5,7 +5,9 @@
     display: inline-block;
     width: auto;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 50px 20px;
+    margin:3em 0;
+
   }
   
   .gauge {

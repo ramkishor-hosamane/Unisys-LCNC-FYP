@@ -1,7 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 
+<style>
+    .ui.horizontal.statistics .statistic{
+        margin-left:40% ;
+        
+    }
 
+
+    .gauge-wrapper {
+    padding: 65px 20px;
+
+  }
+
+</style>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 
@@ -115,7 +127,7 @@
 
         <div class="row">
             <div class="col">
-                <table class="ui definition table" style="padding-bottom:20px">
+                <table class="ui definition table" style="padding-bottom:10px">
 
                     <tbody id="card-body-container">
 
@@ -123,8 +135,44 @@
 
                 </table>
 
+                <table class="ui definition table" style="padding-bottom:10px">
+
+                    <tbody id="memory-body-container">
+
+                    </tbody>
+
+                </table>                
             </div>
             <div class="col-4">
+
+                <div class="ui horizontal huge statistics table" style="margin:0;margin-bottom: 30px;">
+                    <div class="statistic">
+                      <div id="total_sessions" class="value">
+                        0
+                      </div>
+                      <div class="label">
+                        Sessions
+                      </div>
+                    </div>
+                    <!-- <div class="statistic">
+                      <div class="value">
+                        31,200
+                      </div>
+                      <div class="label">
+                        Views
+                      </div>
+                    </div>
+                    <div class="statistic">
+                      <div class="value">
+                        22
+                      </div>
+                      <div class="label">
+                        Members
+                      </div>
+                    </div> -->
+                  </div>
+
+
 
                 <div class="ui table gauge-wrapper">
                     <div class="gauge four rischio" style="margin-left: 25%;">
@@ -157,6 +205,7 @@
 
 
                 </div>
+
 
             </div>
 

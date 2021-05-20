@@ -131,8 +131,12 @@
       line-height: 28px;
     }
     .toggleSwitch.large input:checked ~ p {
-      left: 41px;
+      left: 1px;
     }
+
+    .toggleSwitch.large input:checked ~ p {
+      left: 35px;
+  }
     .toggleSwitch.large > span span {
       font-size: 1.1em;
     }
@@ -151,7 +155,7 @@
       line-height: 37px;
     }
     .toggleSwitch.xlarge input:checked ~ p {
-      left: 52px;
+      left: 42px;
     }
     .toggleSwitch.xlarge > span span {
       font-size: 1.4em;

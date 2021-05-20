@@ -1,1 +1,1 @@
-{"environment":{"showSetup":false},"smtp":{"uid":null,"pwd":null},"map":{"centre":"POINT (0 0)"}}
+{"environment":{"showSetup":false},"smtp":{"uid":"setup","pwd":"setup"},"map":{"centre":"POINT (0 0)"}}

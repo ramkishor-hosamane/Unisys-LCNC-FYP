@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/Services/api/api.service';
+import { AuthService } from 'src/app/Services/api/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,13 +10,24 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
+  current_user:any
+  constructor(private router:Router,private api:ApiService,private auth:AuthService) {
+    this.auth.current_user_observer.subscribe(
+      data => {
+        this.current_user = data;
+      }
+    )
 
-  constructor(private router:Router,private api:ApiService) {
 
     this.api.getData(environment.server_api_url+"order/OrderHeader").subscribe(
       data=>{
-        this.orders = data
-        console.log("Got orders")
+        this.orders = []
+        for (var order of data) {
+          if(order['userloginid']['userloginid']==this.current_user['userloginid']){
+            this.orders.push(order)
+          }
+        }
+        console.log("Got orders",data)
       },error=>console.log("error",error)
 
     )

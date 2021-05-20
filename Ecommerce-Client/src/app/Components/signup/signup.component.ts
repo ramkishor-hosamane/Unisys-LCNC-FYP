@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/Services/api/auth.service';
 import { CartService } from 'src/app/Services/api/cart.service';
+import { SharedService } from 'src/app/Services/shared.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +13,7 @@ import { CartService } from 'src/app/Services/api/cart.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private auth:AuthService,private cart_api:CartService,private router:Router) { }
+  constructor(private auth:AuthService,private cart_api:CartService,private router:Router,private shared:SharedService) { }
 
   //User object 
   userModel = new User();
@@ -42,8 +43,8 @@ export class SignupComponent implements OnInit {
       error => console.error('!error',error)
     )
 
-
-    alert("Account created Successfully")
+    this.shared.showPopup("Account Created Successfully",'success')
+    //alert("Account created Successfully")
     this.router.navigate(['/login']).then()
     //Make the input fields blank in the page
     this.userModel = new User();

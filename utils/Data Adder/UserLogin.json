@@ -1,3 +1,21 @@
 {
-    "UserLogin": [{"bizModule":"user","bizDocument":"UserLogin","userloginid":"Akanksha","emailid":"ak@gmail.com","mobileno":"9035416604","gender":" ","firstname":" ","lastname":" ","password":"123","confirmpassword":"123","isenabled":true,"createdstamp":"","updatedstamp":"","bizId":"c254662e-969e-4698-bb08-b4e6f7db0a92","bizCustomer":"unisys","bizDataGroupId":null,"bizUserId":"216fa01c-6644-4884-a5fe-9cd05179f542"},{"bizModule":"user","bizDocument":"UserLogin","userloginid":"Bhavika","emailid":"bh@gmail.com","mobileno":"9999999999","gender":" ","firstname":" ","lastname":" ","password":"123","confirmpassword":"123","isenabled":true,"createdstamp":"","updatedstamp":"","bizId":"9104882e-393b-4257-a799-6a8b248e64b9","bizCustomer":"unisys","bizDataGroupId":null,"bizUserId":"216fa01c-6644-4884-a5fe-9cd05179f542"}]
+    "UserLogin": [
+        {
+          "bizModule": "user",
+          "bizDocument": "UserLogin",
+          "userloginid": "Ram",
+          "emailid": "ram@gmail.com",
+          "mobileno": "8078401668",
+          "firstname": "Ram",
+          "lastname": "Kishor",
+          "password": "1",
+          "isenabled": true,
+          "createdstamp": "10-May-2021 06:14",
+          "updatedstamp": "10-May-2021 06:21",
+          "bizId": "9839f9f0-58c4-4ba1-9e97-f4d9a2937308",
+          "bizCustomer": "unisys",
+          "bizDataGroupId": null,
+          "bizUserId": "43150778-2018-411b-b3bf-d7a9f3ac13f8"
+        }
+      ]
 }

@@ -296,7 +296,7 @@ export class CartService {
         this.api.deleteData(this.delete_url,data).subscribe(
           dat => {
             console.log('Deleting Cartitem Sucess yippe',dat)
-            this.updateUserCart();
+            //this.updateUserCart();
           
           },
           error => console.error('Deleting Cartitem !!!error',error)
@@ -310,6 +310,7 @@ export class CartService {
     this.updateCartSource(this.cart,this.cart_total);
   }
   deleteAllCartItemService(){
+    console.log("Inside deleting all cart item")
     while(this.cart.length>0)
     {
       //this.cart_total -= this.cart[0]["price"]

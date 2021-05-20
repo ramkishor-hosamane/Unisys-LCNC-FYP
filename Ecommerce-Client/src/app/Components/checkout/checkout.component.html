@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="cfr-item">
                                     <input type="radio" name="pm" id="two" (click)="clearAddress()" checked=true>
-                                    <label for="two">Use a different address&nbsp;&nbsp;&nbsp;</label>
+                                    <label for="two">Use a new address&nbsp;&nbsp;&nbsp;</label>
                                 </div>
                             </div>
                         </div>
@@ -64,19 +64,9 @@
                         </div>
 
                     </div>
-                    <div class="cf-title">Delievery Info</div>
+                    <!-- <div class="cf-title">Delievery Info</div>
                     <div class="row shipping-btns">
-                        <div class="col-6">
-                            <h4>Standard</h4>
-                        </div>
-                        <div class="col-6">
-                            <div class="cf-radio-btns">
-                                <div class="cfr-item">
-                                    <input type="radio" name="shipping" id="ship-1">
-                                    <label for="ship-1">Free</label>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="col-6">
                             <h4>Next day delievery </h4>
                         </div>
@@ -88,13 +78,26 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="cf-title">Payment</div>
-                    <ul class="payment-list">
+                    <div class="row shipping-btns">
+                    <!-- <ul class="payment-list">
                         <li>Paypal<a href="#"><img src="assets/images/paypal.png" alt=""></a></li>
                         <li>Credit / Debit card<a href="#"><img src="assets/images/mastercart.png" alt=""></a></li>
                         <li>Pay when you get the package</li>
-                    </ul>
+                    </ul> -->
+                    <div class="col-6">
+                        <h4>Payment Method</h4>
+                    </div>
+                    <div class="col-6">
+                        <div class="cf-radio-btns">
+                            <div class="cfr-item">
+                                <input type="radio" name="shipping" id="ship-1" checked>
+                                <label for="ship-1">Cash</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                     <button class="site-btn submit-order-btn">Place Order</button>
                 </form>
             </div>

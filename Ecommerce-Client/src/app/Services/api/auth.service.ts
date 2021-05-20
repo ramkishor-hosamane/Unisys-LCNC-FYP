@@ -179,13 +179,13 @@ export class AuthService {
     //testing
     //timegap = 20000
 
-    var alert_before = timegap-10000;
+    var alert_before = timegap-20000;
     if(timegap>0){
       console.log("Session will expire in ",timegap)
 
     }
     setTimeout(()=>{
-      this.shared.showPopup("Session will be expired in "+(10000/1000)+" seconds",'info')
+      this.shared.showPopup("Session will be expired in "+(20000/1000)+" seconds",'info')
 
     }
       

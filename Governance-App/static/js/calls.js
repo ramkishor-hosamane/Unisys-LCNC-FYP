@@ -24,7 +24,7 @@
         {
             $("#load-text").text("Turning On "+ project)
 
-            setTimeout(stopToggling,15000,check,index)            
+            setTimeout(stopToggling,20000,check,index)            
         }
 
         $.ajax({
