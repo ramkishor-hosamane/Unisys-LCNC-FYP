@@ -1,4 +1,5 @@
 import os
+from sys import audit
 import requests
 import shutil
 import time
@@ -24,6 +25,8 @@ from flask_cors import CORS
 from utils import *
 import subprocess
 from threading import Thread
+import pandas as pd
+from flask import send_file
 paths = load_json_file("paths.json")
 paths["WILDFLY_BIN"] = paths["WILDFLY_HOME"] + "bin/"
 paths["WILDFLY_DEPLOYMENTS"] = paths["WILDFLY_HOME"] + "standalone/deployments/"
@@ -52,6 +55,13 @@ from DataBase import *
 
 current_app_name = None
 
+
+def log_governance_audit(Appname,operation):
+    timestamp = str(date.today().strftime("%d/%m/%Y"))+str(datetime.now())[11:19]
+    audit = GovernanceAudit(AppName=Appname, operation=operation,userName='admin',timestamp=timestamp)
+    db.session.add(audit)
+    db.session.commit()  
+    print("Loged audit")  
 
 
 class AuditApi(Resource):
@@ -120,6 +130,8 @@ def login():
         db.session.commit()'''
         if request.form['username'] != 'admin' or request.form['password'] != 'admin':
             error = 'Invalid Credentials. Please try again.'
+            log_governance_audit("Governance App","Logged in")
+
             # print(error)
         else:
             return redirect(url_for('home'))
@@ -148,12 +160,14 @@ def updatepowerstatus():
         # os.mkdir(project_name)      
         TurnOn(project_name)
         application_status[project_name]= "true"
-
+        log_governance_audit(project_name,"Turned on")
         print("project turned on")
     elif status=="true":
         TurnOff(project_name)
         print("project turned off")
         application_status[project_name]= "false"
+        log_governance_audit(project_name,"Turned off")
+
     else:
         print("Not found")
         return
@@ -163,6 +177,36 @@ def updatepowerstatus():
     #return redirect("/viewapplications")
     print(session["application_status"])
     return json.dumps({'msg':'ok','current_status':not status})
+
+
+def make_report(project_name):
+    audit_list = list(GovernanceAudit.query.all())
+    row = audit_list[0]
+    report_df = {column: [] for column in row.__dict__.keys()}
+    print(report_df)
+    for audit in db.session.query(GovernanceAudit).all():
+        audit_dict = audit.__dict__
+        for column in audit_dict.keys():
+            report_df[column].append(audit_dict[column])
+    print(report_df)
+    #report_df = {}
+    filepath = f"{paths['UPLOADS_FOLDER']}{project_name}.xlsx"
+    report_df = pd.DataFrame(report_df)
+    writer = pd.ExcelWriter(filepath, engine='xlsxwriter')
+    report_df.to_excel(writer,sheet_name=project_name, index = False)
+    writer.save()          
+    return filepath
+
+@app.route("/downloadreport/<pname>",methods=['POST', 'GET'])
+def downloadreport(pname):
+    print("Came there")
+    #is_governance = request.form['is_governance']
+    project_name = pname
+    #if project_name=="governance":
+    path = make_report(project_name)
+    #
+    #return redirect("/viewapplications")
+    return send_file(path, as_attachment=True)
 
 
 
@@ -193,6 +237,7 @@ def newapplication():
                           file)
         db.session.add(project)
         db.session.commit()
+        log_governance_audit(project_name,"Registered")
 
 
 
@@ -229,7 +274,9 @@ def applicationinfo(pname):
 @app.route("/viewaudits/Governance")
 def GovernanceAudit():
     project_list = Project.query.all()
-    return render_template("viewGovAudits.html", project_list=project_list)
+    governance_audits = reversed(GovernanceAudit.query.all())
+
+    return render_template("viewGovAudits.html", project_list=project_list,governance_audits=governance_audits)
 
 @app.route("/viewaudits/Applications")
 def ApplicationsAudit():

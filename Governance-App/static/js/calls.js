@@ -90,3 +90,48 @@ $("#file").change(function(e){
 
 });
     
+
+
+
+
+
+
+
+
+
+
+function  DownloadReport(project_name){
+    var dat = {
+        project:project_name,
+        is_governance:true
+        }
+
+    $.ajax({
+        type: 'POST',
+        data:dat,
+        url: "/downloadreport",
+        dataType: 'json',
+        success: function (data) {
+            console.log(data['current_status'])
+            alert("got report")
+            // setTimeout(function(){
+            //     toogleLoader(false)
+            //     console.log("Happend")
+            // },2000)
+
+
+
+        }
+    });
+    
+
+}
+
+
+
+
+
+
+
+
+

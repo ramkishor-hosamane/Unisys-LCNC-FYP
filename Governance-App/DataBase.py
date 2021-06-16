@@ -39,6 +39,14 @@ class ProjectAudit(db.Model):
     userName = db.Column("userName", db.String(30))
     timestamp = db.Column("timestamp", db.String(40))
 
+class GovernanceAudit(db.Model):
+    auditid = db.Column("project_id", db.Integer,
+                           primary_key=True, autoincrement=True)
+    AppName = db.Column("AppName", db.String(20))
+    operation = db.Column("operation", db.String(10))
+    userName = db.Column("userName", db.String(30))
+    timestamp = db.Column("timestamp", db.String(40), default=str(date.today().strftime("%d/%m/%Y"))+str(datetime.now())[11:19])
+
 
 # class ProjectMetrics(db.Model):
 #     peformance_id = db.Column("project_id", db.Integer,
