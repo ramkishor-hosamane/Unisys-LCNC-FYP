@@ -1,7 +1,7 @@
 # Unisys Low-code/No-code Developement
 
 ## Project overview
-> blah blah blah blah 
+> Low-code/No-code Developement 
 
 ## Installation in Local Environment
 > 
@@ -92,7 +92,6 @@ cd Governance-App
 python app.py
 ```
 Try opening [http://localhost:5000](http://localhost:5000) in the browser.
-Now you are good to go.
 
 > #### 2.Ecommerce-Client
 
@@ -103,7 +102,7 @@ cd Ecommerce-Client
 ng serve
 ```
 Try opening [http://localhost:4200](http://localhost:4200) in the browser.
-Now you are good to go.
+
 
 
 ----
