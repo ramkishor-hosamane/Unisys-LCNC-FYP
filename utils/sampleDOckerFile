@@ -1,0 +1,24 @@
+#FROM nginx:1.17.1-alpine
+#FROM ubuntu:latest
+FROM node:16 AS ui-build
+
+WORKDIR /app
+
+COPY . .
+
+RUN cd Ecommerce-Client && npm install @angular/cli && npm install && npm run build
+
+RUN cd Ecommerce-Client
+#CMD ["cd","Ecommerce-Client"]
+
+CMD ["ng","serve"]
+
+EXPOSE 3080
+#RUN ./install_wildfly.sh
+#ADD . /app/.
+#COPY ./requirements.txt /app/requirements.txt
+
+#RUN pip install -r requirements.txt
+
+#COPY Ecommerce-Client/dist/Ecommerce-Client /usr/share/nginx/html/
+

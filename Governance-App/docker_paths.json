@@ -1,0 +1,6 @@
+{
+    "JAVA_HOME": "/usr/lib/jvm/java-1.11.0-openjdk-amd64",
+    "UPLOADS_FOLDER":"/app/uploads/",
+    "WILDFLY_HOME": "/opt/wildfly-21.0.0.Final"
+}
+
