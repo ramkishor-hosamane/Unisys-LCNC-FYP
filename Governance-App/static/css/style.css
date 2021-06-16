@@ -15180,3 +15180,10 @@ table.lms_table_active3.dataTable thead .sorting_desc::after {
   z-index: 2000 !important; /* Specify a stack order in case you're using a different order for other elements */
   /* Add a pointer on hover */
 }
+
+
+/* Latest CSS */
+
+.description .btn{
+  margin: 0px 4px;
+}

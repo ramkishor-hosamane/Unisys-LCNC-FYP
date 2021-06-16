@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- {% for item in values %}
+    <p>projectName: {{item.projectName}}, databaseDialect: {{item.databaseDialect}}</p>
+    {% endfor %} -->
+<style>
+
+    .project-card{
+        width: 25%;
+    }
+</style>
+
+<div class="main_content_iner overly_inner ">
+    <div class="container-fluid p-0 ">
+        <!-- page title  -->
+        <div class="row">
+            <div class="col-2">
+                <div class="page_title_box d-flex align-items-center justify-content-between">
+                    <div class="page_title_left">
+                        <h3 class="f_s_30 f_w_700 dark_text">Audits</h3>
+                    </div>
+
+
+
+
+
+                </div>
+
+            </div>
+
+            <div class="col white_card_body ">
+                <ul class="nav nav-pills nav-fill custom_bootstrap_nav">
+                    <li class="nav-item">
+                        <a class="nav-link " href="/viewaudits/Governance">Governance Audits</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/viewaudits/Applications">Application Audits</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-12">
+                <div class="white_card">
+                    <div class="card-body">
+                        <div class="board_wrapper">
+                            <!-- single_board  -->
+                            <div class="single_board">
+                                <div class="main_board_card" >
+                                    <div class="white_card_header pl-0 pr-0 pt-0">
+                                        <div class="box_header m-0">
+                                            <!-- <div class="main-title">
+                                                        <h3 class="m-0">Ongoing</h3>
+                                                    </div> -->
+                                            <div class="header_more_tool">
+                                                <div class="dropdown">
+                                                    <span class="dropdown-toggle" id="dropdownMenuButton"
+                                                        data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ti-more-alt"></i>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="container">
+
+
+
+
+                                        <div class="row board_card_list" style="margin-bottom: 30px;">
+                                            {% for project in project_list %}
+                                            <a href="/viewaudits/Applications/{{project.project_name}}" class="col card project-card border-0" style="margin: 0px 20px;">
+                                                <div class="" >
+                                                    <div class="card-body">
+                                                        <h4 class="" style="text-align: center;">{{project.project_name | title}}</h4>
+    
+                                                        <div
+                                                            class="card_head d-flex justify-content-between align-items-center ">
+                                                            <i class="far fa-circle f_s_14 text_color_4"></i>
+                                                            <div class="header_more_tool">
+                                                                <div class="dropdown">
+                                                                    <span class="dropdown-toggle" id="dropdownMenuButton"
+                                                                        data-toggle="dropdown" aria-expanded="false">
+                                                                        <i class="ti-more-alt"></i>
+                                                                    </span>
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row justify-content-center align-items-center">
+                                                            <!--end col-->
+                                                            <div class="col-6 align-self-center">
+                                                                <i class="fas fa-play"></i>
+                                                                <i class="fas fa-pause"></i>
+                                                                <!-- <a class="float-right" href="#">
+                                                                            <div class="thumb_34 ml-1 mt-0"><img class="/static/img-fluid radius_50"  alt=""></div>
+                                                                        </a> -->
+                                                            </div>
+                                                            <!--end col-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+    
+                                            <!-- {{project.curr_date}} -->
+                                            {% endfor %}
+                                           <div class="d-flex align-items-center justify-content-center">
+                                                <div class="col-6 align-self-center">
+    
+    
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-6 align-self-center">
+                                                    <!-- <a class="float-right" href="#">
+                                                                        <div class="thumb_34 ml-1 mt-0"><img class="img-fluid radius_50" alt=""></div>
+                                                                    </a> -->
+                                                </div>
+                                                <!--end col-->
+                                            </div>
+                                        </div>                                        
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 align-self-center">
+                        <a class="float-right" href="#">
+                            <div class="thumb_34 ml-1 mt-0"><img class="img-fluid radius_50" alt=""></div>
+                        </a>
+                    </div>
+                    <!--end col-->
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+{% endblock %}

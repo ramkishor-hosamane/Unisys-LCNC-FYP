@@ -226,10 +226,29 @@ def applicationinfo(pname):
     #values = userDetails.query.all()
 
 
-@app.route("/viewaudit")
-def audit():
+@app.route("/viewaudits/Governance")
+def GovernanceAudit():
     project_list = Project.query.all()
-    return render_template("viewAudit.html", project_list=project_list)
+    return render_template("viewGovAudits.html", project_list=project_list)
+
+@app.route("/viewaudits/Applications")
+def ApplicationsAudit():
+    project_list = Project.query.all()
+    return render_template("viewAppAudits.html", project_list=project_list)
+
+
+@app.route("/viewaudits/Applications/<pname>")
+def applicationaudit(pname):
+    global current_app_name
+    print(pname)
+    current_app_name = pname
+
+    project = Project.query.filter_by(project_name=pname).first()
+    project_audits = reversed(project.audits) 
+    return render_template("applicationaudit.html", project=project,project_audits=project_audits)
+
+
+
 
 
 def start_wildfly_server():

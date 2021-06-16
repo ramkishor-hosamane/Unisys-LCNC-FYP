@@ -3,6 +3,10 @@
 <style>
     .toggleSwitch.large input:checked ~ p {
     left: 35px;
+    
+}
+.description .btn{
+  margin: 0px 4px;
 }
 </style>
 <!--/ menu  -->
@@ -43,10 +47,20 @@
                                                   <p>&nbsp;</p>
                                                 </div>
                                                 <div class="description">
-                                                    <a class=" btn btn-primary btn-block"
-                                                    href="/applicationinfo/{{project.project_name}}">View
-                                                    Application
-                                                </a>                                                </div>
+                                                    <a class=" btn btn-primary"
+                                                    href="/applicationinfo/{{project.project_name}}">
+                                                   Metrics
+                                                </a>   
+                                                
+                                                <a class=" btn btn-primary"
+                                                href="/viewaudits/Applications/{{project.project_name}}">
+                                                Audits
+                                            </a>  
+                                            <a class=" btn btn-primary"
+                                            href="http://localhost:8080/{{project.project_name}}" target="_blank">
+                                            Open App
+                                        </a>  
+                                            </div>
                                               </div>
                                               <div class="extra content">
                                                 <span class="left floated" style="line-height: 30px;">

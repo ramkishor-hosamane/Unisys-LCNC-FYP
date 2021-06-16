@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .ui.horizontal.statistics .statistic{
+        margin-left:40% ;
+        
+    }
+
+
+    .gauge-wrapper {
+    padding: 65px 20px;
+
+  }
+
+</style>
+
+
+<!-- All Applications -->
+<div class="main_content_iner ">
+
+    <!-- Title -->
+    <div class="container-fluid p-0" style="position:sticky;z-index: 200;">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_card card_height_100 mb_30">
+                    <div class="white_card_header">
+                        <div class="box_header m-0">
+                            <div class="main-title">
+                                <h3 class="m-0">{{project.project_name | title}} Audits</h3>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  
+
+
+    <!-- All Audits of Projects -->
+    <div class="main_content_iner ">
+        <div class="container-fluid p-0">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="white_card card_height_100 mb_30">
+
+                       
+                        <!-- <div class="white_card_header">
+                            <div class="box_header m-0">
+                                <div class="main-title">
+                                    <h3 class="m-0">Audit table </h3>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="white_card_body">
+                            <div class="QA_section">
+
+                                <div class="QA_table mb_30 ui table">
+                                    <!-- table-responsive -->
+                                    <table id="audit-table" class="table lms_table_active3 ">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">User</th>
+                                                <th scope="col">Module</th>
+                                                <th scope="col">Document</th>
+                                                <th scope="col">Description</th>
+                                                <th scope="col">Timestamp</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="audit_body">
+                                            {% for audit in project_audits %}
+
+                                            <tr>
+                                                <td>{{audit.userName}}</td>
+                                                <td>{{audit.auditDocumentName}}</td>
+                                                <td>{{audit.auditModuleName}}</td>
+                                                <td>{{audit.operation}}</td>
+                                                <td>{{audit.timestamp}}</td>
+                                            </tr>
+                                            {% endfor %}
+
+                                        </tbody>
+
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
+
+
+
+
+
+    
