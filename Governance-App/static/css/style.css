@@ -15187,3 +15187,7 @@ table.lms_table_active3.dataTable thead .sorting_desc::after {
 .description .btn{
   margin: 0px 4px;
 }
+.options-list .options{
+  margin:0px 20px;
+}
+

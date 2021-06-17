@@ -2,7 +2,11 @@
 {% extends "base.html" %}
 {% block content %}
 
-
+<style>
+    .ui.statistics > .statistic{
+        margin:0px 80px;
+    }
+</style>
 
 
 
@@ -45,15 +49,59 @@
                 <div class="col">
                     <div class="jumbotron">
                         <h1 class="display-4" style="text-align: center;">Unisys Governance Platform </h1>
-                        <img src="static/img/homebg.svg" style="width: 600px;height: 400px;margin-left: 25%;">
+                        <img src="static/img/homebg.svg" style="width: 500px;height: 250px;margin-left: 30%;">
 
                         <p class="lead">This platform has been created to govern the applications created and to create new applications.
                         </p>
                         <hr class="my-4">
+                    
+                    
+                    
+                        <div class="ui statistics d-flex justify-content-center" style="margin-bottom: 50px;">
+                            <div class="statistic">
+                              <div class="value">
+                                {{total_projects}}
+                              </div>
+                              <div class="label">
+                                Applications
+                              </div>
+                            </div>
+                            <div class="statistic">
+                              <div class="value">
+                                   {{total_audits}}                                 
+                            </div>
+                              <div class="label">
+                                Audits
+                              </div>
+                            </div>
+                            <div class="statistic">
+                              <div class="value">
+                                {{running_apps}}/{{total_projects}}
+                              </div>
+                              <div class="label">
+                                Applications Running
+                              </div>
+                            </div>
+                            
+                          </div>
+                        
+
+
+                    
+                    
+                    
+                    
                         <a class=" btn btn-primary btn-lg btn-block" style="width: 50%;margin-left: 25%;"  href="/viewapplications" role="button">Get Started</a>
                       </div>
 
         
+
+
+
+
+
+
+
                 </div>
                 <div class="colsa">
                 </div>

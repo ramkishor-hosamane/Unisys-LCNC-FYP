@@ -8,7 +8,32 @@
 .description .btn{
   margin: 0px 4px;
 }
+
+.description{
+    margin:10px 0px;
+    margin-right: 5px;
+}
+.description a{
+    width: 130px;
+}
+
+.cards div.card{
+    margin:0px 40px !important;
+}
+
+
+#to-show {
+    opacity: 0;
+}
+#to-hover:hover > #to-show {
+    opacity: 1;
+    transition:opacity 0.5s; 
+}
+
+
+
 </style>
+
 <!--/ menu  -->
 <div class="main_content_iner overly_inner ">
     
@@ -33,11 +58,11 @@
                                 <div class="single_board">
                                     <div class="main_board_card">
                                         <div class="board_card_list">
-                                        <div class="ui link cards" style="margin-left: 10%;">
+                                        <div class="ui link cards d-flex justify-content-center" >
     
                                             {% for project in project_list %}
 
-                                            <div class="card " style="margin-bottom:20px;margin-left: 15px;margin-right:15px;">
+                                            <div class="card " style="margin-bottom:20px;margin-left: 15px;margin-right:15px">
                                               <div class="image" style="padding: 5px 5px;">
                                                 <img src="static/img/agreement-terms.svg" style="width: 60%;height: 50%;margin-left: 20%;">
                                               </div>
@@ -46,21 +71,53 @@
                                                 <div class="meta">
                                                   <p>&nbsp;</p>
                                                 </div>
-                                                <div class="description">
-                                                    <a class=" btn btn-primary"
-                                                    href="/applicationinfo/{{project.project_name}}">
-                                                   Metrics
-                                                </a>   
-                                                
-                                                <a class=" btn btn-primary"
-                                                href="/viewaudits/Applications/{{project.project_name}}">
-                                                Audits
-                                            </a>  
-                                            <a class=" btn btn-primary"
-                                            href="http://localhost:8080/{{project.project_name}}" target="_blank">
-                                            Open App
-                                        </a>  
-                                            </div>
+                                                <div class="controls">
+                                                    <div class="row">
+                                                        <div id="to-shows" class="description col">
+                                                            <a class="ui labeled icon button facebook"
+                                                            href="/applicationinfo/{{project.project_name}}">
+                                                            <i class="tachometer alternate icon"></i>
+                                                            Metrics
+        
+                                                        </a>   
+                                                        
+                                                        <a class="ui labeled icon button facebook"
+                                                        href="/viewaudits/Applications/{{project.project_name}}">
+                                                        <i class="newspaper outline icon"></i>
+                                                        Audits
+                                                    </a>  
+                                                    </div>    
+                                                    </div>                                                
+                                                    <div class="row">
+                                                        <div class="description col">
+    
+                                                            <a class=" ui labeled icon button facebook"
+                                                            href="http://localhost:8080/{{project.project_name}}" target="_blank">
+                                                            <i class="location arrow icon"></i>
+                                                            Open
+                                                        </a>  
+    
+                                                        <a class=" ui labeled icon button facebook"
+                                                        href="http://localhost:8080/{{project.project_name}}" target="_blank">
+                                                        <i class="edit icon"></i>
+                                                        Edit
+                                                    </a>  
+        
+                                                        </div>
+                                                    </div>
+    
+                                                </div>
+
+
+
+
+                                                <!-- <div id="to-hover" style="height: 20px;">
+                                                    <i class="chevron down icon"></i>
+                                                    
+    
+                                                </div>
+                                              -->
+
                                               </div>
                                               <div class="extra content">
                                                 <span class="left floated" style="line-height: 30px;">
@@ -119,6 +176,11 @@
     </div>
 </div>
 </div>
+
+
+
+
+
 {% for project_name,status in application_status.items() %}
 
 

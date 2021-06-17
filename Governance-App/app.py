@@ -57,7 +57,7 @@ current_app_name = None
 
 
 def log_governance_audit(Appname,operation):
-    timestamp = str(date.today().strftime("%d/%m/%Y"))+str(datetime.now())[11:19]
+    timestamp = str(date.today().strftime("%d/%m/%Y"))+"  "+str(datetime.now())[11:19]
     audit = GovernanceAudit(AppName=Appname, operation=operation,userName='admin',timestamp=timestamp)
     db.session.add(audit)
     db.session.commit()  
@@ -130,17 +130,25 @@ def login():
         db.session.commit()'''
         if request.form['username'] != 'admin' or request.form['password'] != 'admin':
             error = 'Invalid Credentials. Please try again.'
-            log_governance_audit("Governance App","Logged in")
-
+            
             # print(error)
         else:
             return redirect(url_for('home'))
+    log_governance_audit("Governance App","Logged in")
+
     return render_template("login.html", error=error)
 
 
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    total_projects = len(Project.query.all())
+    total_audits = sum([len(project.audits) for project in Project.query.all()])
+    running_apps = 0
+    application_status = session["application_status"]
+    for project in Project.query.all():
+        if(application_status[project.project_name] =="true"):
+            running_apps+=1 
+    return render_template("home.html",total_projects=total_projects,total_audits=total_audits,running_apps=running_apps)
 
 
 
@@ -179,12 +187,44 @@ def updatepowerstatus():
     return json.dumps({'msg':'ok','current_status':not status})
 
 
+
+
+# @app.route("/deleteaudit",methods=['POST', 'GET'])
+# def deleteaudit():
+#     auditno = request.form['auditno']
+#     print(auditno)
+#     project_name = request.form['project']
+#     if(project_name == "governance"):
+#         audit_obj = GovernanceAudit.query.filter_by(auditid=int(auditno)).first()
+#         db.session.delete(audit_obj)
+#         db.session.commit()
+
+#     else:
+#         project = Project.query.filter_by(project_name=project_name).first()
+#         audit_list = reversed(project.audits)
+
+#     return json.dumps({})
+
+
+
+
+
+
+
+
+
+
 def make_report(project_name):
-    audit_list = list(GovernanceAudit.query.all())
+    if(project_name == "governance"):
+        audit_list = list(GovernanceAudit.query.all())
+    else:
+        project = Project.query.filter_by(project_name=project_name).first()
+        audit_list = project.audits
+        print(audit_list)        
     row = audit_list[0]
     report_df = {column: [] for column in row.__dict__.keys()}
     print(report_df)
-    for audit in db.session.query(GovernanceAudit).all():
+    for audit in audit_list:
         audit_dict = audit.__dict__
         for column in audit_dict.keys():
             report_df[column].append(audit_dict[column])
@@ -207,6 +247,23 @@ def downloadreport(pname):
     #
     #return redirect("/viewapplications")
     return send_file(path, as_attachment=True)
+
+
+# @app.route("/deleteallaudits/<pname>",methods=['POST', 'GET'])
+# def deleteallaudits(pname):
+#     print("Came there")
+#     #is_governance = request.form['is_governance']
+#     project_name = pname
+#     if(project_name == "governance"):
+#         try:
+#             num_rows_deleted = db.session.query(GovernanceAudit).delete()
+#             db.session.commit()
+#         except:
+#             db.session.rollback()
+#         return redirect(url_for("GovernanceAudit"))
+
+#     else:
+#         project = Project.query.filter_by(project_name=project_name).first()
 
 
 
@@ -267,7 +324,7 @@ def applicationinfo(pname):
 
     project = Project.query.filter_by(project_name=pname).first()
     project_audits = reversed(project.audits) 
-    return render_template("applicationinfo.html", project=project,project_audits=project_audits)
+    return render_template("applicationinfo.html", project=project,project_audits=project_audits,total_audits=len(project.audits))
     #values = userDetails.query.all()
 
 
