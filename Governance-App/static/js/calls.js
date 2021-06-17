@@ -33,13 +33,12 @@
             url: "/updatepowerstatus",
             dataType: 'json',
             success: function (data) {
-                console.log(data['current_status'])
-                // setTimeout(function(){
-                //     toogleLoader(false)
-                //     console.log("Happend")
-                // },2000)
-
-
+                console.log()
+                //alert(data['current_status'])
+                if(data['current_status'] == 'true')
+                    $("#"+project+"_visit").removeClass("disabled")
+                else
+                    $("#"+project+"_visit").addClass("disabled")
 
             }
         });

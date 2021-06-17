@@ -148,3 +148,27 @@
 
 
 </script>
+{% for project_name,status in application_status.items() %}
+                                                            
+{% if project_name == project.project_name %}
+
+    {% if status == 'true' %}
+        <a id="{{project_name}}_visit" class="ui labeled icon button facebook btn-block"
+        href="http://localhost:8080/{{project.project_name}}" target="_blank" style="width: 265px;">
+        <i class="location arrow icon"></i>
+        Visit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </a>  
+
+    {% else %}
+
+    <a id="{{project_name}}_visit" class="ui labeled icon button facebook btn-block disabled"
+    href="http://localhost:8080/{{project.project_name}}" target="_blank" style="width: 265px;">
+    <i class="location arrow icon"></i>
+    Visit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</a>  
+
+
+    {% endif %}
+{% endif %}
+
+{% endfor %}

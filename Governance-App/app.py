@@ -184,7 +184,7 @@ def updatepowerstatus():
 
     #return redirect("/viewapplications")
     print(session["application_status"])
-    return json.dumps({'msg':'ok','current_status':not status})
+    return json.dumps({'msg':'ok','current_status':application_status[project_name]})
 
 
 
@@ -346,10 +346,12 @@ def applicationaudit(pname):
     global current_app_name
     print(pname)
     current_app_name = pname
-
-    project = Project.query.filter_by(project_name=pname).first()
-    project_audits = reversed(project.audits) 
-    return render_template("applicationaudit.html", project=project,project_audits=project_audits)
+    if(pname == "governance"):
+        project_audits = reversed(GovernanceAudit.query.all())
+    else:
+        project = Project.query.filter_by(project_name=pname).first()
+        project_audits = reversed(project.audits) 
+    return render_template("applicationaudit.html", project_name=pname,project_audits=project_audits)
 
 
 

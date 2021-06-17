@@ -29,7 +29,7 @@
                     <div class="white_card_header">
                         <div class="box_header m-0">
                             <div class="main-title">
-                                <h3 class="m-0">{{project.project_name | title}} Audits</h3>
+                                <h3 class="m-0">{{project_name | title}} Audits</h3>
                             </div>
                         </div>
                     </div>
@@ -63,19 +63,47 @@
                         <div class="white_card_body">
                             <div class="QA_section">
 
-                                <div class="row">
+                                
+                                
 
-                                    <div class="col d-flex justify-content-center options-list">
-                                        <a href="/downloadreport/{{project.project_name}}" class="ui labeled icon button primary options"
-                                            ><i class="download  icon"></i></i>Download</a>
-                                            <!-- <a href="/deleteallaudits/{{project.project_name}}" class="ui labeled icon button negative options"
-                                            ><i
-                                                class="trash alternate icon"></i>Clear All</a> -->
-                                    </div>
-                                    
+                                {% if project_name == 'governance' %}
+
+                                <div class="QA_table mb_30 ui table">
+                                    <!-- table-responsive -->
+                                    <table id="audit-table" class="table lms_table_active3 ">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">User</th>
+                                                <th scope="col">Application</th>
+                                                <th scope="col">Operation</th>
+                                                <th scope="col">Timestamp</th>
+                                                <!-- <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  aria-label="Action: activate to sort column ascending">Action</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody id="gov_audit_body">
+                                         {% for audit in project_audits %}
+
+                                            <tr id="row-{{loop.index}}">
+                                                <td>{{audit.userName}}</td>
+                                                <td>{{audit.AppName}}</td>
+                                                <td>{{audit.operation}}</td>
+                                                <td>{{audit.timestamp}}</td>
+                                                <!-- <td>
+                                                    <div class="action_btns d-flex">
+                                                        <div class="action_btn" onclick="deleteAudit('governance','{{audit.auditid}}','{{loop.index}}')"> <i class="trash icon"></i> </div>
+                                                    </div>
+                                                </td> -->
+                                            </tr>
+                                            {% endfor %}
+
+                                        </tbody>
 
 
-                                </div>                                
+                                    </table>
+                                </div>
+
+                                {% else %}
+    
                                 <div class="QA_table mb_30 ui table">
                                     <!-- table-responsive -->
                                     <table id="audit-table" class="table lms_table_active3 ">
@@ -105,6 +133,24 @@
 
                                     </table>
                                 </div>
+
+
+                                {% endif %}
+
+                                <div class="row">
+
+                                    <div class="col d-flex justify-content-center options-list">
+                                        <a href="/downloadreport/{{project_name}}" class="ui labeled icon button facebook options"
+                                            ><i class="download  icon"></i></i>Download</a>
+                                            
+                                    </div>
+                                    
+
+
+                                </div>  
+                                
+
+
                             </div>
                         </div>
                     </div>

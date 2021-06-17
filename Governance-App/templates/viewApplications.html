@@ -30,6 +30,11 @@
     transition:opacity 0.5s; 
 }
 
+.disabled{
+    cursor: disabled;
+}
+
+
 
 
 </style>
@@ -44,6 +49,7 @@
                 <div class="page_title_box d-flex align-items-center justify-content-between">
                     <div class="page_title_left">
                         <h3 class="f_s_30 f_w_700 dark_text">All Applications</h3>
+                        <!-- {{application_status}} -->
                     </div>
                 </div>
             </div>
@@ -67,7 +73,7 @@
                                                 <img src="static/img/agreement-terms.svg" style="width: 60%;height: 50%;margin-left: 20%;">
                                               </div>
                                               <div class="content">
-                                                <div class="header" style="text-align: center;">{{project.project_name |title}}</div>
+                                                <div class="header" style="text-align: center;letter-spacing: 1.5px;">{{project.project_name |title}}</div>
                                                 <div class="meta">
                                                   <p>&nbsp;</p>
                                                 </div>
@@ -90,18 +96,24 @@
                                                     </div>                                                
                                                     <div class="row">
                                                         <div class="description col">
-    
-                                                            <a class=" ui labeled icon button facebook"
-                                                            href="http://localhost:8080/{{project.project_name}}" target="_blank">
+                                                            
+
+                                                     
+
+                                                            
+                                                            <a id="{{project.project_name}}_visit" class="ui labeled icon button facebook btn-block"
+                                                            href="http://localhost:8080/{{project.project_name}}" target="_blank" style="width: 265px;">
                                                             <i class="location arrow icon"></i>
-                                                            Open
+                                                            Visit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         </a>  
-    
+
+
+<!--     
                                                         <a class=" ui labeled icon button facebook"
                                                         href="http://localhost:8080/{{project.project_name}}" target="_blank">
                                                         <i class="edit icon"></i>
                                                         Edit
-                                                    </a>  
+                                                    </a>   -->
         
                                                         </div>
                                                     </div>
@@ -190,9 +202,16 @@
     var checkbox = document.getElementById("switch{{loop.index}}")
     var status = '{{status}}'
     if(status=="true")
-        checkbox.checked = true;
+        {
+            checkbox.checked = true;
+        $("#{{project_name}}_visit").removeClass("disabled")
+        }
     else
+    {
         checkbox.checked = false;
+        $("#{{project_name}}_visit").addClass("disabled")
+
+    }
 </script>
 
 {% endfor %}
